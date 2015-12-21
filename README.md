@@ -71,7 +71,7 @@ If your `ngFor` is compiled from array, you may wish to have it synced. For that
 </ul>
 ```
 
-The standard `drop` event is fired before the model is synced. For that purpose you need to use the `drop-model`. The same behavior exists in the `remove` event. Therefore is the `remove-model` event. Further details are available under `Events`
+The standard `drop` event is fired before the model is synced. For that purpose you need to use the `dropModel`. The same behavior exists in the `remove` event. Therefore is the `removeModel` event. Further details are available under `Events`
 
 ### `drake` options
 
@@ -143,8 +143,8 @@ export class EventExample {
 
 | Event Name |      Listener Arguments      |  Event Description |
 | :-------------: |:-------------:| -----|
-| dropModel | bagName, el, target, source | same as normal drop, but model was synced, just available with the use of dragula-model |
-| removeModel | bagName, el, container | same as normal remove, but model was synced, just available with the use of dragula-model |
+| dropModel | bagName, el, target, source | same as normal drop, but model was synced, just available with the use of dragulaModel |
+| removeModel | bagName, el, container | same as normal remove, but model was synced, just available with the use of dragulaModel |
 
 ## `DragulaService`
 
@@ -156,7 +156,7 @@ Creates a `bag` identified by `name`. You should provide the entire `drake` inst
 
 ### `dragulaService.setOptions(name, options)`
 
-Sets the `options` used to instantiate a `drake`. Refer to the documentation for [`dragula`][4] to learn more about the `options` themselves.
+Sets the `options` used to instantiate a `drake`. Refer to the documentation for [`dragula`](https://github.com/bevacqua/dragula#readme) to learn more about the `options` themselves.
 
 ### `dragulaService.find(name)`
 
