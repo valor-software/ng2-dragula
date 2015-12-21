@@ -8,7 +8,7 @@ Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragul
 
 ![Demo](https://github.com/bevacqua/dragula/blob/master/resources/demo.png)
 
-### ng2-dragula Demo Coming Soon!!
+Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
 # Install
 
