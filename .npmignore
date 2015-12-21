@@ -37,6 +37,7 @@ docs
 lib
 test
 tools/typings/tsd
+tmp
 
 Thumbs.db
 .DS_Store

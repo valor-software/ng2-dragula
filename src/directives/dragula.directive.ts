@@ -22,13 +22,13 @@ export class Dragula implements OnInit, OnChanges {
   }
   
   ngOnInit() {
-    console.log(this.bag);   
+    // console.log(this.bag);   
     let bag = this.dragulaService.find(this.bag);
     if (bag) {
       this.drake = bag.drake;
       this.drake.containers.push(this.container);
     } else {
-      this.drake = dragula({
+      this.drake = window['dragula']({
         containers: [this.container]
       });
       this.dragulaService.add(this.bag, this.drake);
@@ -36,8 +36,8 @@ export class Dragula implements OnInit, OnChanges {
   }
   
   ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-    console.log('dragula.directive: ngOnChanges');
-    console.log(changes);
+    // console.log('dragula.directive: ngOnChanges');
+    // console.log(changes);
     if (changes && changes['dragulaModel']) {
       if (this.drake) {
         if (this.drake.models) {

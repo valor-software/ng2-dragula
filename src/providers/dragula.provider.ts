@@ -63,7 +63,7 @@ export class DragulaService {
   }
   
   public setOptions(name, options) {
-    let bag = this.add(name, dragula(options));
+    let bag = this.add(name, window['dragula'](options));
     this.handleModels(name, bag.drake);
   }
   

@@ -123,19 +123,19 @@ export class ExampleB {
   
   constructor(private dragulaService: DragulaService) {
     dragulaService.drag.subscribe((value) => {
-      console.log(`drag: ${value[0]}`);
+      //console.log(`drag: ${value[0]}`); // value[0] will always be bag name
       this.onDrag(value.slice(1));
     });
     dragulaService.drop.subscribe((value) => {
-      console.log(`drop: ${value[0]}`);
+      //console.log(`drop: ${value[0]}`);
       this.onDrop(value.slice(1));
     });
     dragulaService.over.subscribe((value) => {
-      console.log(`over: ${value[0]}`);
+      //console.log(`over: ${value[0]}`);
       this.onOver(value.slice(1));
     });
     dragulaService.out.subscribe((value) => {
-      console.log(`out: ${value[0]}`);
+      //console.log(`out: ${value[0]}`);
       this.onOut(value.slice(1));
     });
   }
