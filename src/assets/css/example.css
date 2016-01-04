@@ -175,3 +175,7 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.4);
   cursor: move;
 }
+nested-repeat-example .container span {
+  display: block;
+  padding: 8px;
+}

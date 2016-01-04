@@ -1,7 +1,7 @@
 import {
-  Directive, 
-  Input, 
-  ElementRef, 
+  Directive,
+  Input,
+  ElementRef,
   OnInit,
   OnChanges,
   SimpleChange
@@ -16,25 +16,36 @@ export class Dragula implements OnInit, OnChanges {
   @Input() dragulaModel: any;
   private container: any;
   private drake: any;
-  
+
   constructor(private el: ElementRef, private dragulaService: DragulaService) {
     this.container = el.nativeElement;
   }
-  
+
   ngOnInit() {
-    // console.log(this.bag);   
+    // console.log(this.bag);
     let bag = this.dragulaService.find(this.bag);
+    let checkModel = () => {
+      if (this.dragulaModel) {
+        if (this.drake.models) {
+          this.drake.models.push(this.dragulaModel);
+        } else {
+          this.drake.models = [this.dragulaModel];
+        }
+      }
+    };
     if (bag) {
       this.drake = bag.drake;
+      checkModel();
       this.drake.containers.push(this.container);
     } else {
       this.drake = window['dragula']({
         containers: [this.container]
       });
+      checkModel();
       this.dragulaService.add(this.bag, this.drake);
     }
   }
-  
+
   ngOnChanges(changes: {[propName: string]: SimpleChange}) {
     // console.log('dragula.directive: ngOnChanges');
     // console.log(changes);

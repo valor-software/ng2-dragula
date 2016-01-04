@@ -12,7 +12,7 @@ export class DragulaService {
   public remove:      EventEmitter<any> = new EventEmitter();
   public shadow:      EventEmitter<any> = new EventEmitter();
   public dropModel:   EventEmitter<any> = new EventEmitter();
-  public removeModel: EventEmitter<any> = new EventEmitter(); 
+  public removeModel: EventEmitter<any> = new EventEmitter();
   private events: Array<string> = [
     'cancel',
     'cloned',
@@ -27,7 +27,7 @@ export class DragulaService {
     'removeModel'
   ];
   private bags: Array<any> = [];
-  
+
   public add(name, drake): any {
     let bag = this.find(name);
     if (bag) {
@@ -46,7 +46,7 @@ export class DragulaService {
     }
     return bag;
   }
-  
+
   public find(name): any {
     for (var i = 0; i < this.bags.length; i++) {
       if (this.bags[i].name === name) {
@@ -54,19 +54,19 @@ export class DragulaService {
       }
     }
   }
-  
+
   public destroy(name): void {
     let bag = this.find(name);
     let i = this.bags.indexOf(bag);
     this.bags.splice(i, 1);
     bag.drake.destroy();
   }
-  
+
   public setOptions(name, options) {
     let bag = this.add(name, window['dragula'](options));
     this.handleModels(name, bag.drake);
   }
-  
+
   private handleModels(name, drake) {
     let dragElm;
     let dragIndex;
@@ -78,6 +78,8 @@ export class DragulaService {
       }
       sourceModel = drake.models[drake.containers.indexOf(source)];
       sourceModel.splice(dragIndex, 1);
+      console.log('REMOVE');
+      console.log(sourceModel);
       this.removeModel.emit([name, el, source]);
     });
     drake.on('drag', (el, source) => {
@@ -90,6 +92,8 @@ export class DragulaService {
       }
       dropIndex = this.domIndexOf(dropElm, target);
       sourceModel = drake.models[drake.containers.indexOf(source)];
+      console.log('DROP');
+      console.log(sourceModel);
       if (target === source) {
         sourceModel.splice(dropIndex, 0, sourceModel.splice(dragIndex, 1)[0]);
       } else {
@@ -106,20 +110,20 @@ export class DragulaService {
       this.dropModel.emit([name, dropElm, target, source]);
     });
   }
-  
+
   private setupEvents(bag) {
     bag.initEvents = true;
     let that = this;
     let emitter = (type) => {
       function replicate () {
         let args = Array.prototype.slice.call(arguments);
-        that[type].emit([bag.name].concat(args));  
+        that[type].emit([bag.name].concat(args));
       }
       bag.drake.on(type, replicate);
     };
     this.events.forEach(emitter);
   }
-  
+
   private domIndexOf(child, parent) {
     return Array.prototype.indexOf.call(parent.children, child);
   }

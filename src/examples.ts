@@ -61,7 +61,7 @@ export class ExampleA {
 &lt;div [dragula]=&#039;&quot;second-bag&quot;&#039;&gt;&lt;/div&gt;
 
 class ExampleB {
-  
+
   constructor(private dragulaService: DragulaService) {
     dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
@@ -76,38 +76,38 @@ class ExampleB {
       this.onOut(value.slice(1));
     });
   }
-  
+
   private hasClass(el: any, name: string) {
     return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
   }
-  
+
   private addClass(el: any, name: string) {
     if (!this.hasClass(el, name)) {
       el.className = el.className ? [el.className, name].join(' ') : name;
     }
   }
-  
+
   private removeClass(el: any, name: string) {
     if (this.hasClass(el, name)) {
       el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
     }
   }
-  
+
   private onDrag(args) {
     let [e, el] = args;
     this.removeClass(e, 'ex-moved');
   }
-  
+
   private onDrop(args) {
     let [e, el] = args;
     this.addClass(e, 'ex-moved');
   }
-  
+
   private onOver(args) {
     let [e, el, container] = args;
     this.addClass(el, 'ex-over');
   }
-  
+
   private onOut(args) {
     let [e, el, container] = args;
     this.removeClass(el, 'ex-over');
@@ -120,7 +120,7 @@ class ExampleB {
 })
 export class ExampleB {
   private container: any;
-  
+
   constructor(private dragulaService: DragulaService) {
     dragulaService.drag.subscribe((value) => {
       //console.log(`drag: ${value[0]}`); // value[0] will always be bag name
@@ -139,38 +139,38 @@ export class ExampleB {
       this.onOut(value.slice(1));
     });
   }
-  
+
   private hasClass(el: any, name: string) {
     return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
   }
-  
+
   private addClass(el: any, name: string) {
     if (!this.hasClass(el, name)) {
       el.className = el.className ? [el.className, name].join(' ') : name;
     }
   }
-  
+
   private removeClass(el: any, name: string) {
     if (this.hasClass(el, name)) {
       el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
     }
   }
-  
+
   private onDrag(args) {
     let [e, el] = args;
     this.removeClass(e, 'ex-moved');
   }
-  
+
   private onDrop(args) {
     let [e, el] = args;
     this.addClass(e, 'ex-moved');
   }
-  
+
   private onOver(args) {
     let [e, el, container] = args;
     this.addClass(el, 'ex-over');
   }
-  
+
   private onOut(args) {
     let [e, el, container] = args;
     this.removeClass(el, 'ex-over');
@@ -384,7 +384,7 @@ class WowExample {
     'six': false,
     'seven': false
   };
-  
+
   public onclick(key): void {
     this.clicked[key] = true;
     setTimeout(() => {
@@ -407,7 +407,7 @@ export class WowExample {
     'six': false,
     'seven': false
   };
-  
+
   public onclick(key): void {
     this.clicked[key] = true;
     setTimeout(() => {
@@ -428,7 +428,7 @@ export class WowExample {
         <div *ngFor='#text of many' [innerHtml]='text'></div>
       </div>
       <div class='container' [dragula]='"another-bag"' [dragulaModel]='many2'>
-        <div *ngFor='#text of many2' [innerHtml]='text'></div>        
+        <div *ngFor='#text of many2' [innerHtml]='text'></div>
       </div>
     </div>
     <div class='wrapper'>
@@ -442,13 +442,32 @@ export class WowExample {
     &lt;div *ngFor='#text of many' [innerHtml]='text'&gt;&lt;/div&gt;
   &lt;/div&gt;
   &lt;div class='container' [dragula]='&quot;another-bag&quot;' [dragulaModel]='many2'&gt;
-    &lt;div *ngFor='#text of many2' [innerHtml]='text'&gt;&lt;/div&gt;        
+    &lt;div *ngFor='#text of many2' [innerHtml]='text'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
 class RepeatExample {
   public many: Array&lt;string&gt; = ['The', 'possibilities', 'are', 'endless!'];
   public many2: Array&lt;string&gt; = ['Explore', 'them'];
+}
+
+constructor(private dragulaService: DragulaService) {
+  dragulaService.dropModel.subscribe((value) => {
+    this.onDropModel(value.slice(1));
+  });
+  dragulaService.removeModel.subscribe((value) => {
+    this.onRemoveModel(value.slice(1));
+  });
+}
+
+private onDropModel(args) {
+  let [el, target, source] = args;
+  // do something else
+}
+
+private onRemoveModel(args) {
+  let [el, source] = args;
+  // do something else
 }
       </code>
     </pre>
@@ -458,29 +477,27 @@ class RepeatExample {
 export class RepeatExample {
   public many: Array<string> = ['The', 'possibilities', 'are', 'endless!'];
   public many2: Array<string> = ['Explore', 'them'];
-  
+
   constructor(private dragulaService: DragulaService) {
     dragulaService.dropModel.subscribe((value) => {
-      console.log(`dropModel: ${value[0]}`);
       this.onDropModel(value.slice(1));
     });
     dragulaService.removeModel.subscribe((value) => {
-      console.log(`removeModel: ${value[0]}`);
       this.onRemoveModel(value.slice(1));
     });
   }
-  
+
   private onDropModel(args) {
     let [el, target, source] = args;
-    console.log('---- onDropModel:');
+    console.log('onDropModel:');
     console.log(el);
     console.log(target);
     console.log(source);
   }
-  
+
   private onRemoveModel(args) {
     let [el, source] = args;
-    console.log('---- onRemoveModel:');
+    console.log('onRemoveModel:');
     console.log(el);
     console.log(source);
   }
@@ -494,10 +511,33 @@ export class RepeatExample {
   <div class='parent'>
     <label for='hy'><strong>Angular-specific example.</strong> Fancy some nested <code>ngFor</code>?</label>
     <div class='wrapper'>
-      <div class='container' *ngFor="#group of groups" [dragula]="'nested-bag'" dragula-scope="$parent">
+      <div class='container' *ngFor='#group of groups' [dragula]="'nested-bag'">
+        <span>{{group.name}}</span>
         <div *ngFor='#item of group.items' [innerHtml]='item.name'></div>
       </div>
     </div>
+    <pre>
+      <code>
+&lt;div class='wrapper'&gt;
+  &lt;div class='container' *ngFor='#group of groups' [dragula]='&quot;nested-bag&quot;'&gt;
+    &lt;div *ngFor='#item of group.items' [innerHtml]='item.name'&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+class NestedRepeatExample {
+  public groups: Array&lt;any&gt; = [
+    {
+      name: 'Group A',
+      items: [{name: 'Item A'},{name: 'Item B'},{name: 'Item C'},{name: 'Item D'}]
+    },
+    {
+      name: 'Group B',
+      items: [{name: 'Item 1'},{name: 'Item 2'},{name: 'Item 3'},{name: 'Item 4'}]
+    }
+  ];
+}
+      </code>
+    </pre>
   </div>
   `
 })
