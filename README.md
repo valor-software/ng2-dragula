@@ -2,7 +2,14 @@
 
 > Drag and drop so simple it hurts
 
-Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragula).
+Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragula). [![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula)
+
+[![Code Climate](https://codeclimate.com/github/valor-software/ng2-dragula/badges/gpa.svg)](https://codeclimate.com/github/valor-software/ng2-dragula)
+[![Join the chat at https://gitter.im/valor-software/ng2-bootstrap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valor-software/ng2-bootstrap?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Dependency Status](https://david-dm.org/valor-software/ng2-dragula.svg)](https://david-dm.org/valor-software/ng2-dragula)
+[![devDependency Status](https://david-dm.org/valor-software/ng2-dragula/dev-status.svg)](https://david-dm.org/valor-software/ng2-dragula#info=devDependencies)
+[![Throughput Graph](https://graphs.waffle.io/valor-software/ng2-dragula/throughput.svg)](https://waffle.io/valor-software/ng2-dragula/metrics)
+
 
 # Demo
 
