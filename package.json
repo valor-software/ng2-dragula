@@ -56,7 +56,7 @@
     "gulp-minify-html": "^1.0.3",
     "gulp-plumber": "~1.0.1",
     "gulp-sass": "^2.0.4",
-    "gulp-shell": "~0.4.3",
+    "gulp-shell": "~0.5.2",
     "gulp-sourcemaps": "~1.5.2",
     "gulp-template": "^3.0.0",
     "gulp-tslint": "^4.3.1",
