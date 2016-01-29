@@ -1,4 +1,5 @@
 import {Injectable, EventEmitter} from 'angular2/core';
+declare var dragula: any;
 
 @Injectable()
 export class DragulaService {
@@ -63,7 +64,7 @@ export class DragulaService {
   }
 
   public setOptions(name, options) {
-    let bag = this.add(name, window['dragula'](options));
+    let bag = this.add(name, dragula(options));
     this.handleModels(name, bag.drake);
   }
 
