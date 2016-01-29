@@ -74,7 +74,7 @@
     "karma-phantomjs2-launcher": "^0.3.2",
     "merge-stream": "^1.0.0",
     "open": "0.0.5",
-    "rimraf": "^2.4.3",
+    "rimraf": "^2.5.1",
     "run-sequence": "^1.1.0",
     "semver": "^5.0.3",
     "serve-static": "^1.10.2",
