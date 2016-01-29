@@ -7,6 +7,7 @@ import {
   SimpleChange
 } from 'angular2/core';
 import {DragulaService} from '../providers/dragula.provider';
+declare var dragula: any;
 
 @Directive({
   selector: '[dragula]'
@@ -38,7 +39,7 @@ export class Dragula implements OnInit, OnChanges {
       checkModel();
       this.drake.containers.push(this.container);
     } else {
-      this.drake = window['dragula']({
+      this.drake = dragula({
         containers: [this.container]
       });
       checkModel();
