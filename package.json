@@ -85,6 +85,7 @@
     "traceur": "^0.0.91",
     "ts-node": "^0.5.4",
     "tsd": "^0.6.4",
+    "tslint": "^3.3.0",
     "typedoc": "^0.3.12",
     "typescript": "~1.7.5",
     "typescript-register": "^1.1.0",
@@ -99,6 +100,6 @@
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.0",
     "systemjs": "^0.19.17",
-    "zone.js": "0.5.11"
+    "zone.js": "0.5.10"
   }
 }
