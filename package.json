@@ -82,7 +82,7 @@
     "stream-series": "^0.1.1",
     "systemjs-builder": "^0.15.5",
     "tiny-lr": "^0.2.1",
-    "traceur": "^0.0.91",
+    "traceur": "^0.0.102",
     "ts-node": "^0.5.4",
     "tsd": "^0.6.4",
     "tslint": "^3.3.0",
