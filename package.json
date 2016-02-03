@@ -69,7 +69,7 @@
     "karma": "~0.12.37",
     "karma-chrome-launcher": "~0.2.0",
     "karma-ie-launcher": "^0.2.0",
-    "karma-jasmine": "~0.3.6",
+    "karma-jasmine": "~0.3.7",
     "karma-mocha-reporter": "^1.1.1",
     "karma-phantomjs2-launcher": "^0.3.2",
     "merge-stream": "^1.0.0",
