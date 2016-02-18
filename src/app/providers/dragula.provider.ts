@@ -29,7 +29,7 @@ export class DragulaService {
   ];
   private bags: Array<any> = [];
 
-  public add(name, drake): any {
+  public add(name: string, drake: any): any {
     let bag = this.find(name);
     if (bag) {
       throw new Error('Bag named: "' + name + '" already exists.');
@@ -48,7 +48,7 @@ export class DragulaService {
     return bag;
   }
 
-  public find(name): any {
+  public find(name: string): any {
     for (var i = 0; i < this.bags.length; i++) {
       if (this.bags[i].name === name) {
         return this.bags[i];
@@ -56,24 +56,24 @@ export class DragulaService {
     }
   }
 
-  public destroy(name): void {
+  public destroy(name: string): void {
     let bag = this.find(name);
     let i = this.bags.indexOf(bag);
     this.bags.splice(i, 1);
     bag.drake.destroy();
   }
 
-  public setOptions(name, options) {
+  public setOptions(name: string, options: any) {
     let bag = this.add(name, dragula(options));
     this.handleModels(name, bag.drake);
   }
 
-  private handleModels(name, drake) {
-    let dragElm;
-    let dragIndex;
-    let dropIndex;
-    let sourceModel;
-    drake.on('remove', (el, source) => {
+  private handleModels(name: string, drake: any) {
+    let dragElm: any;
+    let dragIndex: number;
+    let dropIndex: number;
+    let sourceModel: any;
+    drake.on('remove', (el: any, source: any) => {
       if (!drake.models) {
         return;
       }
@@ -83,11 +83,11 @@ export class DragulaService {
       // console.log(sourceModel);
       this.removeModel.emit([name, el, source]);
     });
-    drake.on('drag', (el, source) => {
+    drake.on('drag', (el: any, source: any) => {
       dragElm = el;
       dragIndex = this.domIndexOf(el, source);
     });
-    drake.on('drop', (dropElm, target, source) => {
+    drake.on('drop', (dropElm: any, target: any, source: any) => {
       if (!drake.models) {
         return;
       }
@@ -112,10 +112,10 @@ export class DragulaService {
     });
   }
 
-  private setupEvents(bag) {
+  private setupEvents(bag: any) {
     bag.initEvents = true;
-    let that = this;
-    let emitter = (type) => {
+    let that: any = this;
+    let emitter = (type: any) => {
       function replicate () {
         let args = Array.prototype.slice.call(arguments);
         that[type].emit([bag.name].concat(args));
@@ -125,7 +125,7 @@ export class DragulaService {
     this.events.forEach(emitter);
   }
 
-  private domIndexOf(child, parent) {
+  private domIndexOf(child: any, parent: any) {
     return Array.prototype.indexOf.call(parent.children, child);
   }
 }

@@ -186,4 +186,4 @@ MIT
 
 # Awesome thank you's
 
-Project setup is based on the excellent [angular2-seed](https://github.com/mgechev/angular2-seed) by [Minko Gechev](https://github.com/mgechev).
+Project setup is based on the [angular2-webpack](https://github.com/preboot/angular2-webpack) by [Olivier Combe](https://github.com/ocombe).

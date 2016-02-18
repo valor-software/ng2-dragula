@@ -7,9 +7,11 @@
     "sourceMap": true,
     "moduleResolution": "node"
   },
-  "exclude": [
+  "files": [
     "typings/browser.d.ts",
-    "node_modules"
+    "ng2-dragula.ts",
+    "src/bootstrap.ts",
+    "src/vendor.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": false
