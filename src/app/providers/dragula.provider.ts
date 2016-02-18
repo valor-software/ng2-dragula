@@ -1,5 +1,5 @@
+var dragula = require('dragula');
 import {Injectable, EventEmitter} from 'angular2/core';
-declare var dragula: any;
 
 @Injectable()
 export class DragulaService {

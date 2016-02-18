@@ -9,31 +9,10 @@ npm install       # or `npm run reinstall` if you get an error
 npm start         # start with --env dev
 ```
 
-# Configuration
-
-Default application server configuration
-
-```javascript
-var PORT             = 5555;
-var LIVE_RELOAD_PORT = 4002;
-var DOCS_PORT        = 4003;
-var APP_BASE         = '/';
-```
-
-Configure at runtime
-
-```bash
-npm start -- --port 8080 --reload-port 4000 --base /my-app/
-```
-
 # Running test
 
 ```bash
 npm test
-
-# Debug - In two different shell windows
-npm run build.test.watch      # 1st window
-npm run karma.start           # 2nd window
 ```
 
 ## Submitting Pull Requests

@@ -1,11 +1,12 @@
 {
   "rules": {
     "class-name": true,
-    "curly": false,
-    "eofline": false,
+    "curly": true,
+    "eofline": true,
     "indent": "spaces",
-    "max-line-length": [false, 500],
-    "member-ordering": [true,
+    "max-line-length": false,
+    "member-ordering": [
+      true,
       "public-before-private",
       "static-before-instance",
       "variables-before-functions"
@@ -17,20 +18,31 @@
     "no-empty": true,
     "no-eval": true,
     "no-trailing-comma": true,
-    "no-trailing-whitespace": false,
+    "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-unused-variable": false,
+    "no-unused-variable": true,
     "no-unreachable": true,
     "no-use-before-declare": true,
-    "one-line": [true,
+    "one-line": [
+      true,
       "check-open-brace",
       "check-catch",
       "check-else",
       "check-whitespace"
     ],
-    "quotemark": [true, "single"],
+    "quotemark": false,
     "semicolon": true,
-    "triple-equals": true,
-    "variable-name": false
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "variable-name": false,
+    "whitespace": [
+      true,
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ]
   }
 }

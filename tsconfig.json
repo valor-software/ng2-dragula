@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",
     "module": "commonjs",
-    "declaration": false,
-    "noImplicitAny": false,
-    "removeComments": true,
-    "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "moduleResolution": "node"
   },
   "exclude": [
+    "typings/browser.d.ts",
     "node_modules"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "buildOnSave": false
 }

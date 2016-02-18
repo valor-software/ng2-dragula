@@ -36,25 +36,31 @@ dev
 docs
 lib
 test
-tools/typings/tsd
 tmp
 
 Thumbs.db
 .DS_Store
 
-src/assets
 src/bootstrap.ts
-src/example*
-src/index.html
+src/vendor.ts
+src/app/example*
+src/public
+typings
 *_spec.*
-tools
 CONTRIBUTING.md
 gulpfile.ts
+favicon.ico
+karma-shim.js
 karma.conf.js
+make.js
+protractor.conf.js
 test-main.js
 tsconfig.json
 tsd.json
 tslint.json
+typedoc.json
+typings.json
+webpack.config.js
 *.yml
 .jshintrc
 .editorconfig

@@ -3,7 +3,7 @@ import {EXAMPLES} from './examples';
 
 @Component({
   selector: 'example-app',
-  templateUrl: './example-app.html',
+  template: require('./example-app.html'),
   encapsulation: ViewEncapsulation.None,
   directives: [EXAMPLES]
 })
