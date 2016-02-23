@@ -17,12 +17,17 @@ Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragul
 
 Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
+* [Install](#install)
+* [Setup](#setup)
+* [Setup for various seed projects](https://github.com/valor-software/ng2-dragula/wiki)
+* [Usage](#usage)
+
 # Install
 
 You can get it on npm.
 
 ```shell
-npm install ng2-dragula --save
+npm install ng2-dragula dragula --save
 ```
 
 # Setup
