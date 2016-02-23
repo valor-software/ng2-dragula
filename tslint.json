@@ -19,15 +19,14 @@
     "no-eval": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-unused-variable": true,
+    "no-unused-variable": false,
     "no-unreachable": true,
     "no-use-before-declare": true,
     "one-line": [
       true,
       "check-open-brace",
       "check-catch",
-      "check-else",
-      "check-whitespace"
+      "check-else"
     ],
     "quotemark": false,
     "semicolon": true,
@@ -36,13 +35,6 @@
       true,
       "allow-null-check"
     ],
-    "variable-name": false,
-    "whitespace": [
-      true,
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ]
+    "variable-name": false
   }
 }

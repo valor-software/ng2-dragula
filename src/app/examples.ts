@@ -119,7 +119,6 @@ class ExampleB {
   `
 })
 export class ExampleB {
-  private container: any;
 
   constructor(private dragulaService: DragulaService) {
     dragulaService.drag.subscribe((value) => {
