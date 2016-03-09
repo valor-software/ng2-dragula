@@ -1,4 +1,4 @@
-declare var dragula: any;
+import * as dragula from 'dragula/dragula';
 import {Injectable, EventEmitter} from 'angular2/core';
 
 @Injectable()
