@@ -7,7 +7,7 @@ import {
   SimpleChange
 } from 'angular2/core';
 import {DragulaService} from '../providers/dragula.provider';
-var dragula = require('dragula');
+import * as dragula from 'dragula';
 
 @Directive({
   selector: '[dragula]'

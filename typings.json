@@ -3,6 +3,7 @@
     "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#dd638012d63e069f2c99d06ef4dcc9616a943ee4"
   },
   "ambientDependencies": {
+    "dragula": "github:DefinitelyTyped/DefinitelyTyped/dragula/dragula.d.ts#e8bdd1be7c8a81dcf9f4cdae126690c7bf249501",
     "es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#6697d6f7dadbf5773cb40ecda35a76027e0783b2",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743"
   }
