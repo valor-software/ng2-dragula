@@ -46,3 +46,4 @@ Thumbs.db
 *.map
 *.d.ts
 bundles
+!*.config.js
