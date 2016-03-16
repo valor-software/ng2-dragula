@@ -41,6 +41,8 @@ tmp
 Thumbs.db
 .DS_Store
 
+*.ts
+!*.d.ts
 src/bootstrap.ts
 src/vendor.ts
 src/app/example*
