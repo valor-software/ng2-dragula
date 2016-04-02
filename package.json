@@ -48,7 +48,7 @@
     "zone.js": "0.5.15"
   },
   "devDependencies": {
-    "autoprefixer": "^6.3.2",
+    "autoprefixer": "^6.3.6",
     "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.23.0",
     "extract-text-webpack-plugin": "^1.0.1",
