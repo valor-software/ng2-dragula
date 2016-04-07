@@ -73,7 +73,7 @@
     "raw-loader": "0.5.1",
     "rimraf": "^2.5.1",
     "sass-loader": "^3.1.2",
-    "style-loader": "^0.13.0",
+    "style-loader": "^0.13.1",
     "systemjs-builder": "^0.15.10",
     "ts-loader": "^0.8.1",
     "tsconfig-lint": "^0.7.0",
