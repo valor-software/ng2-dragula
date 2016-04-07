@@ -19,7 +19,7 @@ Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
 * [Install](#install)
 * [Setup](#setup)
-* [Setup for various seed projects](https://github.com/valor-software/ng2-dragula/wiki)
+* [Setup for Angular Docs 5 Min Quickstart guide and various seed projects](https://github.com/valor-software/ng2-dragula/wiki)
 * [Usage](#usage)
 
 # Install
