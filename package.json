@@ -77,7 +77,7 @@
     "systemjs-builder": "^0.15.15",
     "ts-loader": "^0.8.1",
     "tsconfig-lint": "^0.7.0",
-    "tslint": "^3.4.0",
+    "tslint": "^3.7.2",
     "tslint-loader": "^2.1.0",
     "typedoc": "^0.3.12",
     "typescript": "^1.7.3",
