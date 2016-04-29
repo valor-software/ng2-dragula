@@ -74,7 +74,7 @@
     "rimraf": "^2.5.1",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "systemjs-builder": "^0.15.15",
+    "systemjs-builder": "^0.15.16",
     "ts-loader": "^0.8.1",
     "tsconfig-lint": "^0.7.0",
     "tslint": "^3.4.0",
