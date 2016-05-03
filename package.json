@@ -38,6 +38,7 @@
     "ci": "npm run e2e && npm run test",
     "docs": "typedoc --options typedoc.json src/app/app.ts",
     "start": "npm run server",
+    "prepublish": "npm run-script build",
     "postinstall": "npm run webdriver-update && typings install"
   },
   "dependencies": {
