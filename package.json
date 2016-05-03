@@ -41,12 +41,11 @@
     "postinstall": "npm run webdriver-update && typings install"
   },
   "dependencies": {
-    "@angular/common":  "2.0.0-rc.0",
-    "@angular/compiler":  "2.0.0-rc.0",
-    "@angular/core":  "2.0.0-rc.0",
-    "@angular/platform-browser":  "2.0.0-rc.0",
-    "@angular/platform-browser-dynamic":  "2.0.0-rc.0",
-    
+    "@angular/common": "2.0.0-rc.0",
+    "@angular/compiler": "2.0.0-rc.0",
+    "@angular/core": "2.0.0-rc.0",
+    "@angular/platform-browser": "2.0.0-rc.0",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.0",
     "dragula": "^3.6.8",
     "es6-promise": "^3.1.2",
     "es6-shim": "^0.35.0",
@@ -90,6 +89,7 @@
     "typescript": "^1.7.3",
     "typings": "^0.7.4",
     "url-loader": "^0.5.6",
+    "webdriver-manager": "^10.0.1",
     "webpack": "^1.12.15",
     "webpack-dev-server": "^1.14.1"
   }
