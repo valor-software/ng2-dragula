@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {Dragula} from './directives/dragula.directive';
 import {DragulaService} from './providers/dragula.provider';
 
@@ -424,10 +424,10 @@ export class WowExample {
     <label for='hy'><strong>Angular-specific example.</strong> Fancy some <code>ngFor</code>?</label>
     <div class='wrapper'>
       <div class='container' [dragula]='"another-bag"' [dragulaModel]='many'>
-        <div *ngFor='#text of many' [innerHtml]='text'></div>
+        <div *ngFor='let text of many' [innerHtml]='text'></div>
       </div>
       <div class='container' [dragula]='"another-bag"' [dragulaModel]='many2'>
-        <div *ngFor='#text of many2' [innerHtml]='text'></div>
+        <div *ngFor='let text of many2' [innerHtml]='text'></div>
       </div>
     </div>
     <div class='wrapper'>
@@ -438,10 +438,10 @@ export class WowExample {
       <code>
 &lt;div class='wrapper'&gt;
   &lt;div class='container' [dragula]='&quot;another-bag&quot;' [dragulaModel]='many'&gt;
-    &lt;div *ngFor='#text of many' [innerHtml]='text'&gt;&lt;/div&gt;
+    &lt;div *ngFor='let text of many' [innerHtml]='text'&gt;&lt;/div&gt;
   &lt;/div&gt;
   &lt;div class='container' [dragula]='&quot;another-bag&quot;' [dragulaModel]='many2'&gt;
-    &lt;div *ngFor='#text of many2' [innerHtml]='text'&gt;&lt;/div&gt;
+    &lt;div *ngFor='let text of many2' [innerHtml]='text'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -510,16 +510,16 @@ export class RepeatExample {
   <div class='parent'>
     <label for='hy'><strong>Angular-specific example.</strong> Fancy some nested <code>ngFor</code>?</label>
     <div class='wrapper'>
-      <div class='container' *ngFor='#group of groups' [dragula]="'nested-bag'">
+      <div class='container' *ngFor='let group of groups' [dragula]="'nested-bag'">
         <span>{{group.name}}</span>
-        <div *ngFor='#item of group.items' [innerHtml]='item.name'></div>
+        <div *ngFor='let item of group.items' [innerHtml]='item.name'></div>
       </div>
     </div>
     <pre>
       <code>
 &lt;div class='wrapper'&gt;
-  &lt;div class='container' *ngFor='#group of groups' [dragula]='&quot;nested-bag&quot;'&gt;
-    &lt;div *ngFor='#item of group.items' [innerHtml]='item.name'&gt;&lt;/div&gt;
+  &lt;div class='container' *ngFor='let group of groups' [dragula]='&quot;nested-bag&quot;'&gt;
+    &lt;div *ngFor='let item of group.items' [innerHtml]='item.name'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
