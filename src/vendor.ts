@@ -1,10 +1,15 @@
 // Polyfills
-import 'angular2/bundles/angular2-polyfills.js';
+import 'es6-promise';
+import 'es6-shim';
+import 'reflect-metadata';
+import 'zone.js/dist/zone';
 
 // Angular 2
-import 'angular2/platform/browser';
-import 'angular2/platform/common_dom';
-import 'angular2/core';
+import '@angular/core';
+import '@angular/compiler';
+import '@angular/common';
+import '@angular/platform-browser';
+import '@angular/platform-browser-dynamic';
 
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
