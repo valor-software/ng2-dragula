@@ -47,3 +47,7 @@ Thumbs.db
 *.d.ts
 bundles
 !*.config.js
+!ng2-dragula.js
+!ng2-dragula.js.map
+!src/app/*/*.js
+!src/app/*/*.js.map
