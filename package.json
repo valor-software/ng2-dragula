@@ -62,7 +62,7 @@
     "karma": "0.13.19",
     "karma-chrome-launcher": "^0.2.1",
     "karma-coverage": "^0.5.5",
-    "karma-jasmine": "^0.3.7",
+    "karma-jasmine": "^1.0.2",
     "karma-phantomjs2-launcher": "^0.5.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "1.7.0",
