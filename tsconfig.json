@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES5",
-    "module": "commonjs",
+    "module": "system",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
