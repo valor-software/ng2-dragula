@@ -1,5 +1,8 @@
 // Polyfills
-import 'angular2/bundles/angular2-polyfills.js';
+import 'es6-promise';
+import 'es6-shim';
+import 'reflect-metadata';
+import 'zone.js/dist/zone';
 
 // Angular 2
 import '@angular/platform-browser';
