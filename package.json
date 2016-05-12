@@ -72,7 +72,7 @@
     "karma-webpack": "1.7.0",
     "node-sass": "^3.4.2",
     "null-loader": "git+https://github.com/webpack/null-loader.git",
-    "postcss-loader": "^0.8.0",
+    "postcss-loader": "^0.9.1",
     "protractor": "^3.1.1",
     "raw-loader": "0.5.1",
     "rimraf": "^2.5.1",
