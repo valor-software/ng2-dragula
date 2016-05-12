@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+ - "6"
+
+script:
+- npm run build
+
+# workaround to install phantomjs in travis-ci (https://github.com/travis-ci/travis-ci/issues/3225)
+before_install:
+  - mkdir travis-phantomjs
+  - wget https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
+  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis-phantomjs
+  - export PATH=$PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
+
+addons:
+ firefox: "42.0"
+ apt:
+   sources:
+   - ubuntu-toolchain-r-test
+   # required by node-gyp to build some packages
+   packages:
+   - g++-4.8

@@ -5,7 +5,7 @@ import {
   OnInit,
   OnChanges,
   SimpleChange
-} from 'angular2/core';
+} from '@angular/core';
 import {DragulaService} from '../providers/dragula.provider';
 import * as dragula from 'dragula';
 
