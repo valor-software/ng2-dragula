@@ -4,14 +4,12 @@
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "moduleResolution": "node"
   },
   "files": [
     "typings/browser.d.ts",
-    "ng2-dragula.ts",
-    "src/bootstrap.ts",
-    "src/vendor.ts"
+    "ng2-dragula.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": false

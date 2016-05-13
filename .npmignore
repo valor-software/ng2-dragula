@@ -43,8 +43,7 @@ Thumbs.db
 
 *.ts
 !*.d.ts
-src/bootstrap.ts
-src/vendor.ts
+
 src/app/example*
 src/public
 typings
@@ -58,7 +57,6 @@ make.js
 protractor.conf.js
 test-main.js
 tsconfig.json
-tsd.json
 tslint.json
 typedoc.json
 typings.json

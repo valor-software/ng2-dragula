@@ -7,5 +7,4 @@ export * from './src/app/providers/dragula.provider';
 export default {
   directives: [Dragula],
   providers: [DragulaService]
-}
-
+};
