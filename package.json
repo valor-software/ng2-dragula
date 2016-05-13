@@ -37,7 +37,7 @@
     "start": "npm run server",
     "postinstall": "./node_modules/.bin/typings install",
     "prepublish": "./node_modules/.bin/tsc",
-    "postversion": "git push origin development && git push --tags"
+    "postversion": "git push origin master && git push --tags"
   },
   "dependencies": {
     "dragula": "3.7.0"
