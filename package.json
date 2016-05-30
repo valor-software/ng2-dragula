@@ -40,7 +40,8 @@
     "postversion": "git push origin master && git push --tags"
   },
   "dependencies": {
-    "dragula": "3.7.0"
+    "dragula": "3.7.0",
+    "typings": "0.8.1"
   },
   "peerDependencies": {
     "@angular/common": "^2.0.0-rc.1",
@@ -90,7 +91,6 @@
     "tslint-loader": "2.1.4",
     "typedoc": "0.3.12",
     "typescript": "1.8.10",
-    "typings": "0.8.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.1",
     "webpack-dev-server": "1.14.1",
