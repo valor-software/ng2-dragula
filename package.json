@@ -40,7 +40,7 @@
     "postversion": "git push origin master && git push --tags"
   },
   "dependencies": {
-    "dragula": "3.7.0"
+    "dragula": "3.7.1"
   },
   "peerDependencies": {
     "@angular/common": "^2.0.0-rc.1",
