@@ -448,25 +448,25 @@ export class WowExample {
 class RepeatExample {
   public many: Array&lt;string&gt; = ['The', 'possibilities', 'are', 'endless!'];
   public many2: Array&lt;string&gt; = ['Explore', 'them'];
-}
 
-constructor(private dragulaService: DragulaService) {
-  dragulaService.dropModel.subscribe((value) => {
-    this.onDropModel(value.slice(1));
-  });
-  dragulaService.removeModel.subscribe((value) => {
-    this.onRemoveModel(value.slice(1));
-  });
-}
+  constructor(private dragulaService: DragulaService) {
+    dragulaService.dropModel.subscribe((value) => {
+      this.onDropModel(value.slice(1));
+    });
+    dragulaService.removeModel.subscribe((value) => {
+      this.onRemoveModel(value.slice(1));
+    });
+  }
 
-private onDropModel(args) {
-  let [el, target, source] = args;
-  // do something else
-}
-
-private onRemoveModel(args) {
-  let [el, source] = args;
-  // do something else
+  private onDropModel(args) {
+    let [el, target, source] = args;
+    // do something else
+  }
+  
+  private onRemoveModel(args) {
+    let [el, source] = args;
+    // do something else
+  }
 }
       </code>
     </pre>
