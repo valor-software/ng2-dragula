@@ -79,7 +79,7 @@ If your `ngFor` is compiled from array, you may wish to have it synced. For that
 
 ```html
 <ul>
-  <li *ngFor="#item of items" [dragula]='"bag-one"' [dragulaModel]='items'></li>
+  <li *ngFor="let item of items" [dragula]='"bag-one"' [dragulaModel]='items'></li>
 </ul>
 ```
 
