@@ -73,7 +73,7 @@
     "karma-phantomjs2-launcher": "0.5.0",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "1.7.0",
-    "node-sass": "3.7.0",
+    "node-sass": "3.8.0",
     "null-loader": "git+https://github.com/webpack/null-loader.git",
     "postcss-loader": "0.9.1",
     "protractor": "3.3.0",
