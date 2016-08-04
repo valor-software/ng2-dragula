@@ -47,3 +47,5 @@ Thumbs.db
 *.d.ts
 bundles
 !*.config.js
+
+/typings

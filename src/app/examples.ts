@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {Dragula} from './directives/dragula.directive';
+import {DragulaDirective} from './directives/dragula.directive';
 import {DragulaService} from './providers/dragula.provider';
 
 @Component({
   selector: 'example-a',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label for='hy'>Move stuff between these two containers. Note how the stuff gets inserted near the mouse pointer? Great stuff.</label>
     <div class='wrapper'>
@@ -30,13 +30,13 @@ import {DragulaService} from './providers/dragula.provider';
   </div>
   `
 })
-export class ExampleA {
+export class ExampleAComponent {
 
 }
 
 @Component({
   selector: 'example-b',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
   template: `
   <div class='parent'>
@@ -118,69 +118,68 @@ class ExampleB {
   </div>
   `
 })
-export class ExampleB {
-
-  constructor(private dragulaService: DragulaService) {
-    dragulaService.drag.subscribe((value) => {
-      //console.log(`drag: ${value[0]}`); // value[0] will always be bag name
+export class ExampleBComponent {
+  public constructor(private dragulaService:DragulaService) {
+    dragulaService.drag.subscribe((value:any) => {
+      // console.log(`drag: ${value[0]}`); // value[0] will always be bag name
       this.onDrag(value.slice(1));
     });
-    dragulaService.drop.subscribe((value) => {
-      //console.log(`drop: ${value[0]}`);
+    dragulaService.drop.subscribe((value:any) => {
+      // console.log(`drop: ${value[0]}`);
       this.onDrop(value.slice(1));
     });
-    dragulaService.over.subscribe((value) => {
-      //console.log(`over: ${value[0]}`);
+    dragulaService.over.subscribe((value:any) => {
+      // console.log(`over: ${value[0]}`);
       this.onOver(value.slice(1));
     });
-    dragulaService.out.subscribe((value) => {
-      //console.log(`out: ${value[0]}`);
+    dragulaService.out.subscribe((value:any) => {
+      // console.log(`out: ${value[0]}`);
       this.onOut(value.slice(1));
     });
   }
 
-  private hasClass(el: any, name: string) {
+  private hasClass(el:any, name:string):any {
     return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
   }
 
-  private addClass(el: any, name: string) {
+  private addClass(el:any, name:string):void {
     if (!this.hasClass(el, name)) {
       el.className = el.className ? [el.className, name].join(' ') : name;
     }
   }
 
-  private removeClass(el: any, name: string) {
+  private removeClass(el:any, name:string):void {
     if (this.hasClass(el, name)) {
       el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
     }
   }
 
-  private onDrag(args) {
-    let [e, el] = args;
+  private onDrag(args:any):void {
+    let [e] = args;
     this.removeClass(e, 'ex-moved');
   }
 
-  private onDrop(args) {
-    let [e, el] = args;
+  private onDrop(args:any):void {
+    let [e] = args;
     this.addClass(e, 'ex-moved');
   }
 
-  private onOver(args) {
-    let [e, el, container] = args;
+  private onOver(args:any):void {
+    let [el] = args;
     this.addClass(el, 'ex-over');
   }
 
-  private onOut(args) {
-    let [e, el, container] = args;
+  private onOut(args:any):void {
+    let [el] = args;
     this.removeClass(el, 'ex-over');
   }
 }
 
 @Component({
   selector: 'another-example',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label for='hy'>Need to be able to quickly delete stuff when it spills out of the chosen containers? Note how you can easily sort the items in any containers by just dragging and dropping.</label>
     <div class='wrapper'>
@@ -210,8 +209,8 @@ class AnotherExample {
   </div>
   `
 })
-export class AnotherExample {
-  constructor(private dragulaService: DragulaService) {
+export class AnotherExampleComponent {
+  public constructor(private dragulaService:DragulaService) {
     dragulaService.setOptions('third-bag', {
       removeOnSpill: true
     });
@@ -220,9 +219,9 @@ export class AnotherExample {
 
 @Component({
   selector: 'such-example',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label for='hy'>By default, dropping an element outside of any known containers will keep the element in the last place it went over. You can make elements go back to origin if they're dropped outside of known containers, too.</label>
     <div class='wrapper'>
@@ -253,8 +252,8 @@ class SuchExample {
   </div>
   `
 })
-export class SuchExample {
-  constructor(private dragulaService: DragulaService) {
+export class SuchExampleComponent {
+  public constructor(private dragulaService:DragulaService) {
     dragulaService.setOptions('fourth-bag', {
       revertOnSpill: true
     });
@@ -263,9 +262,9 @@ export class SuchExample {
 
 @Component({
   selector: 'very-example',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label for='hy'>Copying stuff is common too, so we made it easy for you.</label>
     <div class='wrapper'>
@@ -296,8 +295,8 @@ class VeryExample {
   </div>
   `
 })
-export class VeryExample {
-  constructor(private dragulaService: DragulaService) {
+export class VeryExampleComponent {
+  public constructor(private dragulaService:DragulaService) {
     dragulaService.setOptions('fifth-bag', {
       copy: true
     });
@@ -306,9 +305,9 @@ export class VeryExample {
 
 @Component({
   selector: 'much-example',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label for='hy'>Drag handles float your cruise?</label>
     <div class='wrapper'>
@@ -341,10 +340,11 @@ class MuchExample {
   </div>
   `
 })
-export class MuchExample {
-  constructor(private dragulaService: DragulaService) {
+export class MuchExampleComponent {
+  public constructor(private dragulaService:DragulaService) {
     dragulaService.setOptions('sixth-bag', {
-      moves: function (el, container, handle) {
+      moves: function (el:any, container:any, handle:any):any {
+        console.log(el, container);
         return handle.className === 'handle';
       }
     });
@@ -353,9 +353,9 @@ export class MuchExample {
 
 @Component({
   selector: 'wow-example',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label><strong>Click or Drag!</strong> Fires a click when the mouse button is released before a <code>mousemove</code> event, otherwise a drag event is fired. No extra configuration is necessary.</label>
     <div class='wrapper'>
@@ -396,8 +396,8 @@ class WowExample {
   </div>
   `
 })
-export class WowExample {
-  public clicked: any = {
+export class WowExampleComponent {
+  public clicked:any = {
     'one': false,
     'two': false,
     'three': false,
@@ -407,7 +407,7 @@ export class WowExample {
     'seven': false
   };
 
-  public onclick(key): void {
+  public onclick(key:any):void {
     this.clicked[key] = true;
     setTimeout(() => {
       this.clicked[key] = false;
@@ -417,9 +417,9 @@ export class WowExample {
 
 @Component({
   selector: 'repeat-example',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label for='hy'><strong>Angular-specific example.</strong> Fancy some <code>ngFor</code>?</label>
     <div class='wrapper'>
@@ -473,20 +473,20 @@ class RepeatExample {
   </div>
   `
 })
-export class RepeatExample {
-  public many: Array<string> = ['The', 'possibilities', 'are', 'endless!'];
-  public many2: Array<string> = ['Explore', 'them'];
+export class RepeatExampleComponent {
+  public many:Array<string> = ['The', 'possibilities', 'are', 'endless!'];
+  public many2:Array<string> = ['Explore', 'them'];
 
-  constructor(private dragulaService: DragulaService) {
-    dragulaService.dropModel.subscribe((value) => {
+  public constructor(private dragulaService:DragulaService) {
+    dragulaService.dropModel.subscribe((value:any) => {
       this.onDropModel(value.slice(1));
     });
-    dragulaService.removeModel.subscribe((value) => {
+    dragulaService.removeModel.subscribe((value:any) => {
       this.onRemoveModel(value.slice(1));
     });
   }
 
-  private onDropModel(args) {
+  private onDropModel(args:any):void {
     let [el, target, source] = args;
     console.log('onDropModel:');
     console.log(el);
@@ -494,7 +494,7 @@ export class RepeatExample {
     console.log(source);
   }
 
-  private onRemoveModel(args) {
+  private onRemoveModel(args:any):void {
     let [el, source] = args;
     console.log('onRemoveModel:');
     console.log(el);
@@ -504,9 +504,9 @@ export class RepeatExample {
 
 @Component({
   selector: 'nested-repeat-example',
-  directives: [Dragula],
+  directives: [DragulaDirective],
   viewProviders: [DragulaService],
-  template:`
+  template: `
   <div class='parent'>
     <label for='hy'><strong>Angular-specific example.</strong> Fancy some nested <code>ngFor</code>?</label>
     <div class='wrapper'>
@@ -540,17 +540,19 @@ class NestedRepeatExample {
   </div>
   `
 })
-export class NestedRepeatExample {
-  public groups: Array<any> = [
+export class NestedRepeatExampleComponent {
+  public groups:Array<any> = [
     {
       name: 'Group A',
-      items: [{name: 'Item A'},{name: 'Item B'},{name: 'Item C'},{name: 'Item D'}]
+      items: [{name: 'Item A'}, {name: 'Item B'}, {name: 'Item C'}, {name: 'Item D'}]
     },
     {
       name: 'Group B',
-      items: [{name: 'Item 1'},{name: 'Item 2'},{name: 'Item 3'},{name: 'Item 4'}]
+      items: [{name: 'Item 1'}, {name: 'Item 2'}, {name: 'Item 3'}, {name: 'Item 4'}]
     }
   ];
 }
 
-export const EXAMPLES: any[] = [ExampleA, ExampleB, AnotherExample, SuchExample, VeryExample, MuchExample, WowExample, RepeatExample, NestedRepeatExample];
+export const EXAMPLES:any[] = [ExampleAComponent, ExampleBComponent, AnotherExampleComponent,
+  SuchExampleComponent, VeryExampleComponent, MuchExampleComponent, WowExampleComponent,
+  RepeatExampleComponent, NestedRepeatExampleComponent];

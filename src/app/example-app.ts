@@ -7,4 +7,4 @@ import {EXAMPLES} from './examples';
   encapsulation: ViewEncapsulation.None,
   directives: [EXAMPLES]
 })
-export class ExampleApp {}
+export class ExampleAppComponent {}
