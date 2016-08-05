@@ -1,10 +1,12 @@
 {
-  "ambientDevDependencies": {
-    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#dd638012d63e069f2c99d06ef4dcc9616a943ee4"
+  "dependencies": {
+    "dragula": "registry:npm/dragula#3.6.8+20160410191048",
+    "webpack": "registry:npm/webpack#1.12.9+20160418172948"
   },
-  "ambientDependencies": {
-    "dragula": "github:DefinitelyTyped/DefinitelyTyped/dragula/dragula.d.ts#e8bdd1be7c8a81dcf9f4cdae126690c7bf249501",
-    "es6-shim": "github:DefinitelyTyped/DefinitelyTyped/es6-shim/es6-shim.d.ts#6697d6f7dadbf5773cb40ecda35a76027e0783b2",
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743"
+  "devDependencies": {},
+  "globalDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+    "node": "registry:dt/node#6.0.0+20160802155038"
   }
 }

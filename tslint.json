@@ -1,40 +1,13 @@
 {
+  "extends": "tslint-config-valorsoft",
+  "rulesDirectory": "./node_modules/codelyzer",
   "rules": {
-    "class-name": true,
-    "curly": true,
-    "eofline": true,
-    "indent": "spaces",
-    "max-line-length": false,
-    "member-ordering": [
-      true,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
-    ],
-    "no-arg": true,
-    "no-construct": true,
-    "no-duplicate-key": true,
-    "no-duplicate-variable": true,
-    "no-empty": true,
-    "no-eval": true,
-    "no-trailing-whitespace": true,
-    "no-unused-expression": true,
-    "no-unused-variable": false,
-    "no-unreachable": true,
-    "no-use-before-declare": true,
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else"
-    ],
-    "quotemark": false,
-    "semicolon": true,
-    "trailing-comma": true,
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
-    "variable-name": false
+    "component-selector-name": [false, ""],
+    "import-destructuring-spacing": false,
+    "only-arrow-functions": false,
+    "ordered-imports": false,
+    "no-constructor-vars": false,
+    "no-string-literal": false,
+    "no-input-rename": false
   }
 }
