@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/valor-software/ng2-dragula#readme",
   "scripts": {
+    "install:typings": "./node_modules/.bin/typings install",
+    "clean": "./node_modules/.bin/del bundles coverage demo-build typings \"src/**/*.+(js|d.ts|js.map)\" dist \"ng2-dragula.+(js|d.ts|js.map)\"",
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean && npm start",
     "watch": "./node_modules/.bin/webpack --watch --progress --profile",

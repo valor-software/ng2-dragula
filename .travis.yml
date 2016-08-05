@@ -3,6 +3,8 @@ node_js:
  - "6"
 
 script:
+- npm run clean-install
+- npm run install:typings
 - npm run build
 
 # workaround to install phantomjs in travis-ci (https://github.com/travis-ci/travis-ci/issues/3225)
