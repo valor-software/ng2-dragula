@@ -3,7 +3,7 @@ import {it, expect, describe, inject, addProviders} from '@angular/core/testing'
 import {ComponentFixture} from '@angular/compiler/testing';
 import {DragulaDirective} from './dragula.directive';
 
-describe('Directive: FileSelectDirective', () => {
+describe('Directive: DragulaDirective', () => {
   beforeEach(() => {
     addProviders([TestNGDragulaComponent]);
   });
