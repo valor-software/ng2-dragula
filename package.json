@@ -76,7 +76,7 @@
     "node-sass": "3.7.0",
     "null-loader": "git+https://github.com/webpack/null-loader.git",
     "postcss-loader": "0.9.1",
-    "protractor": "3.3.0",
+    "protractor": "4.0.3",
     "raw-loader": "0.5.1",
     "reflect-metadata": "0.1.2",
     "rimraf": "2.5.2",
