@@ -54,7 +54,7 @@
     "@angular/platform-browser-dynamic": "2.0.0-rc.2",
     "autoprefixer": "6.3.6",
     "copy-webpack-plugin": "3.0.1",
-    "css-loader": "0.23.1",
+    "css-loader": "0.24.0",
     "del-cli": "0.2.0",
     "es6-promise": "3.2.1",
     "es6-shim": "0.35.1",
