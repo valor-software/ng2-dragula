@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Dragula } from './src/app/directives/dragula.directive';
-import { DragulaService } from './src/app/providers/dragula.provider';
+import { DragulaDirective } from './components/dragula.directive';
+import { DragulaService } from './components/dragula.provider';
+
+export * from './components/dragula.provider';
+export * from './components/dragula.directive';
 
 @NgModule({
-  exports: [Dragula],
-  declarations: [Dragula],
+  exports: [DragulaDirective],
+  declarations: [DragulaDirective],
   providers: [DragulaService]
 })
-export default class DragulaModule {}
+export class DragulaModule {
+}

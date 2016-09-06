@@ -6,7 +6,7 @@ import {
   OnChanges,
   SimpleChange
 } from '@angular/core';
-import {DragulaService} from '../providers/dragula.provider';
+import { DragulaService } from './dragula.provider';
 import * as dragula from 'dragula';
 
 @Directive({

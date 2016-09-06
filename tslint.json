@@ -3,10 +3,7 @@
   "rulesDirectory": "./node_modules/codelyzer",
   "rules": {
     "component-selector-name": [false, ""],
-    "import-destructuring-spacing": false,
     "only-arrow-functions": false,
-    "ordered-imports": false,
-    "no-constructor-vars": false,
     "no-string-literal": false,
     "no-input-rename": false
   }
