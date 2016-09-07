@@ -1,0 +1,34 @@
+<div class='parent'>
+    <label for='hy'>By default, dropping an element outside of any known containers will keep the element in the last
+        place it went over. You can make elements go back to origin if they're dropped outside of known containers,
+        too.</label>
+    <div class='wrapper'>
+        <div class='container' [dragula]='"fourth-bag"'>
+            <div>Moving items between containers works as usual</div>
+            <div>If you try to drop an item outside of any containers, though, it'll retain its original position</div>
+            <div>When that happens, a <code>cancel</code> event will be raised</div>
+        </div>
+        <div class='container' [dragula]='"fourth-bag"'>
+            <div>Note that the dragged element will go back to the place you originally dragged it from, even if you
+                move it over other containers
+            </div>
+            <div>This is useful if you want to ensure drop events only happen when the user intends for them to happen
+                explicitly, avoiding surprises
+            </div>
+        </div>
+    </div>
+    <pre>
+      <code>
+&lt;div [dragula]=&#039;&quot;fourth-bag&quot;&#039;&gt;&lt;/div&gt;
+&lt;div [dragula]=&#039;&quot;fourth-bag&quot;&#039;&gt;&lt;/div&gt;
+
+class SuchExample &#123;
+  constructor(private dragulaService: DragulaService) &#123;
+    dragulaService.setOptions('fourth-bag', &#123;
+      revertOnSpill: true
+    });
+  }
+}
+      </code>
+    </pre>
+</div>

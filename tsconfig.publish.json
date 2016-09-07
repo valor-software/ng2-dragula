@@ -5,10 +5,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "noEmitHelpers": true,
+    "sourceMap": false,
+    "noEmitHelpers": false,
     "noImplicitAny": true,
-    "declaration": false
+    "declaration": true
   },
   "exclude": [
     "node_modules"

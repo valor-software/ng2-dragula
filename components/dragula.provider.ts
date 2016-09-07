@@ -1,20 +1,20 @@
 import * as dragula from 'dragula';
-import {Injectable, EventEmitter} from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class DragulaService {
-  public cancel:      EventEmitter<any> = new EventEmitter();
-  public cloned:      EventEmitter<any> = new EventEmitter();
-  public drag:        EventEmitter<any> = new EventEmitter();
-  public dragend:     EventEmitter<any> = new EventEmitter();
-  public drop:        EventEmitter<any> = new EventEmitter();
-  public out:         EventEmitter<any> = new EventEmitter();
-  public over:        EventEmitter<any> = new EventEmitter();
-  public remove:      EventEmitter<any> = new EventEmitter();
-  public shadow:      EventEmitter<any> = new EventEmitter();
-  public dropModel:   EventEmitter<any> = new EventEmitter();
-  public removeModel: EventEmitter<any> = new EventEmitter();
-  private events: Array<string> = [
+  public cancel:EventEmitter<any> = new EventEmitter();
+  public cloned:EventEmitter<any> = new EventEmitter();
+  public drag:EventEmitter<any> = new EventEmitter();
+  public dragend:EventEmitter<any> = new EventEmitter();
+  public drop:EventEmitter<any> = new EventEmitter();
+  public out:EventEmitter<any> = new EventEmitter();
+  public over:EventEmitter<any> = new EventEmitter();
+  public remove:EventEmitter<any> = new EventEmitter();
+  public shadow:EventEmitter<any> = new EventEmitter();
+  public dropModel:EventEmitter<any> = new EventEmitter();
+  public removeModel:EventEmitter<any> = new EventEmitter();
+  private events:Array<string> = [
     'cancel',
     'cloned',
     'drag',
@@ -27,9 +27,9 @@ export class DragulaService {
     'dropModel',
     'removeModel'
   ];
-  private bags: Array<any> = [];
+  private bags:Array<any> = [];
 
-  public add(name: string, drake: any): any {
+  public add(name:string, drake:any):any {
     let bag = this.find(name);
     if (bag) {
       throw new Error('Bag named: "' + name + '" already exists.');
@@ -48,32 +48,32 @@ export class DragulaService {
     return bag;
   }
 
-  public find(name: string): any {
-    for (var i = 0; i < this.bags.length; i++) {
+  public find(name:string):any {
+    for (let i = 0; i < this.bags.length; i++) {
       if (this.bags[i].name === name) {
         return this.bags[i];
       }
     }
   }
 
-  public destroy(name: string): void {
+  public destroy(name:string):void {
     let bag = this.find(name);
     let i = this.bags.indexOf(bag);
     this.bags.splice(i, 1);
     bag.drake.destroy();
   }
 
-  public setOptions(name: string, options: any) {
+  public setOptions(name:string, options:any):void {
     let bag = this.add(name, dragula(options));
     this.handleModels(name, bag.drake);
   }
 
-  private handleModels(name: string, drake: any) {
-    let dragElm: any;
-    let dragIndex: number;
-    let dropIndex: number;
-    let sourceModel: any;
-    drake.on('remove', (el: any, source: any) => {
+  private handleModels(name:string, drake:any):void {
+    let dragElm:any;
+    let dragIndex:number;
+    let dropIndex:number;
+    let sourceModel:any;
+    drake.on('remove', (el:any, source:any) => {
       if (!drake.models) {
         return;
       }
@@ -83,11 +83,11 @@ export class DragulaService {
       // console.log(sourceModel);
       this.removeModel.emit([name, el, source]);
     });
-    drake.on('drag', (el: any, source: any) => {
+    drake.on('drag', (el:any, source:any) => {
       dragElm = el;
       dragIndex = this.domIndexOf(el, source);
     });
-    drake.on('drop', (dropElm: any, target: any, source: any) => {
+    drake.on('drop', (dropElm:any, target:any, source:any) => {
       if (!drake.models || !target) {
         return;
       }
@@ -112,20 +112,21 @@ export class DragulaService {
     });
   }
 
-  private setupEvents(bag: any) {
+  private setupEvents(bag:any):void {
     bag.initEvents = true;
-    let that: any = this;
-    let emitter = (type: any) => {
-      function replicate () {
+    let that:any = this;
+    let emitter = (type:any) => {
+      function replicate():void {
         let args = Array.prototype.slice.call(arguments);
         that[type].emit([bag.name].concat(args));
       }
+
       bag.drake.on(type, replicate);
     };
     this.events.forEach(emitter);
   }
 
-  private domIndexOf(child: any, parent: any) {
+  private domIndexOf(child:any, parent:any):any {
     return Array.prototype.indexOf.call(parent.children, child);
   }
 }

@@ -32,13 +32,29 @@ npm install ng2-dragula dragula --save
 
 # Setup
 
-You'll need to add `DragulaService` to your components `viewProviders` and also add `Dragula` to your components `directives`.
+You'll need to add `DragulaModule` to your application module.
 
-```js
+```typescript
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    DragulaModule,
+    ...
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+
+export class AppModule {
+}
+
+```
+
+```typescript
 @Component({
   selector: 'sample',
-  directives: [Dragula],
-  viewProviders: [DragulaService],
   template:`
   <div>
     <div class='wrapper'>
@@ -90,6 +106,8 @@ The standard `drop` event is fired before the model is synced. For that purpose 
 If you need to configure the `drake` _(there's only one `drake` per `bag`)_, you can use the `DragulaService`.
 
 ```js
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
 class ConfigExample {
   constructor(private dragulaService: DragulaService) {
     dragulaService.setOptions('third-bag', {
@@ -181,14 +199,10 @@ Returns the `bag` for a `drake` instance. Contains the following properties.
 
 Destroys a `drake` instance named `name`.
 
-# Contributing
+## Contribution
 
-Please see the [CONTRIBUTING](https://github.com/valor-software/ng2-dragula/blob/master/CONTRIBUTING.md) file for guidelines.
+Please read central `ng2` modules [readme](https://github.com/valor-software/ng2-plans) for details, plans and approach and welcome :)
 
-# License
-
-MIT
-
-# Awesome thank you's
-
-Project setup is based on the [angular2-webpack](https://github.com/preboot/angular2-webpack) by [Olivier Combe](https://github.com/ocombe).
+## Credits
+Crossbrowser testing sponsored by [Browser Stack](https://www.browserstack.com)
+[<img src="https://camo.githubusercontent.com/a7b268f2785656ab3ca7b1cbb1633ee5affceb8f/68747470733a2f2f64677a6f7139623561736a67312e636c6f756466726f6e742e6e65742f70726f64756374696f6e2f696d616765732f6c61796f75742f6c6f676f2d6865616465722e706e67" alt="Browser Stack" height="31px" style="background: cornflowerblue;">](https://www.browserstack.com)
