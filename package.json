@@ -45,7 +45,7 @@
     "test:watch": "NODE_ENV=test ./node_modules/.bin/karma start --auto-watch --no-single-run",
     "preversion": "npm test",
     "version": "npm run flow.changelog && git add -A",
-    "postversion": "git push origin development && git push --tags"
+    "postversion": "git push origin master && git push --tags"
   },
   "dependencies": {
     "dragula": "3.7.1"
@@ -71,6 +71,7 @@
     "es6-promise": "3.2.1",
     "es6-shim": "0.35.1",
     "eslint-config-valorsoft": "0.1.0",
+    "gh-pages": "0.11.0",
     "gitignore-to-glob": "0.2.1",
     "gulp": "3.9.1",
     "gulp-tslint": "6.1.1",
