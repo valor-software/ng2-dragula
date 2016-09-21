@@ -1,3 +1,14 @@
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/valor-software/ng2-dragula/compare/v1.2.0...v1.2.1) (2016-09-21)
+
+
+### Features
+
+* **ng2:** Update to angular2 final ([#414](https://github.com/valor-software/ng2-dragula/issues/414)) ([1f872dd](https://github.com/valor-software/ng2-dragula/commit/1f872dd))
+* **package:** update dragula tp 3.7.2 ([#405](https://github.com/valor-software/ng2-dragula/issues/405)) ([99b3808](https://github.com/valor-software/ng2-dragula/commit/99b3808)), closes [#404](https://github.com/valor-software/ng2-dragula/issues/404)
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/valor-software/ng2-dragula/compare/v1.1.10...v1.2.0) (2016-09-07)
 

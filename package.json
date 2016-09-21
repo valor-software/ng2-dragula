@@ -1,6 +1,6 @@
 {
   "name": "ng2-dragula",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "ng2-dragula.js",
   "description": "Simple drag and drop with dragula",
   "repository": {
