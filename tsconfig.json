@@ -8,14 +8,21 @@
     "sourceMap": true,
     "noEmitHelpers": true,
     "noImplicitAny": true,
-    "declaration": false
+    "declaration": false,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "types": [
+      "dragula",
+      "jasmine",
+      "node",
+      "webpack"
+    ]
   },
   "exclude": [
     "node_modules"
   ],
   "files": [
-    "./typings/index.d.ts",
-    "./demo/custom-typings.d.ts",
-    "./ng2-dragula.ts"
+    "./demo/custom-typings.d.ts"
   ]
 }

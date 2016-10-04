@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { DragulaService } from './dragula.provider';
 import * as dragula from 'dragula';
+const dragulaConstructor: (value?: any) => any = (dragula as any).default || dragula;
 
 @Directive({
   selector: '[dragula]'
@@ -39,7 +40,7 @@ export class DragulaDirective implements OnInit, OnChanges {
       checkModel();
       this.drake.containers.push(this.container);
     } else {
-      this.drake = dragula({
+      this.drake = dragulaConstructor({
         containers: [this.container]
       });
       checkModel();

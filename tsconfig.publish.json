@@ -1,21 +1,34 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
-    "noEmitHelpers": false,
+    "lib": ["es6", "es2015", "dom"],
+    "mapRoot": "",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
     "noImplicitAny": true,
-    "declaration": true
+    "rootDir": ".",
+    "sourceMap": true,
+    "target": "es5",
+    "inlineSources": true,
+    "stripInternal": true,
+    "baseUrl": "",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "types": [
+      "dragula",
+      "jasmine",
+      "node",
+      "webpack"
+    ]
   },
   "exclude": [
     "node_modules"
   ],
   "files": [
-    "./typings/index.d.ts",
-    "./demo/custom-typings.d.ts",
-    "./ng2-dragula.ts"
+    "./demo/custom-typings.d.ts"
   ]
 }
