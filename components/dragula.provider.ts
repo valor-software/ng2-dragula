@@ -1,4 +1,6 @@
 import * as dragula from 'dragula';
+const dragulaConstructor: (value?: any) => any = (dragula as any).default || dragula;
+
 import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
@@ -64,7 +66,7 @@ export class DragulaService {
   }
 
   public setOptions(name:string, options:any):void {
-    let bag = this.add(name, dragula(options));
+    let bag = this.add(name, dragulaConstructor(options));
     this.handleModels(name, bag.drake);
   }
 
