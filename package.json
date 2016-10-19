@@ -38,6 +38,8 @@
     "flow.build:dev": "./node_modules/.bin/webpack --progress --color",
     "flow.serve:dev": "./node_modules/.bin/webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
     "flow.serve:prod": "NODE_ENV=production ./node_modules/.bin/webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
+    "prepublish": "npm run flow.clean && npm run flow.compile",
+    "postpublish": "npm run flow.deploy:gh-pages",
     "start": "npm run flow.serve:dev",
     "pretest": "npm run flow.lint",
     "test": "NODE_ENV=test ./node_modules/.bin/karma start",
