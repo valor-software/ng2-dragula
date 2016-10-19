@@ -1,3 +1,13 @@
+<a name="1.2.2-0"></a>
+## [1.2.2-0](https://github.com/valor-software/ng2-dragula/compare/v1.2.1...v1.2.2-0) (2016-10-19)
+
+
+### Features
+
+* **package:** added module metadata extraction for Angular AoT compiler ([0deed74](https://github.com/valor-software/ng2-dragula/commit/0deed74)), closes [#417](https://github.com/valor-software/ng2-dragula/issues/417)
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/valor-software/ng2-dragula/compare/v1.2.0...v1.2.1) (2016-09-21)
 

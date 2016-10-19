@@ -1,6 +1,6 @@
 {
   "name": "ng2-dragula",
-  "version": "1.2.1",
+  "version": "1.2.2-0",
   "main": "ng2-dragula.js",
   "typings": "ng2-dragula.d.ts",
   "description": "Simple drag and drop with dragula",
