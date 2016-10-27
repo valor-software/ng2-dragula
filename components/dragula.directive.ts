@@ -8,6 +8,7 @@ import { dragula } from './dragula.class';
 export class DragulaDirective implements OnInit, OnChanges {
   @Input('dragula') public bag: string;
   @Input() public dragulaModel: any;
+  @Input() public dragulaOptions: any;
   private container: any;
   private drake: any;
 
@@ -32,9 +33,7 @@ export class DragulaDirective implements OnInit, OnChanges {
       checkModel();
       this.drake.containers.push(this.container);
     } else {
-      this.drake = dragula({
-        containers: [this.container]
-      });
+      this.drake = dragula([this.container], Object.assign({}, this.dragulaOptions));
       checkModel();
       this.dragulaService.add(this.bag, this.drake);
     }
