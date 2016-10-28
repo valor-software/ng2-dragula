@@ -117,6 +117,19 @@ class ConfigExample {
 }
 ```
 
+You can also set your options by binding an options object to the `dragulaOptions` attribute.
+
+```js
+options: any = {
+  removeOnSpill: true
+}
+```
+
+```html
+<div [dragula]='"bag-one"' [dragulaOptions]="options"></div>
+<div [dragula]='"bag-two"' [dragulaOptions]="options"></div>
+```
+
 ## Events
 
 Whenever a `drake` instance is created with the `dragula` directive, there are several events you can subscribe to via `DragulaService`. Each event emits an `Array` where the first item is the name of the bag. The remaining items depend on the event. The sample below illustrates how you can use destructuring to assign the values from the event. Refer to: https://github.com/bevacqua/dragula#drakeon-events
