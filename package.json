@@ -78,7 +78,7 @@
     "es6-promise": "4.0.5",
     "es6-shim": "0.35.1",
     "eslint-config-valorsoft": "0.1.0",
-    "gh-pages": "0.11.0",
+    "gh-pages": "0.12.0",
     "gitignore-to-glob": "0.2.1",
     "gulp": "3.9.1",
     "gulp-tslint": "6.1.2",
