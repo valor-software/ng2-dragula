@@ -81,7 +81,7 @@
     "gh-pages": "0.11.0",
     "gitignore-to-glob": "0.2.1",
     "gulp": "3.9.1",
-    "gulp-tslint": "6.1.2",
+    "gulp-tslint": "7.0.1",
     "ng2-webpack-config": "0.0.5",
     "pre-commit": "1.1.3",
     "reflect-metadata": "0.1.8",
