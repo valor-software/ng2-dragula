@@ -2,13 +2,15 @@
 
 > Drag and drop so simple it hurts
 
-Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragula). [![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula)
+Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragula). [![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula)
 
-[![Code Climate](https://codeclimate.com/github/valor-software/ng2-dragula/badges/gpa.svg)](https://codeclimate.com/github/valor-software/ng2-dragula)
-[![Join the chat at https://gitter.im/valor-software/ng2-bootstrap](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valor-software/ng2-bootstrap?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
+[![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
+[![codecov](https://codecov.io/gh/valor-software/ng2-dragula/branch/development/graph/badge.svg)](https://codecov.io/gh/valor-software/ng2-dragula)
 [![Dependency Status](https://david-dm.org/valor-software/ng2-dragula.svg)](https://david-dm.org/valor-software/ng2-dragula)
-[![devDependency Status](https://david-dm.org/valor-software/ng2-dragula/dev-status.svg)](https://david-dm.org/valor-software/ng2-dragula#info=devDependencies)
-[![Throughput Graph](https://graphs.waffle.io/valor-software/ng2-dragula/throughput.svg)](https://waffle.io/valor-software/ng2-dragula/metrics)
+
+[![NPM](https://nodei.co/npm/ng2-dragula.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/ng2-dragula)
+[![NPM](https://nodei.co/npm-dl/ng2-dragula.png?height=3&months=3)](https://npmjs.org/ng2-dragula)
 
 
 # Demo
