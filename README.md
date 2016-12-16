@@ -203,6 +203,21 @@ Destroys a `drake` instance named `name`.
 
 Please read central `ng2` modules [readme](https://github.com/valor-software/ng2-plans) for details, plans and approach and welcome :)
 
+## Development
+
+Run demo locally:
+1. build lib `npm run build` (`npm run build.watch` to run build in watch mode)
+2. link lib `npm run link`
+3. run demo `npm start`
+
+Publish
+1. ./node_modules/.bin/ngm -p src version patch
+2. ./node_modules/.bin/ngm -p src publish
+
+Update demo (gh-pages)
+1. npm run demo.build (or ./node_modules/.bin/ng build -prod)
+2. npm run demo.deploy
+
 ## Credits
 Crossbrowser testing sponsored by [Browser Stack](https://www.browserstack.com)
 [<img src="https://camo.githubusercontent.com/a7b268f2785656ab3ca7b1cbb1633ee5affceb8f/68747470733a2f2f64677a6f7139623561736a67312e636c6f756466726f6e742e6e65742f70726f64756374696f6e2f696d616765732f6c61796f75742f6c6f676f2d6865616465722e706e67" alt="Browser Stack" height="31px" style="background: cornflowerblue;">](https://www.browserstack.com)
