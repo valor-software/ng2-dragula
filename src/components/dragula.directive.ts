@@ -2,22 +2,24 @@ import { Directive, Input, ElementRef, OnInit, OnChanges, SimpleChange } from '@
 import { DragulaService } from './dragula.provider';
 import { dragula } from './dragula.class';
 
-@Directive({
-  selector: '[dragula]'
-})
+@Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnInit, OnChanges {
-  @Input('dragula') public bag: string;
+  @Input() public dragula: string;
   @Input() public dragulaModel: any;
   private container: any;
   private drake: any;
 
-  public constructor(private el: ElementRef, private dragulaService: DragulaService) {
+  private el: ElementRef;
+  private dragulaService: DragulaService;
+  public constructor(el: ElementRef, dragulaService: DragulaService) {
+    this.el = el;
+    this.dragulaService = dragulaService;
     this.container = el.nativeElement;
   }
 
   public ngOnInit(): void {
     // console.log(this.bag);
-    let bag = this.dragulaService.find(this.bag);
+    let bag = this.dragulaService.find(this.dragula);
     let checkModel = () => {
       if (this.dragulaModel) {
         if (this.drake.models) {
@@ -36,20 +38,20 @@ export class DragulaDirective implements OnInit, OnChanges {
         containers: [this.container]
       });
       checkModel();
-      this.dragulaService.add(this.bag, this.drake);
+      this.dragulaService.add(this.dragula, this.drake);
     }
   }
 
-  public ngOnChanges(changes: {[propName: string]: SimpleChange}): void {
+  public ngOnChanges(changes: {dragulaModel?: SimpleChange}): void {
     // console.log('dragula.directive: ngOnChanges');
     // console.log(changes);
-    if (changes && changes['dragulaModel']) {
+    if (changes && changes.dragulaModel) {
       if (this.drake) {
         if (this.drake.models) {
-          let modelIndex = this.drake.models.indexOf(changes['dragulaModel'].previousValue);
-          this.drake.models.splice(modelIndex, 1, changes['dragulaModel'].currentValue);
+          let modelIndex = this.drake.models.indexOf(changes.dragulaModel.previousValue);
+          this.drake.models.splice(modelIndex, 1, changes.dragulaModel.currentValue);
         } else {
-          this.drake.models = [changes['dragulaModel'].currentValue];
+          this.drake.models = [changes.dragulaModel.currentValue];
         }
       }
     }

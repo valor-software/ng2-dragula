@@ -33,6 +33,5 @@ describe('Component: ng2-dragula', () => {
   selector: 'dragula-test',
   template: ''
 })
-
 class TestNGDragulaComponent {
 }
