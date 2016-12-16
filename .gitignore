@@ -3,37 +3,17 @@
 /node_modules
 npm-debug.log
 
-# type script artifacts
-/typings
-
 # WebStorm
 .idea
 .vscode
 
 # ignore build and dist for now
-/bundles
-/demo-build
+/demo/dist
 /dist
 /coverage
-/ts
-/doc
 
 # ignore inline compiling
-/demo/**/*.js
-/demo/**/*.js.map
-/demo/**/*.d.ts
-!/demo/src/custom-typings.d.ts
-/components/**/*.js
-/components/**/*.js.map
-/components/**/*.d.ts
-ng2-dragula.js
-ng2-dragula.d.ts
-ng2-dragula.metadata.json
-ng2-dragula.ngfactory.ts
-ng2-dragula.js.map
 /logs
 
 # AoT generated files
 factories
-/**/*.metadata.json
-/**/*.ngfactory.ts
