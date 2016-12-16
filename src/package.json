@@ -1,6 +1,6 @@
 {
   "name": "ng2-dragula",
-  "version": "1.2.2-0",
+  "version": "1.2.2-1",
   "dependencies": {
     "dragula": "*"
   },
