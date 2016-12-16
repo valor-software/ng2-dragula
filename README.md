@@ -94,8 +94,8 @@ There's a `dragula` directive that allows you to group containers together. That
 If your `ngFor` is compiled from array, you may wish to have it synced. For that purpose you need to provide model by setting the `dragulaModel` attribute on the bag element.
 
 ```html
-<ul>
-  <li *ngFor="let item of items" [dragula]='"bag-one"' [dragulaModel]='items'></li>
+<ul [dragula]='"bag-one"' [dragulaModel]='items'>
+  <li *ngFor="let item of items"></li>
 </ul>
 ```
 
