@@ -9,5 +9,5 @@
     "@angular/core": "*",
     "@angular/compiler": "*",
     "@angular/forms": "*"
-  },
+  }
 }
