@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { DragulaModule } from 'ng2-dragula';
 
 import { EXAMPLES } from './examples';
-import { DragulaModule } from '../../../src/ng2-dragula';
-import { DemoComponent } from './demo.component';
+import { DemoComponent } from './app.component';
 
 @NgModule({
   declarations: [
     DemoComponent,
-    EXAMPLES
+    ...EXAMPLES
   ],
   imports: [
     BrowserModule,
