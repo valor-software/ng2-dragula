@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "../dist",
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -11,21 +12,27 @@
     "declaration": true,
     "skipLibCheck": true,
     "stripInternal": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "lib": ["dom", "es6"],
     "types": [
-      "dragula",
       "jasmine",
-      "webpack"
+      "webpack",
+      "dragula"
+    ],
+    "typeRoots": [
+      "../node_modules/@types"
     ]
   },
   "exclude": [
     "node_modules"
   ],
   "files": [
-    "./demo/custom-typings.d.ts",
-    "./ng2-dragula.ts"
+    "../scripts/typings.d.ts",
+    "./ng2-dragula.ts",
+    "./index.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "factories"
+    "genDir": "../temp/factories"
   }
 }

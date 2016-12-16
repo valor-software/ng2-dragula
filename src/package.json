@@ -1,0 +1,13 @@
+{
+  "name": "ng2-dragula",
+  "version": "1.2.2-1",
+  "dependencies": {
+    "dragula": "*"
+  },
+  "peerDependencies": {
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "@angular/compiler": "*",
+    "@angular/forms": "*"
+  }
+}

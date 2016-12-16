@@ -15,17 +15,8 @@ export class DragulaService {
   public dropModel: EventEmitter<any> = new EventEmitter();
   public removeModel: EventEmitter<any> = new EventEmitter();
   private events: string[] = [
-    'cancel',
-    'cloned',
-    'drag',
-    'dragend',
-    'drop',
-    'out',
-    'over',
-    'remove',
-    'shadow',
-    'dropModel',
-    'removeModel'
+    'cancel', 'cloned', 'drag', 'dragend', 'drop', 'out', 'over',
+    'remove', 'shadow', 'dropModel', 'removeModel'
   ];
   private bags: any[] = [];
 
@@ -34,10 +25,7 @@ export class DragulaService {
     if (bag) {
       throw new Error('Bag named: "' + name + '" already exists.');
     }
-    bag = {
-      name: name,
-      drake: drake
-    };
+    bag = {name, drake};
     this.bags.push(bag);
     if (drake.models) { // models to sync with (must have same structure as containers)
       this.handleModels(name, drake);
@@ -49,9 +37,9 @@ export class DragulaService {
   }
 
   public find(name: string): any {
-    for (let i = 0; i < this.bags.length; i++) {
-      if (this.bags[i].name === name) {
-        return this.bags[i];
+    for (let bag of this.bags) {
+      if (bag.name === name) {
+        return bag;
       }
     }
   }

@@ -22,8 +22,7 @@
     "node_modules", "bundles", "dist"
   ],
   "files": [
-    "./demo/custom-typings.d.ts",
-    "./ng2-dragula.ts"
+    "./demo/src/custom-typings.d.ts", "./src/ng2-dragula.ts"
   ],
   "atom": { "rewriteTsconfig": false }
 }
