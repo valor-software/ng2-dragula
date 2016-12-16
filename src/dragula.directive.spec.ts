@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DragulaModule } from '../ng2-dragula';
+import { DragulaModule } from './ng2-dragula';
 
 const html = ``;
 

@@ -22,7 +22,7 @@ npm-debug.log
 /demo/**/*.js
 /demo/**/*.js.map
 /demo/**/*.d.ts
-!/demo/custom-typings.d.ts
+!/demo/src/custom-typings.d.ts
 /components/**/*.js
 /components/**/*.js.map
 /components/**/*.d.ts

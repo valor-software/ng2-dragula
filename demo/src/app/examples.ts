@@ -1,16 +1,17 @@
+/* tslint:disable */
 import { Component } from '@angular/core';
-import { DragulaService } from '../ng2-dragula';
+import { DragulaService } from '../../../src/ng2-dragula';
 
 @Component({
   selector: 'example-a',
-  template: require('./templates/example-a.html')
+  template: require('./../templates/example-a.html')
 })
 export class ExampleAComponent {
 }
 
 @Component({
   selector: 'example-b',
-  template: require('./templates/example-b.html')
+  template: require('./../templates/example-b.html')
 })
 export class ExampleBComponent {
   public constructor(private dragulaService:DragulaService) {
@@ -71,7 +72,7 @@ export class ExampleBComponent {
 
 @Component({
   selector: 'another-example',
-  template: require('./templates/another-example.html')
+  template: require('./../templates/another-example.html')
 })
 export class AnotherExampleComponent {
   public constructor(private dragulaService:DragulaService) {
@@ -83,7 +84,7 @@ export class AnotherExampleComponent {
 
 @Component({
   selector: 'such-example',
-  template: require('./templates/such-example.html')
+  template: require('./../templates/such-example.html')
 })
 export class SuchExampleComponent {
   public constructor(private dragulaService:DragulaService) {
@@ -95,7 +96,7 @@ export class SuchExampleComponent {
 
 @Component({
   selector: 'very-example',
-  template: require('./templates/very-example.html')
+  template: require('./../templates/very-example.html')
 })
 export class VeryExampleComponent {
   public constructor(private dragulaService:DragulaService) {
@@ -107,7 +108,7 @@ export class VeryExampleComponent {
 
 @Component({
   selector: 'much-example',
-  template: require('./templates/much-example.html')
+  template: require('./../templates/much-example.html')
 })
 export class MuchExampleComponent {
   public constructor(private dragulaService:DragulaService) {
@@ -122,7 +123,7 @@ export class MuchExampleComponent {
 
 @Component({
   selector: 'wow-example',
-  template: require('./templates/wow-example.html')
+  template: require('./../templates/wow-example.html')
 })
 export class WowExampleComponent {
   public clicked:any = {
@@ -145,7 +146,7 @@ export class WowExampleComponent {
 
 @Component({
   selector: 'repeat-example',
-  template: require('./templates/repeat-example.html')
+  template: require('./../templates/repeat-example.html')
 })
 export class RepeatExampleComponent {
   public many:Array<string> = ['The', 'possibilities', 'are', 'endless!'];
@@ -178,7 +179,7 @@ export class RepeatExampleComponent {
 
 @Component({
   selector: 'nested-repeat-example',
-  template: require('./templates/nested-repeat-example.html')
+  template: require('./../templates/nested-repeat-example.html')
 })
 export class NestedRepeatExampleComponent {
   public groups:Array<any> = [

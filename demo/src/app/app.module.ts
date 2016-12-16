@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { EXAMPLES } from './examples';
-import { DragulaModule } from '../ng2-dragula';
+import { DragulaModule } from '../../../src/ng2-dragula';
 import { DemoComponent } from './demo.component';
 
 @NgModule({
