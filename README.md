@@ -6,7 +6,7 @@ Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragul
 
 [![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
 [![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
-[![codecov](https://codecov.io/gh/valor-software/ng2-dragula/branch/development/graph/badge.svg)](https://codecov.io/gh/valor-software/ng2-dragula)
+[![codecov](https://codecov.io/gh/valor-software/ng2-dragula/branch/master/graph/badge.svg)](https://codecov.io/gh/valor-software/ng2-dragula)
 [![Dependency Status](https://david-dm.org/valor-software/ng2-dragula.svg)](https://david-dm.org/valor-software/ng2-dragula)
 
 [![NPM](https://nodei.co/npm/ng2-dragula.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/ng2-dragula)
