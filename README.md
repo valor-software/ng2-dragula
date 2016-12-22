@@ -77,6 +77,8 @@ export class AppModule {
 class Sample {}
 ```
 
+You'll also need to add Dragula's CSS stylesheet `dragula.min.css` to your application.  You can find this in `node_modules/dragula/dist/dragula.css`.
+
 # Usage
 
 This package isn't very different from `dragula` itself. I'll mark the differences here, but please refer to the documentation for [`dragula`](https://github.com/bevacqua/dragula) if you need to learn more about `dragula` itself.
