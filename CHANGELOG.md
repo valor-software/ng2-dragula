@@ -1,3 +1,13 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/valor-software/ng2-dragula/compare/v1.2.2...v1.3.0) (2017-01-17)
+
+
+### Bug Fixes
+
+* **demo:** make AoT compatible ([8667689](https://github.com/valor-software/ng2-dragula/commit/8667689))
+
+
+
 <a name="1.2.2-0"></a>
 ## [1.2.2-0](https://github.com/valor-software/ng2-dragula/compare/v1.2.1...v1.2.2-0) (2016-10-19)
 
