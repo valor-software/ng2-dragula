@@ -1,1 +1,1 @@
-export * from './index';
+export { dragula, DragulaDirective, DragulaModule, DragulaService } from './index';
