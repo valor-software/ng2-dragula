@@ -1,6 +1,7 @@
 /* tslint:disable */
 import { Component } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
+import { FormBuilder, FormArray } from "@angular/forms";
 
 @Component({
   selector: 'example-a',
@@ -194,7 +195,56 @@ export class NestedRepeatExampleComponent {
   ];
 }
 
-export const EXAMPLES:any[] = [
+@Component({
+  selector: 'form-array-example',
+  templateUrl: './templates/form-array-example.html'
+})
+export class FormArrayExampleComponent {
+  faWrapper1: any;
+  faWrapper2: any;
+
+  constructor(private fb: FormBuilder) {
+    let fa1 = fb.array([
+      fb.control('a'),
+      fb.control('b'),
+      fb.control('c')
+    ]);
+
+    let fa2 = fb.array([
+      fb.control('d'),
+      fb.control('e'),
+      fb.control('f')
+    ]);
+
+    this.faWrapper1 = new FormArrayWrapper(fa1);
+    this.faWrapper2 = new FormArrayWrapper(fa2);
+  }
+}
+
+class FormArrayWrapper {
+  constructor(public fa: FormArray) {
+  }
+
+  get(index: number) {
+    return this.fa.controls[index];
+  }
+
+  splice(start: number, deleteCount: number, ...items: any[]): any[] {
+    let deleted = this.fa.controls.slice(start, start + deleteCount);
+
+    for (let i = start; i < start + deleteCount; i++) {
+      this.fa.removeAt(i);
+    }
+
+    for (let i = start, j = 0; j < items.length; i++ , j++) {
+      this.fa.insert(i, items[j]);
+    }
+
+    return deleted;
+  }
+}
+
+export const EXAMPLES: any[] = [
   ExampleAComponent,
   ExampleBComponent,
   AnotherExampleComponent,
@@ -203,5 +253,6 @@ export const EXAMPLES:any[] = [
   MuchExampleComponent,
   WowExampleComponent,
   RepeatExampleComponent,
-  NestedRepeatExampleComponent
+  NestedRepeatExampleComponent,
+  FormArrayExampleComponent
 ];

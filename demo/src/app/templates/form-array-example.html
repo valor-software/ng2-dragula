@@ -1,0 +1,86 @@
+<div class='parent'>
+    <label for='hy'><strong>Angular-specific example.</strong> Want to use <code>FormArray</code>? Implement a wrapper 
+    with get() and splice() methods. Using FormArray.controls as the draglaModel will not work well with change detection.
+    FormArray needs to use insert() and removeAt().</label>
+    <div class='wrapper'>
+        <div class='container' [dragula]='"another-bag"' [dragulaModel]='faWrapper1'>
+            <div *ngFor='let c of faWrapper1.fa.controls'>
+              <input type="text" [formControl]="c" />
+            </div>
+        </div>
+        <div class='container' [dragula]='"another-bag"' [dragulaModel]='faWrapper2'>
+            <div *ngFor='let c of faWrapper2.fa.controls'>
+              <input type="text" [formControl]="c" />
+            </div>
+        </div>
+    </div>
+    <div class='wrapper'>
+        <div class='container'>
+            <pre>{{faWrapper1.fa.value | json}}</pre>
+        </div>
+        <div class='container'>
+            <pre>{{faWrapper2.fa.value | json}}</pre>
+        </div>
+    </div>
+    <pre>
+      <code>
+&lt;div class='wrapper'&gt;
+	&lt;div class='container' [dragula]='&quot;another-bag&quot;' [dragulaModel]='faWrapper1'&gt;
+		&lt;div *ngFor='let c of faWrapper1.fa.controls'&gt;
+		  &lt;input type=&quot;text&quot; [formControl]=&quot;c&quot; /&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class='container' [dragula]='&quot;another-bag&quot;' [dragulaModel]='faWrapper2'&gt;
+		&lt;div *ngFor='let c of faWrapper2.fa.controls'&gt;
+		  &lt;input type=&quot;text&quot; [formControl]=&quot;c&quot; /&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+class FormArrayExampleComponent &#123;
+  faWrapper1: any;
+  faWrapper2: any;
+
+  constructor(private fb: FormBuilder) &#123;
+    let fa1 = fb.array([
+      fb.control('a'),
+      fb.control('b'),
+      fb.control('c')
+    ]);
+
+    let fa2 = fb.array([
+      fb.control('d'),
+      fb.control('e'),
+      fb.control('f')
+    ]);
+
+    this.faWrapper1 = new FormArrayWrapper(fa1);
+    this.faWrapper2 = new FormArrayWrapper(fa2);
+  }
+}
+
+class FormArrayWrapper &#123;
+  constructor(public fa: FormArray) &#123;
+  }
+
+  get(index: number) &#123;
+    return this.fa.controls[index];
+  }
+
+  splice(start: number, deleteCount: number, ...items: any[]): any[] &#123;
+    let deleted = this.fa.controls.slice(start, start + deleteCount);
+
+    for (let i = start; i < start + deleteCount; i++) &#123;
+      this.fa.removeAt(i);
+    }
+
+    for (let i = start, j = 0; j < items.length; i++ , j++) &#123;
+      this.fa.insert(i, items[j]);
+    }
+
+    return deleted;
+  }
+}
+      </code>
+    </pre>
+</div>
