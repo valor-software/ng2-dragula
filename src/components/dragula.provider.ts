@@ -101,7 +101,7 @@ export class DragulaService {
   }
 
   private getItem(model: any, index: number) : any {
-    return model.get ? model.get(index) : model[index];
+    return model.get && typeof model.get === 'function' ? model.get(index) : model[index];
   }
 
   private setupEvents(bag: any): void {
