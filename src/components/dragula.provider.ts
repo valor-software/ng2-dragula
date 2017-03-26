@@ -1,4 +1,4 @@
-import { dragula } from './dragula.class';
+import { dragula, DragulaOptions, Drake } from './dragula.class';
 import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class DragulaService {
   ];
   private bags: any[] = [];
 
-  public add(name: string, drake: any): any {
+  public add(name: string, drake: Drake): any {
     let bag = this.find(name);
     if (bag) {
       throw new Error('Bag named: "' + name + '" already exists.');
@@ -51,12 +51,12 @@ export class DragulaService {
     bag.drake.destroy();
   }
 
-  public setOptions(name: string, options: any): void {
+  public setOptions(name: string, options: DragulaOptions): void {
     let bag = this.add(name, dragula(options));
     this.handleModels(name, bag.drake);
   }
 
-  private handleModels(name: string, drake: any): void {
+  private handleModels(name: string, drake: Drake): void {
     let dragElm: any;
     let dragIndex: number;
     let dropIndex: number;

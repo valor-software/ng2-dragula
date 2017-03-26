@@ -1,14 +1,14 @@
 import { Directive, Input, ElementRef, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { DragulaService } from './dragula.provider';
-import { dragula } from './dragula.class';
+import { dragula, DragulaOptions, Drake } from './dragula.class';
 
 @Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnInit, OnChanges {
   @Input() public dragula: string;
   @Input() public dragulaModel: any;
-  @Input() public dragulaOptions: any;
+  @Input() public dragulaOptions: DragulaOptions;
   private container: any;
-  private drake: any;
+  private drake: Drake;
 
   private el: ElementRef;
   private dragulaService: DragulaService;
