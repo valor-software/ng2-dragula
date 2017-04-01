@@ -21,6 +21,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
       <repeat-example></repeat-example>
     
       <nested-repeat-example></nested-repeat-example>
+
+      <table-example></table-example>
     </div>
   `,
   encapsulation: ViewEncapsulation.None
