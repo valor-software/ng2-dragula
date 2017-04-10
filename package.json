@@ -63,7 +63,6 @@
     "@angular/platform-browser-dynamic": "2.4.3",
     "@angular/router": "3.4.3",
     "@angular/tsc-wrapped": "0.5.1",
-    "@ngtools/webpack": "1.2.3",
     "@types/jasmine": "2.5.40",
     "@types/dragula": "2.1.29",
     "@types/marked": "0.0.28",
