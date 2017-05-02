@@ -15,6 +15,8 @@ Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragul
 
 # Demo
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/valor-software/ng2-dragula.svg)](https://greenkeeper.io/)
+
 ![Demo](https://github.com/bevacqua/dragula/blob/master/resources/demo.png)
 
 Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
