@@ -10,7 +10,7 @@ export class DragulaDirective implements OnInit, OnChanges {
 
   @Output() public dragulaOnDrop: EventEmitter<any> = new EventEmitter<any>();
   @Output() public dragulaOnDrag: EventEmitter<any> = new EventEmitter<any>();
-  @Output() public dragulaOnDragend: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public dragulaOnDragEnd: EventEmitter<any> = new EventEmitter<any>();
   @Output() public dragulaOnCancel: EventEmitter<any> = new EventEmitter<any>();
   @Output() public dragulaOnRemove: EventEmitter<any> = new EventEmitter<any>();
   @Output() public dragulaOnShadow: EventEmitter<any> = new EventEmitter<any>();
@@ -57,7 +57,7 @@ export class DragulaDirective implements OnInit, OnChanges {
         this.dragulaOnDrag.emit(args);
       });
       this.drake.on('dragend', (...args: any[]): void => {
-        this.dragulaOnDragend.emit(args);
+        this.dragulaOnDragEnd.emit(args);
       });
       this.drake.on('cancel', (...args: any[]): void => {
         this.dragulaOnCancel.emit(args);
