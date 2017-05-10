@@ -1,6 +1,16 @@
 import { dragula } from './dragula.class';
 import { Injectable, EventEmitter } from '@angular/core';
 
+export interface DropModelEvent {
+  bagName: string;
+  dropEl: Element,
+  targetEl: Element;
+  sourceEl: Element;
+  dropData: any;
+  targetModel: any;
+  sourceModel: any;
+}
+
 @Injectable()
 export class DragulaService {
   public cancel: EventEmitter<any> = new EventEmitter();
@@ -12,7 +22,7 @@ export class DragulaService {
   public over: EventEmitter<any> = new EventEmitter();
   public remove: EventEmitter<any> = new EventEmitter();
   public shadow: EventEmitter<any> = new EventEmitter();
-  public dropModel: EventEmitter<any> = new EventEmitter();
+  public dropModel = new EventEmitter<DropModelEvent>();
   public removeModel: EventEmitter<any> = new EventEmitter();
   private events: string[] = [
     'cancel', 'cloned', 'drag', 'dragend', 'drop', 'out', 'over',
@@ -81,14 +91,16 @@ export class DragulaService {
       }
       dropIndex = this.domIndexOf(dropElm, target);
       sourceModel = drake.models[drake.containers.indexOf(source)];
+      let targetModel;
+      let notCopy = dragElm === dropElm;
+      let dropElmModel = notCopy ? sourceModel[dragIndex] : JSON.parse(JSON.stringify(sourceModel[dragIndex]));
       // console.log('DROP');
       // console.log(sourceModel);
       if (target === source) {
         sourceModel.splice(dropIndex, 0, sourceModel.splice(dragIndex, 1)[0]);
+        targetModel = sourceModel;
       } else {
-        let notCopy = dragElm === dropElm;
-        let targetModel = drake.models[drake.containers.indexOf(target)];
-        let dropElmModel = notCopy ? sourceModel[dragIndex] : JSON.parse(JSON.stringify(sourceModel[dragIndex]));
+        targetModel = drake.models[drake.containers.indexOf(target)];
 
         if (notCopy) {
           sourceModel.splice(dragIndex, 1);
@@ -96,7 +108,15 @@ export class DragulaService {
         targetModel.splice(dropIndex, 0, dropElmModel);
         target.removeChild(dropElm); // element must be removed for ngFor to apply correctly
       }
-      this.dropModel.emit([name, dropElm, target, source]);
+      this.dropModel.emit({
+        bagName: name,
+        dropEl: dropElm,
+        targetEl: target,
+        sourceEl: source,
+        dropData: dropElmModel,
+        targetModel: targetModel,
+        sourceModel: sourceModel
+      });
     });
   }
 
