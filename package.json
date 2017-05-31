@@ -108,7 +108,7 @@
     "pre-commit": "1.2.2",
     "protractor": "5.0.0",
     "reflect-metadata": "0.1.9",
-    "require-dir": "0.3.1",
+    "require-dir": "0.3.2",
     "rxjs": "5.0.3",
     "systemjs-builder": "0.15.34",
     "ts-helpers": "^1.1.1",
