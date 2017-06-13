@@ -30,6 +30,7 @@ export class DragulaDirective implements OnInit, OnChanges {
         }
       }
     };
+    this.dragulaOptions.mirrorContainer = this.el.nativeElement;
     if (bag) {
       this.drake = bag.drake;
       checkModel();
