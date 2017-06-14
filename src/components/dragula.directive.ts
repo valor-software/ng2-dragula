@@ -6,7 +6,7 @@ import { dragula } from './dragula.class';
 export class DragulaDirective implements OnInit, OnChanges {
   @Input() public dragula: string;
   @Input() public dragulaModel: any;
-  @Input() public dragulaOptions: any;
+  @Input() public dragulaOptions: any = {};
   private container: any;
   private drake: any;
 
