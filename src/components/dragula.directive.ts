@@ -7,6 +7,7 @@ export class DragulaDirective implements OnInit, OnChanges {
   @Input() public dragula: string;
   @Input() public dragulaModel: any;
   @Input() public dragulaOptions: any = {};
+  @Input() public dragulaLocalMirror: boolean = false;
   private container: any;
   private drake: any;
 
@@ -30,12 +31,14 @@ export class DragulaDirective implements OnInit, OnChanges {
         }
       }
     };
-    this.dragulaOptions.mirrorContainer = this.el.nativeElement;
     if (bag) {
       this.drake = bag.drake;
       checkModel();
       this.drake.containers.push(this.container);
     } else {
+      if (this.dragulaLocalMirror) {
+        this.dragulaOptions.mirrorContainer = this.el.nativeElement;
+      }
       this.drake = dragula([this.container], Object.assign({}, this.dragulaOptions));
       checkModel();
       this.dragulaService.add(this.dragula, this.drake);
