@@ -19,7 +19,7 @@ export class DragulaDirective implements OnInit, OnChanges {
     this.container = el.nativeElement;
   }
 
-  @Input('dragulaLocalMirror') set in(val: any) {
+  @Input() set dragulaLocalMirror(val: any) {
     this.isLocalMirror = val !== 'false';
   }
 
