@@ -1,3 +1,10 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/valor-software/ng2-dragula/compare/v1.3.1...v1.4.0) (2017-08-12)
+
+### Features
+`dragModel` event emits a tuple instead of an array for better type inference, and adds 3 items to the standard Dragula event array: the dropped element's model, the model's source array, and the drop target array.
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/valor-software/ng2-dragula/compare/v1.3.0...v1.3.1) (2017-04-10)
 

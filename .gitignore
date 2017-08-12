@@ -17,3 +17,5 @@ npm-debug.log
 
 # AoT generated files
 factories
+
+.DS_Store
