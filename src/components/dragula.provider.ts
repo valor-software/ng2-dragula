@@ -76,6 +76,8 @@ export class DragulaService {
       dragIndex = this.domIndexOf(el, source);
     });
     drake.on('drop', (dropElm: any, target: any, source: any) => {
+      if(drake.isCancel)
+        return;
       if (!drake.models || !target) {
         return;
       }
