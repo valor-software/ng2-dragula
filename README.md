@@ -1,4 +1,4 @@
-![Logo](https://github.com/bevacqua/dragula/blob/master/resources/logo.png)
+![Logo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/logo.png)
 
 > Drag and drop so simple it hurts
 
@@ -15,7 +15,7 @@ Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragul
 
 # Demo
 
-![Demo](https://github.com/bevacqua/dragula/blob/master/resources/demo.png)
+![Demo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/demo.png)
 
 Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
