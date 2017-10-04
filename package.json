@@ -45,7 +45,7 @@
     "version": "npm run flow.changelog && git add -A"
   },
   "dependencies": {
-    "dragula": "^3.7.2"
+    "dragula": "git+https://github.com/spartez/dragula.git#mixed-direction"
   },
   "peerDependencies": {
     "@angular/core": "^2.3.1 || >=4.0.0",
@@ -94,8 +94,8 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
-    "karma-jasmine-html-reporter" : "^0.2.2",
-    "karma-coverage-istanbul-reporter" : "^0.2.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-sauce-launcher": "1.1.0",
     "lite-server": "2.2.2",
     "lodash": "4.17.4",
