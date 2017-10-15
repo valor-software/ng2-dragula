@@ -110,7 +110,7 @@ The standard `drop` event is fired before the model is synced. For that purpose 
 If you need to configure the `drake` _(there's only one `drake` per `bag`)_, you can use the `DragulaService`.
 
 ```js
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 
 class ConfigExample {
   constructor(private dragulaService: DragulaService) {
