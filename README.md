@@ -216,6 +216,42 @@ Returns the `bag` for a `drake` instance. Contains the following properties.
 
 Destroys a `drake` instance named `name`.
 
+**PLEASE TAKE NOTE**
+
+Destroying the drake instance (ie. your bag) does not unsubscribe from the dragularService. To correctly unsubscribe you need to explicilty unsubscribe from the service in the ngOnDestroy method of the component. The easiest way to do that is to use a destroy$ Subject, but note that this is NOT good RxJS practice (see below):
+
+```
+private destroy$ = new Subject();
+
+constructor (private _dragulaService: DragulaService) {
+  this._dragulaService.dropModel.asObservable()
+    .takeUntil(this.destroy$).subscribe((result) => { ... }
+}
+
+ngOnDestroy() {
+  this.destroy$.next();
+}
+```
+
+The recommended way is not to subscribe directly to the dragulaService, but instead in the ngOnInit of your component setup a dragging$ Subject which is a propery on your component:
+
+```
+import 'rxjs/add/operator/mapTo';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/startWith';
+import { Observable } from "rxjs/Observable";
+
+// ...
+
+ngOninit() {
+  const started = this.ds.drag.asObservable().mapTo(true);
+  const ended = this.ds.dragend.asObservable().mapTo(false);
+  this.dragging$ = started.merge(ended).startWith(false);
+}
+```
+
+This way you don't create any subscriptions that hang around and thus you don't need to destroy them. Ref [here](https://github.com/valor-software/ng2-dragula/issues/713#issuecomment-302937608).
+
 ## Contribution
 
 Please read central `ng2` modules [readme](https://github.com/valor-software/ng2-plans) for details, plans and approach and welcome :)
