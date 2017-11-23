@@ -1,0 +1,57 @@
+<div class='parent'>
+    <label for='hy'>Copying stuff is common too, if source object has a clone method, then let's call it.</label>
+    <div class='wrapper'>
+        <div class='container' [dragula]='"clone-bag"' [dragulaModel]="source">
+            <div *ngFor='let property of source' [innerHtml]='property.name+":"+property.value'></div>
+        </div>
+        <div class='container' [dragula]='"clone-bag"' [dragulaModel]="target">
+            <div *ngFor='let property of target' [innerHtml]='property.name+":"+property.value'></div>
+        </div>
+    </div>
+    <div class='wrapper'>
+        <div class='container'>
+            <pre>{{source | json}}</pre>
+        </div>
+        <div class='container'>
+            <pre>{{target | json}}</pre>
+        </div>
+    </div>
+    <pre>
+      <code>
+&lt;div class='wrapper'&gt;
+  &lt;div class='container' [dragula]='&quot;clone-bag&quot;' [dragulaModel]='source'&gt;
+    &lt;div *ngFor='let property of source' [innerHtml]='property.name+":"+property.value'&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class='container' [dragula]='&quot;clone-bag&quot;' [dragulaModel]='target'&gt;
+    &lt;div *ngFor='let property of target' [innerHtml]='property.name+":"+property.value'&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+export class Property &#123;
+  constructor(public name: string, public value: string)&#123;}
+  clone(): Property&#123;
+    return new Property(this.name + &quot;-copy&quot;, this.value);
+  }
+  toString(): string&#123;
+    return this.name + ": " + this.value;
+  }
+}
+
+@Component(&#123;
+  selector: &apos;clone-example&apos;,
+  templateUrl: &apos;./templates/clone-example.html&apos;
+})
+export class CloneExampleComponent &#123;
+  public source:Array&lt;Property&gt; = new Array(new Property(&quot;a&quot;, &quot;value A&quot;), new Property(&quot;b&quot;, &quot;value B&quot;));
+  public target:Array&lt;Property&gt; = new Array();
+
+  public constructor(private dragulaService:DragulaService) &#123;
+    dragulaService.setOptions(&apos;clone-bag&apos;, &#123;
+      copy: true
+    });
+  }
+}
+      </code>
+    </pre>
+</div>

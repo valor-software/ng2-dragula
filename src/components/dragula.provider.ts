@@ -88,7 +88,7 @@ export class DragulaService {
       } else {
         let notCopy = dragElm === dropElm;
         let targetModel = drake.models[drake.containers.indexOf(target)];
-        let dropElmModel = notCopy ? sourceModel[dragIndex] : JSON.parse(JSON.stringify(sourceModel[dragIndex]));
+        let dropElmModel = notCopy ? sourceModel[dragIndex] : this.copyModel(sourceModel[dragIndex]);
 
         if (notCopy) {
           sourceModel.splice(dragIndex, 1);
@@ -98,6 +98,14 @@ export class DragulaService {
       }
       this.dropModel.emit([name, dropElm, target, source]);
     });
+  }
+
+  private copyModel(obj: any): any {
+    if('clone' in obj && typeof obj.clone === 'function') {
+      return obj.clone();
+    } else {
+      return JSON.parse(JSON.stringify(obj));
+    }
   }
 
   private setupEvents(bag: any): void {
