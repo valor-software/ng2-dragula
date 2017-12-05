@@ -15,7 +15,7 @@ import { DemoComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    DragulaModule,
+    DragulaModule.forRoot(),
     CommonModule
   ],
   providers: [],
