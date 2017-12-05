@@ -14,7 +14,7 @@ describe('Component: ng2-dragula', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestNGDragulaComponent],
-      imports: [DragulaModule]
+      imports: [DragulaModule.forRoot()]
     });
     TestBed.overrideComponent(TestNGDragulaComponent, {set: {template: html}});
     fixture = TestBed.createComponent(TestNGDragulaComponent);
