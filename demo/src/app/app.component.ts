@@ -19,6 +19,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
       <wow-example></wow-example>
     
       <repeat-example></repeat-example>
+      
+      <filter-example></filter-example>
     
       <nested-repeat-example></nested-repeat-example>
     </div>

@@ -5,10 +5,12 @@ import { CommonModule } from '@angular/common';
 import { DragulaModule } from 'ng2-dragula';
 
 import { EXAMPLES } from './examples';
+import { CallbackparamsPipe } from './callback.pipe';
 import { DemoComponent } from './app.component';
 
 @NgModule({
   declarations: [
+    CallbackparamsPipe,
     DemoComponent,
     ...EXAMPLES
   ],
