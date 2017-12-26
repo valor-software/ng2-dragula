@@ -25,7 +25,7 @@ class MuchExample &#123;
   constructor(private dragulaService: DragulaService) &#123;
     dragulaService.setOptions('sixth-bag', &#123;
       moves: function (el, container, handle) &#123;
-        return handle.className === 'handle';
+        return typeof handle.className === 'string' && handle.className.split(' ').indexOf('handle') >= 0;
       }
     });
   }
