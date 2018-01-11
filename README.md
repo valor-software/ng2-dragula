@@ -1,4 +1,4 @@
-![Logo](https://github.com/bevacqua/dragula/blob/master/resources/logo.png)
+![Logo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/logo.png)
 
 > Drag and drop so simple it hurts
 
@@ -15,7 +15,7 @@ Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragul
 
 # Demo
 
-![Demo](https://github.com/bevacqua/dragula/blob/master/resources/demo.png)
+![Demo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/demo.png)
 
 Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
@@ -29,7 +29,7 @@ Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 You can get it on npm.
 
 ```shell
-npm install ng2-dragula dragula --save
+npm install ng2-dragula --save
 ```
 
 # Setup
@@ -110,7 +110,7 @@ The standard `drop` event is fired before the model is synced. For that purpose 
 If you need to configure the `drake` _(there's only one `drake` per `bag`)_, you can use the `DragulaService`.
 
 ```js
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 
 class ConfigExample {
   constructor(private dragulaService: DragulaService) {

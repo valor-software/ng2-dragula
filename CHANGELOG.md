@@ -1,3 +1,18 @@
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/valor-software/ng2-dragula/compare/v1.3.0...v1.3.1) (2017-04-10)
+
+
+### Bug Fixes
+
+* **dragule:** use named exports ([#574](https://github.com/valor-software/ng2-dragula/issues/574)) ([828a434](https://github.com/valor-software/ng2-dragula/commit/828a434)), closes [#530](https://github.com/valor-software/ng2-dragula/issues/530)
+
+
+### Features
+
+* **package:** relaxed peer dependencies to allow ng v4 ([94f5e2b](https://github.com/valor-software/ng2-dragula/commit/94f5e2b))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/valor-software/ng2-dragula/compare/v1.2.2...v1.3.0) (2017-01-17)
 

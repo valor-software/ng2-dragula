@@ -1,7 +1,7 @@
 {
   "project": {
-    "version": "1.0.0-beta.22-1",
-    "name": "ng2-bootstrap"
+    "version": "1.0.0",
+    "name": "ngx-dragula"
   },
   "apps": [
     {
@@ -20,8 +20,8 @@
       "styles": [
       ],
       "scripts": [],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
