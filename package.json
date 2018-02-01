@@ -25,6 +25,11 @@
     "url": "https://github.com/valor-software/ng2-dragula/issues"
   },
   "homepage": "https://github.com/valor-software/ng2-dragula#readme",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "public_api.ts"
+    }
+  },
   "scripts": {
     "lite-server": "lite-server -c demo/bs-config.json",
     "demo.serve": "run-s build link demo.build lite-server",
@@ -42,7 +47,9 @@
     "pretest": "run-s lint build link",
     "test": "ng test -sr",
     "test-coverage": "ng test -sr -cc",
-    "version": "npm run flow.changelog && git add -A"
+    "version": "npm run flow.changelog && git add -A",
+    "build:v5": "ng-packagr",
+    "publish:v5": "npm publish dist"
   },
   "dependencies": {
     "dragula": "^3.7.2"
@@ -94,8 +101,8 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
-    "karma-jasmine-html-reporter" : "^0.2.2",
-    "karma-coverage-istanbul-reporter" : "^0.2.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-sauce-launcher": "1.1.0",
     "lite-server": "2.2.2",
     "lodash": "4.17.4",
