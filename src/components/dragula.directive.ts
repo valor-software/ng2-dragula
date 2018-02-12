@@ -9,6 +9,7 @@ export class DragulaDirective implements OnInit, OnChanges {
   @Input() public dragulaOptions: any;
   private container: any;
   private drake: any;
+  private _dragulaModel: boolean;
 
   private el: ElementRef;
   private dragulaService: DragulaService;
@@ -22,7 +23,7 @@ export class DragulaDirective implements OnInit, OnChanges {
     // console.log(this.bag);
     let bag = this.dragulaService.find(this.dragula);
     let checkModel = () => {
-      if (this.dragulaModel) {
+      if (this._dragulaModel) {
         if (this.drake.models) {
           this.drake.models.push(this.dragulaModel);
         } else {
@@ -52,6 +53,8 @@ export class DragulaDirective implements OnInit, OnChanges {
         } else {
           this.drake.models = [changes.dragulaModel.currentValue];
         }
+      } else {
+        this._dragulaModel = true;
       }
     }
   }
