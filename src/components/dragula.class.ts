@@ -1,2 +1,10 @@
 import * as dragulaExpt from 'dragula';
-export const dragula: (containers?: any, options?: any) => any = (dragulaExpt as any).default || dragulaExpt;
+import { Drake as DrakeExpt, DragulaOptions } from 'dragula';
+
+export { DragulaOptions } from 'dragula';
+
+export interface Drake extends DrakeExpt {
+    models: any[];
+}
+
+export const dragula: (containers?: Element[]|DragulaOptions, options?: DragulaOptions) => Drake = (dragulaExpt as any).default || dragulaExpt;
