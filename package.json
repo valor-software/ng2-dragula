@@ -47,12 +47,7 @@
   "dependencies": {
     "dragula": "^3.7.2"
   },
-  "peerDependencies": {
-    "@angular/core": "^2.3.1 || >=4.0.0",
-    "@angular/common": "^2.3.1 || >=4.0.0",
-    "@angular/compiler": "^2.3.1 || >=4.0.0",
-    "@angular/forms": "^2.3.1 || >=4.0.0"
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@angular/cli": "1.0.0",
     "@angular/common": "2.4.3",
