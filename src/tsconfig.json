@@ -29,7 +29,7 @@
   ],
   "files": [
     "../scripts/typings.d.ts",
-    "./ng2-dragula.ts",
+    "./ng-dragula.ts",
     "./index.ts"
   ],
   "angularCompilerOptions": {

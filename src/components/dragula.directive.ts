@@ -1,14 +1,15 @@
 import { Directive, Input, ElementRef, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { DragulaService } from './dragula.provider';
-import { dragula } from './dragula.class';
+import { dragula, DragulaOptions, Drake } from './dragula.class';
 
 @Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnInit, OnChanges {
   @Input() public dragula: string;
   @Input() public dragulaModel: any;
-  @Input() public dragulaOptions: any;
+  @Input() public dragulaOptions: DragulaOptions = {};
   private container: any;
-  private drake: any;
+  private drake: Drake;
+  private isLocalMirror: boolean = false;
 
   private el: ElementRef;
   private dragulaService: DragulaService;
@@ -16,6 +17,10 @@ export class DragulaDirective implements OnInit, OnChanges {
     this.el = el;
     this.dragulaService = dragulaService;
     this.container = el.nativeElement;
+  }
+
+  @Input() set dragulaLocalMirror(val: any) {
+    this.isLocalMirror = val !== 'false';
   }
 
   public ngOnInit(): void {
@@ -35,6 +40,9 @@ export class DragulaDirective implements OnInit, OnChanges {
       checkModel();
       this.drake.containers.push(this.container);
     } else {
+      if (this.isLocalMirror) {
+        this.dragulaOptions.mirrorContainer = this.el.nativeElement;
+      }
       this.drake = dragula([this.container], Object.assign({}, this.dragulaOptions));
       checkModel();
       this.dragulaService.add(this.dragula, this.drake);
