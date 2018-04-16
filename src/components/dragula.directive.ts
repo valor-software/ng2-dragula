@@ -1,9 +1,9 @@
-import { Directive, Input, ElementRef, OnInit, OnChanges, SimpleChange } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, OnChanges, OnDestroy, SimpleChange } from '@angular/core';
 import { DragulaService } from './dragula.provider';
 import { dragula } from './dragula.class';
 
 @Directive({selector: '[dragula]'})
-export class DragulaDirective implements OnInit, OnChanges {
+export class DragulaDirective implements OnInit, OnChanges, OnDestroy {
   @Input() public dragula: string;
   @Input() public dragulaModel: any;
   @Input() public dragulaOptions: any;
@@ -55,4 +55,13 @@ export class DragulaDirective implements OnInit, OnChanges {
       }
     }
   }
+
+  public ngOnDestroy(): void {
+    const bag = this.dragulaService.find(this.dragula);
+    const itemToRemove = bag.drake.containers.indexOf(this.el.nativeElement);
+    if (itemToRemove !== -1) {
+      bag.drake.containers.splice(itemToRemove, 1);
+    }
+  }
+
 }
