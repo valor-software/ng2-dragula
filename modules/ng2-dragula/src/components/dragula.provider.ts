@@ -64,7 +64,7 @@ export class DragulaService {
     let dragIndex: number;
     let dropIndex: number;
     let sourceModel: any;
-    drake.on('remove', (el: any, source: any) => {
+    drake.on('remove', (el: any, parent: any, source: any) => {
       if (!drake.models) {
         return;
       }
