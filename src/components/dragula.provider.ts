@@ -1,26 +1,29 @@
-import { dragula } from './dragula.class';
 import { Injectable, EventEmitter } from '@angular/core';
+import { dragula } from './dragula.class';
 
 @Injectable()
 export class DragulaService {
-  public cancel: EventEmitter<any> = new EventEmitter();
-  public cloned: EventEmitter<any> = new EventEmitter();
-  public drag: EventEmitter<any> = new EventEmitter();
-  public dragend: EventEmitter<any> = new EventEmitter();
-  public drop: EventEmitter<any> = new EventEmitter();
-  public out: EventEmitter<any> = new EventEmitter();
-  public over: EventEmitter<any> = new EventEmitter();
-  public remove: EventEmitter<any> = new EventEmitter();
-  public shadow: EventEmitter<any> = new EventEmitter();
-  public dropModel: EventEmitter<any> = new EventEmitter();
-  public removeModel: EventEmitter<any> = new EventEmitter();
+
+  cancel = new EventEmitter<any[]>();
+  cloned = new EventEmitter<any[]>();
+  drag = new EventEmitter<any[]>();
+  dragend = new EventEmitter<any[]>();
+  drop = new EventEmitter<any[]>();
+  out = new EventEmitter<any[]>();
+  over = new EventEmitter<any[]>();
+  remove = new EventEmitter<any[]>();
+  shadow = new EventEmitter<any[]>();
+
+  dropModel = new EventEmitter<[string, Element, Element[], Element[], any, any[], any[]]>();
+  removeModel = new EventEmitter<any[]>();
+
   private events: string[] = [
     'cancel', 'cloned', 'drag', 'dragend', 'drop', 'out', 'over',
     'remove', 'shadow', 'dropModel', 'removeModel'
   ];
   private bags: any[] = [];
 
-  public add(name: string, drake: any): any {
+  add(name: string, drake: any): any {
     let bag = this.find(name);
     if (bag) {
       throw new Error('Bag named: "' + name + '" already exists.');
@@ -36,23 +39,23 @@ export class DragulaService {
     return bag;
   }
 
-  public find(name: string): any {
-    for (let bag of this.bags) {
+  find(name: string): any {
+    for (const bag of this.bags) {
       if (bag.name === name) {
         return bag;
       }
     }
   }
 
-  public destroy(name: string): void {
-    let bag = this.find(name);
-    let i = this.bags.indexOf(bag);
+  destroy(name: string): void {
+    const bag = this.find(name);
+    const i = this.bags.indexOf(bag);
     this.bags.splice(i, 1);
     bag.drake.destroy();
   }
 
-  public setOptions(name: string, options: any): void {
-    let bag = this.add(name, dragula(options));
+  setOptions(name: string, options: any): void {
+    const bag = this.add(name, dragula(options));
     this.handleModels(name, bag.drake);
   }
 
@@ -81,14 +84,16 @@ export class DragulaService {
       }
       dropIndex = this.domIndexOf(dropElm, target);
       sourceModel = drake.models[drake.containers.indexOf(source)];
+      let targetModel;
+      const notCopy = dragElm === dropElm;
+      const dropElmModel = notCopy ? sourceModel[dragIndex] : JSON.parse(JSON.stringify(sourceModel[dragIndex]));
       // console.log('DROP');
       // console.log(sourceModel);
       if (target === source) {
         sourceModel.splice(dropIndex, 0, sourceModel.splice(dragIndex, 1)[0]);
+        targetModel = sourceModel;
       } else {
-        let notCopy = dragElm === dropElm;
-        let targetModel = drake.models[drake.containers.indexOf(target)];
-        let dropElmModel = notCopy ? sourceModel[dragIndex] : JSON.parse(JSON.stringify(sourceModel[dragIndex]));
+        targetModel = drake.models[drake.containers.indexOf(target)];
 
         if (notCopy) {
           sourceModel.splice(dragIndex, 1);
@@ -96,16 +101,24 @@ export class DragulaService {
         targetModel.splice(dropIndex, 0, dropElmModel);
         target.removeChild(dropElm); // element must be removed for ngFor to apply correctly
       }
-      this.dropModel.emit([name, dropElm, target, source]);
+      this.dropModel.emit([
+        name,
+        dropElm,
+        target,
+        source,
+        dropElmModel,
+        targetModel,
+        sourceModel
+      ]);
     });
   }
 
   private setupEvents(bag: any): void {
     bag.initEvents = true;
-    let that: any = this;
-    let emitter = (type: any) => {
+    const that: any = this;
+    const emitter = (type: any) => {
       function replicate(): void {
-        let args = Array.prototype.slice.call(arguments);
+        const args = Array.prototype.slice.call(arguments);
         that[type].emit([bag.name].concat(args));
       }
 
