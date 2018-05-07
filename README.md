@@ -37,6 +37,8 @@ npm install ng2-dragula --save
 You'll need to add `DragulaModule` to your application module.
 
 ```typescript
+
+import { DragulaModule } from 'ng2-dragula';
 @NgModule({
   declarations: [
     AppComponent
