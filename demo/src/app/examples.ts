@@ -177,6 +177,28 @@ export class RepeatExampleComponent {
   }
 }
 
+export class Property {
+  constructor(public name: string, public value: string){}
+  clone(): Property{
+    return new Property(this.name + "-copy", this.value);
+  }
+}
+
+@Component({
+  selector: 'clone-example',
+  templateUrl: './templates/clone-example.html'
+})
+export class CloneExampleComponent {
+  public source:Array<Property> = new Array(new Property("a", "value A"), new Property("b", "value B"));
+  public target:Array<Property> = new Array();
+
+  public constructor(private dragulaService:DragulaService) {
+    dragulaService.setOptions('clone-bag', {
+      copy: true
+    });
+  }
+}
+
 @Component({
   selector: 'nested-repeat-example',
   templateUrl: './templates/nested-repeat-example.html'
@@ -203,5 +225,6 @@ export const EXAMPLES:any[] = [
   MuchExampleComponent,
   WowExampleComponent,
   RepeatExampleComponent,
+  CloneExampleComponent,
   NestedRepeatExampleComponent
 ];
