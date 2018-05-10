@@ -71,11 +71,13 @@ export class DragulaService {
       // console.log(sourceModel);
       this.removeModel.emit([name, el, source]);
     });
+
     drake.on('drag', (el: any, source: any) => {
       dragElm = el;
       dragIndex = this.domIndexOf(el, source);
     });
-    drake.on('drop', (dropElm: any, target: any, source: any) => {
+
+    drake.on('drop', (dropElm: any, target: any, source: any, currentSibling: any, elementBehindCursor: any) => {
       if (!drake.models || !target) {
         return;
       }
@@ -96,7 +98,8 @@ export class DragulaService {
         targetModel.splice(dropIndex, 0, dropElmModel);
         target.removeChild(dropElm); // element must be removed for ngFor to apply correctly
       }
-      this.dropModel.emit([name, dropElm, target, source]);
+
+      this.dropModel.emit([name, dropElm, target, source, currentSibling, elementBehindCursor]);
     });
   }
 
