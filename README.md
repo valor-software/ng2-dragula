@@ -188,6 +188,11 @@ export class EventExample {
 }
 ```
 
+## Special dragulaOptions for ng2-dragula
+
++ initAfterView: Allows for delayed initialization of the directive. Binds in Angulars AfterViewInit event.
++ childContainerSelector: Allows the ability to use a child element as the container for drag and drop when access to the element is not possible. Uses querySelector for finding the child element from directives container.
+
 ## Special Events for ng2-dragula
 
 | Event Name |      Listener Arguments      |  Event Description |

@@ -1,0 +1,46 @@
+<div class='parent'>
+    <label for='hy'>Move table rows when dont have access to child elements</label>
+    <div class='wrapper'>
+        <div class="conatiner">
+            <table-example-child [dragula]='"table-bag"' [dragulaOptions]="{ childContainerSelector: 'tbody', initAfterView: true }">
+            </table-example-child>
+        </div>
+    </div>
+    <pre>
+      <code>
+&lt;table-example-child [dragula]='"table-bag"' [dragulaOptions]="{{'{'}} childContainerSelector: 'tbody', initAfterView: true {{'}'}}"&gt;
+&lt;/table-example-child&gt;
+
+Component(
+  selector: 'table-example-child',
+  template: `
+        &lt;table&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;Name&lt;/th&gt;
+                        &lt;th&gt;Status&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;Tester&lt;/td&gt;
+                        &lt;td&gt;Active&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;James&lt;/td&gt;
+                        &lt;td&gt;Active&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;Alex&lt;/td&gt;
+                        &lt;td&gt;Active&lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;`
+)
+export class TableChildExampleComponent
+  public constructor() 
+
+
+      </code>
+    </pre>
+</div>

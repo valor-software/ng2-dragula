@@ -194,6 +194,53 @@ export class NestedRepeatExampleComponent {
   ];
 }
 
+@Component({
+  selector: 'table-example',
+  templateUrl: './templates/table-example.html'
+})
+export class TableExampleComponent {
+  public constructor(private dragulaService:DragulaService) {
+    dragulaService.setOptions('table-bag', {
+      revertOnSpill: true
+    });
+  }
+}
+
+@Component({
+  selector: 'table-example-child',
+  template: `
+        <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="bars"></div></td>
+                        <td>Tester</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td><div class="bars"></div></td>
+                        <td>James</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td><div class="bars"></div></td>
+                        <td>Alex</td>
+                        <td>Active</td>
+                    </tr>
+                </tbody>
+            </table>`
+})
+export class TableChildExampleComponent {
+  public constructor() {
+  }
+}
+
 export const EXAMPLES:any[] = [
   ExampleAComponent,
   ExampleBComponent,
@@ -203,5 +250,7 @@ export const EXAMPLES:any[] = [
   MuchExampleComponent,
   WowExampleComponent,
   RepeatExampleComponent,
-  NestedRepeatExampleComponent
+  NestedRepeatExampleComponent,
+  TableExampleComponent,
+  TableChildExampleComponent
 ];

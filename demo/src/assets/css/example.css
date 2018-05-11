@@ -1,181 +1,244 @@
 body {
-  background-color: #942A57;
-  margin: 0 auto;
-  max-width: 760px;
+    background-color: #942A57;
+    margin: 0 auto;
+    max-width: 760px;
 }
 
-html, body {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+html,
+body {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-*, *:before, *:after {
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
-  box-sizing: inherit;
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
 }
 
-body, input, button {
-  font-family: Georgia, Helvetica;
-  font-size: 17px;
-  color: #ecf0f1;
+body,
+input,
+button {
+    font-family: Georgia, Helvetica;
+    font-size: 17px;
+    color: #ecf0f1;
 }
 
 h1 {
-  text-align: center;
-  background-color: #AC5C7E;
-  margin-top: 20px;
-  margin-bottom: 0;
-  padding: 10px;
+    text-align: center;
+    background-color: #AC5C7E;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 10px;
 }
 
 h3 {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-bottom: 5px solid #A13462;
-  text-align: center;
-  padding: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-bottom: 5px solid #A13462;
+    text-align: center;
+    padding: 10px;
 }
 
 h3 div {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .tagline {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .promo {
-  margin-bottom: 0;
-  font-style: italic;
-  padding: 10px;
-  background-color: #ff4020;
-  border-bottom: 5px solid #c00;
+    margin-bottom: 0;
+    font-style: italic;
+    padding: 10px;
+    background-color: #ff4020;
+    border-bottom: 5px solid #c00;
 }
 
 a {
-  font-weight: bold;
+    font-weight: bold;
 }
+
 a,
 a:hover {
-  color: #ecf0f1;
+    color: #ecf0f1;
 }
 
 pre {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 }
 
 pre code {
-  color: #fff;
-  font-size: 14px;
-  line-height: 1.3;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.3;
 }
 
 label {
-  display: block;
-  margin-bottom: 15px;
+    display: block;
+    margin-bottom: 15px;
 }
 
 sub {
-  display: block;
-  margin-top: -10px;
-  margin-bottom: 15px;
-  font-size: 11px;
-  font-style: italic;
+    display: block;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    font-size: 11px;
+    font-style: italic;
 }
 
 ul {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .parent {
-  background-color: rgba(255, 255, 255, 0.2);
-  margin: 50px 0;
-  padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 50px 0;
+    padding: 20px;
 }
 
 input {
-  border: none;
-  outline: none;
-  background-color: #ecf0f1;
-  padding: 10px;
-  color: #942A57;
-  border: 0;
-  margin: 5px 0;
-  display: block;
-  width: 100%;
+    border: none;
+    outline: none;
+    background-color: #ecf0f1;
+    padding: 10px;
+    color: #942A57;
+    border: 0;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
 }
 
 button {
-  background-color: #ecf0f1;
-  color: #942A57;
-  border: 0;
-  padding: 18px 12px;
-  margin-left: 6px;
-  cursor: pointer;
-  outline: none;
+    background-color: #ecf0f1;
+    color: #942A57;
+    border: 0;
+    padding: 18px 12px;
+    margin-left: 6px;
+    cursor: pointer;
+    outline: none;
 }
 
 button:hover {
-  background-color: #e74c3c;
-  color: #ecf0f1;
+    background-color: #e74c3c;
+    color: #ecf0f1;
 }
 
 .gh-fork {
-  position: fixed;
-  top: 0;
-  right: 0;
-  border: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 0;
 }
 
+
 /* dragula-specific example page styles */
+
 .wrapper {
-  display: table;
+    display: table;
 }
+
 .container {
-  display: table-cell;
-  background-color: rgba(255, 255, 255, 0.2);
-  width: 50%;
+    display: table-cell;
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 50%;
 }
+
 .container:nth-child(odd) {
-  background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
+
+
 /*
  * note that styling gu-mirror directly is a bad practice because it's too generic.
  * you're better off giving the draggable elements a unique class and styling that directly!
  */
+
 .container div,
 .gu-mirror {
-  margin: 10px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-  transition: opacity 0.4s ease-in-out;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: opacity 0.4s ease-in-out;
 }
+
 .container div {
-  cursor: move;
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
 }
+
 .gu-mirror {
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }
+
 .container .ex-moved {
-  background-color: #e74c3c;
+    background-color: #e74c3c;
 }
+
 .container.ex-over {
-  background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
 }
+
 .handle {
-  padding: 0 5px;
-  margin-right: 5px;
-  background-color: rgba(0, 0, 0, 0.4);
-  cursor: move;
+    padding: 0 5px;
+    margin-right: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+    cursor: move;
 }
+
 nested-repeat-example .container span {
-  display: block;
-  padding: 8px;
+    display: block;
+    padding: 8px;
+}
+
+.table {
+    color: #333;
+    /* Lighten up font color */
+    font-family: Helvetica, Arial, sans-serif;
+    /* Nicer font */
+    width: 300px;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.table td,
+.table th {
+    border: 1px solid #CCC;
+    height: 30px;
+}
+
+
+/* Make cells a bit taller */
+
+.table th {
+    background: #F3F3F3;
+    /* Light grey background */
+    font-weight: bold;
+    /* Make sure they're bold */
+}
+
+.table td {
+    background: #FAFAFA;
+    /* Lighter grey background */
+    text-align: center;
+    /* Center our text */
+}
+
+.table .bars {
+    background-image: url(data:image/png;base64,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);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    width: 16px;
+    color: #000;
+    height: 16px;
+    margin: 0 auto;
+    cursor: move;
 }
