@@ -73,7 +73,7 @@ export class DragulaService {
     });
     drake.on('drag', (el: any, source: any) => {
       dragElm = el;
-      dragIndex = this.domIndexOf(el, source);
+      dragIndex = (el.getAttribute('filter-index')) ? +el.getAttribute('filter-index') : this.domIndexOf(el, source);
     });
     drake.on('drop', (dropElm: any, target: any, source: any) => {
       if (!drake.models || !target) {

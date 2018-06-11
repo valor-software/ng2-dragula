@@ -104,7 +104,8 @@ input {
   border: 0;
   margin: 5px 0;
   display: block;
-  width: 100%;
+  width: calc(100% - 1em);
+  margin: .5em;
 }
 
 button {

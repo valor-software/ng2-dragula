@@ -1,0 +1,80 @@
+<div class='parent'>
+  <label for='hy'><strong>Angular-specific filter example.</strong> Fancy some <code>ngFor</code>?</label>
+  <div class='wrapper'>
+      <div class='container'>
+        <input type='text' [(ngModel)]='searchMany' placeholder='Search many'>
+        <div class='container' [dragula]='"another-bag"' [dragulaModel]='many'>
+            <div *ngFor='let text of many | callbackparams: filterMany: searchMany' [innerHtml]='text' [attr.filter-index]='many.indexOf(text)'></div>
+        </div>
+      </div>
+      <div class='container'>
+          <input type='text' [(ngModel)]='searchMany2' placeholder='Search many2'>
+          <div class='container' [dragula]='"another-bag"' [dragulaModel]='many2'>
+              <div *ngFor='let text of many2 | callbackparams: filterMany: searchMany2' [innerHtml]='text' [attr.filter-index]='many2.indexOf(text)'></div>
+          </div>
+      </div>
+  </div>
+  <div class='wrapper'>
+      <div class='container'>
+          <pre>{{many | json}}</pre>
+      </div>
+      <div class='container'>
+          <pre>{{many2 | json}}</pre>
+      </div>
+  </div>
+  <pre>
+    <code>
+&lt;div class='wrapper'&gt;
+  &lt;div class='container'&gt;
+    &lt;input type='text' [(ngModel)]='searchMany' placeholder='Search many'&gt;
+    &lt;div class='container' [dragula]='&quot;another-bag&quot;' [dragulaModel]='many'&gt;
+      &lt;div *ngFor='let text of many | callbackparams: filterMany: searchMany'
+              [innerHtml]='text'
+              [attr.filter-index]='many.indexOf(text)'&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;div class='container'&gt;
+    &lt;input type='text' [(ngModel)]='searchMany2' placeholder='Search many2'&gt;
+    &lt;div class='container' [dragula]='&quot;another-bag&quot;' [dragulaModel]='many2'&gt;
+      &lt;div *ngFor='let text of many2 | callbackparams: filterMany: searchMany2'
+              [innerHtml]='text'
+              [attr.filter-index]='many2.indexOf(text)'&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+class RepeatExample &#123;
+public searchMany: string;
+public searchMany2: string;
+public many: Array&lt;string&gt; = ['The', 'possibilities', 'are', 'endless!', 'Try', 'filtering!'];
+public many2: Array&lt;string&gt; = ['Explore', 'them'];
+
+constructor(private dragulaService: DragulaService) &#123;
+  dragulaService.dropModel.subscribe((value) => &#123;
+    this.onDropModel(value.slice(1));
+  });
+  dragulaService.removeModel.subscribe((value) => &#123;
+    this.onRemoveModel(value.slice(1));
+  });
+}
+
+public filterMany(item: string, searchValue: string) &#123;
+  if (searchValue &amp;&amp; (searchValue.length >= 0)) &#123;
+    return (item.indexOf(searchValue) !== -1);
+  } else &#123;
+    return true;
+  }
+}
+
+private onDropModel(args) &#123;
+  let [el, target, source] = args;
+  // do something else
+}
+
+private onRemoveModel(args) &#123;
+  let [el, source] = args;
+  // do something else
+}
+}
+    </code>
+  </pre>
+</div>

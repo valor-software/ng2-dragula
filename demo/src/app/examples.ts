@@ -178,6 +178,49 @@ export class RepeatExampleComponent {
 }
 
 @Component({
+  selector: 'filter-example',
+  templateUrl: './templates/filter-example.html'
+})
+export class FilterExampleComponent {
+  public searchMany: string;
+  public searchMany2: string;
+  public many:Array<string> = ['The', 'possibilities', 'are', 'endless!', 'Try', 'filtering!'];
+  public many2:Array<string> = ['Explore', 'them'];
+
+  public constructor(private dragulaService:DragulaService) {
+    dragulaService.dropModel.subscribe((value:any) => {
+      this.onDropModel(value.slice(1));
+    });
+    dragulaService.removeModel.subscribe((value:any) => {
+      this.onRemoveModel(value.slice(1));
+    });
+  }
+
+  public filterMany(item: string, searchValue: string) {
+    if (searchValue && (searchValue.length >= 0)) {
+      return (item.indexOf(searchValue) !== -1);
+    } else {
+      return true;
+    }
+  }
+
+  private onDropModel(args:any):void {
+    let [el, target, source] = args;
+    console.log('onDropModel:');
+    console.log(el);
+    console.log(target);
+    console.log(source);
+  }
+
+  private onRemoveModel(args:any):void {
+    let [el, source] = args;
+    console.log('onRemoveModel:');
+    console.log(el);
+    console.log(source);
+  }
+}
+
+@Component({
   selector: 'nested-repeat-example',
   templateUrl: './templates/nested-repeat-example.html'
 })
@@ -203,5 +246,6 @@ export const EXAMPLES:any[] = [
   MuchExampleComponent,
   WowExampleComponent,
   RepeatExampleComponent,
+  FilterExampleComponent,
   NestedRepeatExampleComponent
 ];
