@@ -6,30 +6,26 @@ const customLaunchers = require('./scripts/sauce-browsers').customLaunchers;
 module.exports = function (config) {
   const configuration = {
     basePath: '',
-    frameworks: ['jasmine', '@angular/cli'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
+      require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
-      require('karma-chrome-launcher'),
-      require('@angular/cli/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
-    },
-    files: [
-      { pattern: './scripts/test.ts', watched: false }
-    ],
-    preprocessors: {
-      './scripts/test.ts': ['@angular/cli']
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      captureConsole: true
     },
     coverageIstanbulReporter: {
-      reports: ['html', 'lcovonly'],
+      dir: require('path').join(__dirname, 'coverage'),
+      reports: [ 'html', 'lcovonly' ],
       fixWebpackSourcePaths: true
     },
-    angularCli: {
-      environment: 'dev'
-    },
+    // angularCli: {
+    //   environment: 'dev'
+    // },
     reporters: config.angularCli && config.angularCli.codeCoverage
           ? ['progress', 'coverage-istanbul']
           : ['progress', 'kjhtml'],
@@ -37,23 +33,24 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
     singleRun: false,
+    browsers: ['Chrome'],
     customLaunchers: {
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
+      CustomChromeHeadless: {
+        base: 'ChromeHeadless',
+        flags: ['--disable-translate', '--disable-extensions',
+                '--no-first-run', '--disable-background-networking',
+                '--remote-debugging-port=9223']
       }
     },
     mime: { 'text/x-typescript': ['ts', 'tsx'] },
-    client: { captureConsole: true }
   };
 
   if (process.env.TRAVIS) {
-    configuration.browsers = ['Chrome_travis_ci'];
+    configuration.browsers = ['CustomChromeHeadless'];
   }
 
-  if (process.env.SAUCE) {
+  if (process.env.SAUCE && false) {
     if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
       console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');
       process.exit(1);

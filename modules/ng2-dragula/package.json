@@ -1,0 +1,94 @@
+{
+  "name": "ng2-dragula",
+  "private": false,
+  "version": "1.5.0",
+  "description": "Simple drag and drop with dragula",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valor-software/ng2-dragula.git"
+  },
+  "keywords": [
+    "angular",
+    "dragula",
+    "ng-dragula",
+    "angular2",
+    "ng2",
+    "angular2-dragula",
+    "ng2-dragula",
+    "ngx-dragula"
+  ],
+  "author": "NathanWalker <NathanWalker>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valor-software/ng2-dragula/issues"
+  },
+  "homepage": "https://github.com/valor-software/ng2-dragula#readme",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "ng-packagr",
+    "lib.build": "yarn clean && yarn build",
+    "lint": "tslint --config tslint.json src/**/*.ts",
+    "docs": "compodoc -p tsconfig.json -c compodoc.json src",
+    "test": "ng test",
+    "test-coverage": "yarn test --code-coverage",
+    "prepare": "yarn clean && yarn build",
+    "watch": "chokidar 'src/**/*.ts' 'src/**/*.html' 'src/**/*.scss' -c 'yarn build'"
+  },
+  "dependencies": {
+    "dragula": "^3.7.2"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=5.0.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.6.8",
+    "@angular/cli": "6.0.8",
+    "@angular/compiler": "^6.0.4",
+    "@angular/compiler-cli": "^6.0.4",
+    "@angular/core": "^6.0.4",
+    "@angular/language-service": "^6.0.4",
+    "@compodoc/compodoc": "^1.1.3",
+    "@types/dragula": "2.1.29",
+    "@types/jasmine": "~2.8.6",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~10.5.0",
+    "codecov": "^3.0.4",
+    "codelyzer": "~4.4.2",
+    "conventional-changelog-cli": "1.2.0",
+    "conventional-github-releaser": "1.1.3",
+    "jasmine": "^3.1.0",
+    "jasmine-core": "~3.1.0",
+    "jasmine-data-provider": "2.2.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~2.0.4",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.0",
+    "karma-jasmine": "~1.1.1",
+    "karma-jasmine-html-reporter": "^1.2.0",
+    "karma-sauce-launcher": "1.1.0",
+    "ng-packagr": "^3.0.1",
+    "rimraf": "*",
+    "rxjs": "^6.2.0",
+    "testdouble": "^3.8.1",
+    "testdouble-jasmine": "^0.2.1",
+    "tsickle": "^0.30.0",
+    "tslib": "^1.9.0",
+    "tslint": "~5.10.0",
+    "typescript": "~2.7.2",
+    "zone.js": "^0.8.26"
+  },
+  "main": "./dist/bundles/ng2-dragula.umd.js",
+  "module": "./dist/fesm5/ng2-dragula.js",
+  "es2015": "./dist/fesm2015/ng2-dragula.js",
+  "esm5": "./dist/esm5/ng2-dragula.js",
+  "esm2015": "./dist/esm2015/ng2-dragula.js",
+  "fesm5": "./dist/fesm5/ng2-dragula.js",
+  "fesm2015": "./dist/fesm2015/ng2-dragula.js",
+  "typings": "./dist/ng2-dragula.d.ts",
+  "metadata": "./dist/ng2-dragula.metadata.json",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}

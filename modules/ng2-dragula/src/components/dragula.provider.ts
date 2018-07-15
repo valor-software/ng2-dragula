@@ -1,5 +1,7 @@
 import { dragula } from './dragula.class';
 import { Injectable, EventEmitter } from '@angular/core';
+import { DrakeWithModels } from '../DrakeWithModels';
+import { Bag } from '../Bag';
 
 @Injectable()
 export class DragulaService {
@@ -18,9 +20,9 @@ export class DragulaService {
     'cancel', 'cloned', 'drag', 'dragend', 'drop', 'out', 'over',
     'remove', 'shadow', 'dropModel', 'removeModel'
   ];
-  private bags: any[] = [];
+  private bags: Bag[] = [];
 
-  public add(name: string, drake: any): any {
+  public add(name: string, drake: Partial<DrakeWithModels>): any {
     let bag = this.find(name);
     if (bag) {
       throw new Error('Bag named: "' + name + '" already exists.');

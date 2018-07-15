@@ -1,0 +1,9 @@
+{
+  "whitelistedNonPeerDependencies": [
+    "dragula"
+  ],
+  "deleteDestPath": false,
+  "lib": {
+    "name": "ng2Dragula"
+  }
+}

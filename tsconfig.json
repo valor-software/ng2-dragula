@@ -6,23 +6,22 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "noEmitHelpers": true,
     "noImplicitAny": true,
     "declaration": false,
     "skipLibCheck": true,
     "stripInternal": true,
-    "lib": ["dom", "es6"],
+    "lib": ["dom", "es2015"],
     "types": [
       "dragula",
       "jasmine",
       "webpack"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
     ]
   },
   "exclude": [
-    "node_modules", "bundles", "dist"
-  ],
-  "files": [
-    "./demo/src/custom-typings.d.ts", "./src/ng2-dragula.ts"
+    "node_modules", "dist"
   ],
   "atom": { "rewriteTsconfig": false }
 }

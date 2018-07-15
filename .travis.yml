@@ -1,31 +1,44 @@
+# https://developers.google.com/web/updates/2017/06/headless-karma-mocha-chai
+dist: trusty
+sudo: required
+addons:
+  chrome: stable
 language: node_js
 node_js:
-  - "6"
+  - "9"
+cache: yarn
 
-env:
-  global:
-    - SAUCE_USERNAME=valorkin
-    - SAUCE_ACCESS_KEY=aeaf806e-ad5c-484b-a8fe-4b4b9f54e99a
-
-before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+# env:
+#   global:
+#     - SAUCE_USERNAME=valorkin
+#     - SAUCE_ACCESS_KEY=aeaf806e-ad5c-484b-a8fe-4b4b9f54e99a
 
 script:
-  - npm run pretest
-  - npm run test-coverage
+  - yarn
+  - yarn lerna run clean
+  - yarn lerna bootstrap
+  - (cd modules/ng2-dragula && yarn test-coverage)
+  - (cd modules/ng2-dragula && yarn build)
+  - (cd modules/demo && yarn build --prod)
 
 after_success:
-  - ./node_modules/.bin/codecov
+  - cd modules/ng2-dragula && yarn codecov
 
-addons:
+# deploy:
+#   provider:     pages
+#   skip_cleanup: true
+#   local_dir:    modules/demo/dist
+#   github_token: $GH_TOKEN # Set in travis-ci.org dashboard
+#   on:
+#     branch: master
+
+# addons:
   # sauce labs tunel connector (read more https://docs.travis-ci.com/user/sauce-connect/ )
-  sauce_connect: true
-  firefox: "latest"
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    # required by node-gyp to build some packages
-    packages:
-    - g++-4.8
+  # sauce_connect: true
+  # firefox: "latest"
+  # apt:
+  #   sources:
+  #   - ubuntu-toolchain-r-test
+  #   # required by node-gyp to build some packages
+  #   packages:
+  #   - g++-4.8

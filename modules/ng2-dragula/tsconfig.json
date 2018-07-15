@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "types": [ "jasmine", "webpack", "dragula" ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "scripts",
+    "src/spec",
+    "src/test.ts",
+    "**/*.spec.ts"
+  ],
+  "files": [
+    "./src/public_api.ts",
+    "./src/index.ts"
+  ]
+}

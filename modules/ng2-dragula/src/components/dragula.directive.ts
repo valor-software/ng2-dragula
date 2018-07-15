@@ -1,14 +1,15 @@
 import { Directive, Input, ElementRef, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { DragulaService } from './dragula.provider';
 import { dragula } from './dragula.class';
+import { DrakeWithModels } from '../DrakeWithModels';
 
 @Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnInit, OnChanges {
   @Input() public dragula: string;
-  @Input() public dragulaModel: any;
+  @Input() public dragulaModel: any[];
   @Input() public dragulaOptions: any = {};
   private container: any;
-  private drake: any;
+  private drake: DrakeWithModels;
   private isLocalMirror: boolean = false;
 
   private el: ElementRef;
