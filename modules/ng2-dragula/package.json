@@ -30,7 +30,7 @@
     "lint": "tslint --config tslint.json src/**/*.ts",
     "docs": "compodoc -p tsconfig.json -c compodoc.json src",
     "test": "ng test",
-    "test-coverage": "yarn test --code-coverage",
+    "test-coverage": "yarn test --code-coverage --watch=false",
     "prepare": "yarn clean && yarn build",
     "watch": "chokidar 'src/**/*.ts' 'src/**/*.html' 'src/**/*.scss' -c 'yarn build'"
   },
