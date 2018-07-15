@@ -19,7 +19,7 @@ script:
   - yarn lerna bootstrap
   - (cd modules/ng2-dragula && yarn test-coverage)
   - (cd modules/ng2-dragula && yarn build)
-  - (cd modules/demo && yarn build --prod)
+  - (cd modules/demo && yarn build --prod --progress=false)
 
 after_success:
   - cd modules/ng2-dragula && yarn codecov
