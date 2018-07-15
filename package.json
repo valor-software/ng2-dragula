@@ -24,7 +24,6 @@
     "markdown-loader": "github:valorkin/markdown-loader",
     "marked": "0.3.6",
     "npm-run-all": "4.0.0",
-    "pre-commit": "1.2.2",
     "require-dir": "0.3.1",
     "webdriver-manager": "11.1.1"
   },
