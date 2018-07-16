@@ -4,16 +4,24 @@ import { } from 'jasmine';
 import * as td from 'testdouble'
 import * as tdJasmine from 'testdouble-jasmine';
 const tdMatchers = tdJasmine.get(td);
-import { Component } from '@angular/core';
-import { TestBed, inject, async } from '@angular/core/testing';
+import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
 import { DragulaDirective, DragulaService } from '..';
 import { DrakeWithModels } from '../DrakeWithModels';
+import { Bag } from '../Bag';
+import { Component, ElementRef } from "@angular/core";
+import { TestHostComponent } from './test-host.component';
 
 const BAG_NAME = "BAG_NAME";
+
+type SimpleDrake = Partial<DrakeWithModels>;
 
 describe('In the ng2-dragula app', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [
+        DragulaDirective,
+        TestHostComponent
+      ],
       providers: [
         DragulaService
       ]
@@ -21,34 +29,66 @@ describe('In the ng2-dragula app', () => {
       .compileComponents();
   }));
 
-  describe('Directive: DragulaDirective', () => {
-    let dragulaDir: DragulaDirective;
+  describe('DragulaDirective', () => {
+    let fixture: ComponentFixture<TestHostComponent>;
+    let component: TestHostComponent;
     let dragServ: DragulaService;
     let nativeElement: HTMLDivElement = document.createElement('div');
 
+    const mockMultipleDrakes = (...pairs: [Partial<DrakeWithModels>, string][]) => {
+      const find = td.function();
+      pairs.forEach(([drake, name]) => {
+        let bag: Bag = { name, drake: drake as any as DrakeWithModels };
+        td.when(find(name)).thenReturn(bag);
+      });
+      td.replace(dragServ, 'find', find);
+      return find;
+    };
+    const mockDrake = (drake: Partial<DrakeWithModels>, name = BAG_NAME) => {
+      return mockMultipleDrakes([drake, name]);
+    };
+
+    const simpleDrake = (containers: Element[] = [], models: any[][] = []) => {
+      return { containers, models } as SimpleDrake;
+    }
+
+    const expectFindsInSequence = (find: any, seq: any[]) => {
+      let captor = td.matchers.captor();
+      td.verify(find(captor.capture()));
+      let i = 0;
+      expect(captor.values.length).toBe(seq.length);
+      seq.forEach(val => expect(captor.values[i++]).toBe(val));
+    }
+
     beforeEach(inject([DragulaService], (dragService: DragulaService) => {
+      fixture = TestBed.createComponent(TestHostComponent);
+      component = fixture.componentInstance;
+      component.bagName = BAG_NAME;
+
       let elRef = {
         nativeElement: nativeElement
       };
-
       dragServ = dragService;
       elRef.nativeElement.innerHTML = '<div>item 1</div><div>item 2</div>';
-
-      dragulaDir = new DragulaDirective(elRef, dragServ);
-      dragulaDir.dragula = BAG_NAME;
-
       jasmine.addMatchers(tdMatchers);
     }));
 
     afterEach(() => {
+      fixture.destroy();
       td.reset();
-    })
+      if (dragServ.find(BAG_NAME)) {
+        dragServ.destroy(BAG_NAME);
+      }
+    });
 
     // ngOnInit AND checkModel
     // checkModel: no dragulaModel
-    it('should initialize with new drake', () => {
+    it('should initialize with new drake and call DragulaService.add', () => {
       td.replace(dragServ, 'add');
-      dragulaDir.ngOnInit();
+
+      component.bagName = BAG_NAME;
+      component.model = [];
+      fixture.detectChanges();
 
       expect().toVerify(dragServ.add(BAG_NAME, td.matchers.isA(Object)));
     });
@@ -56,104 +96,186 @@ describe('In the ng2-dragula app', () => {
     // ngOnInit AND checkModel
     // checkModel: dragulaModel, drake, add new drake.models
     it('should initialize with new drake, with local mirror container', () => {
-      dragulaDir.dragulaLocalMirror = true;
-      dragulaDir.dragulaModel = [ { someVar: 'text' } ]
-      dragulaDir.ngOnInit();
+      component.bagName = BAG_NAME;
+      component.model = [];
+      component.localMirror = true;
+      fixture.detectChanges();
 
-      expect(dragulaDir.dragulaOptions.mirrorContainer).toEqual(nativeElement);
+      let directive = component.directive;
+      expect(directive.dragulaLocalMirror).toBe(true);
+
+      expect(directive.dragulaOptions.mirrorContainer).toEqual(component.host.nativeElement);
     });
 
     // ngOnInit
     // checkModel: dragulaModel, drake, push to drake.models
     it('should initialize and add to existing drake', () => {
-      let bagObj = {
-        drake: {
-          containers: [document.createElement('div')],
-          models: [{}]
-        }
-      };
+      let theirs = [ { someVar: 'theirs' } ];
+      let mine = [ { someVar: 'mine' } ];
+      let drake = simpleDrake([document.createElement('div')], [ theirs ]);
+      mockDrake(drake);
 
-      dragulaDir.dragulaModel = [ { someVar: 'text' } ]
-      const find = td.function();
-      td.when(find(BAG_NAME)).thenReturn(bagObj);
-      td.replace(dragServ, 'find', find);
+      component.model = mine;
+      fixture.detectChanges();
 
-      dragulaDir.ngOnInit();
-
-      expect(bagObj.drake.containers.length).toBe(2);
-      expect(bagObj.drake.models.length).toBe(2);
+      expect(drake.containers.length).toBe(2);
+      expect(drake.models.length).toBe(2);
     });
 
     // ngOnChanges
-    it('should do nothing for no model changes', () => {
-      dragulaDir.ngOnChanges({});
-      // TODO: actually test this
-    });
-
-    // ngOnChanges
-    it('should do nothing for if there is no drake', () => {
-      let changes = {
-        dragulaModel: {
-          isFirstChange: () => false,
-          firstChange: false,
-          previousValue: "something",
-          currentValue: "something new"
-        }
-      };
-      dragulaDir.ngOnChanges(changes);
-      // TODO: actually test this
-    });
+    // there is no way to mock direct array mutation of a drake's models
+    // it('should do nothing for no model changes', () => {
+    // });
 
     // ngOnChanges
     it('should update the model value on existing drake.models', () => {
-      let bagObj = {
-          drake: {
-            containers: [document.createElement('div')],
-            models: ["something"]
-          }
-        },
-        changes = {
-          dragulaModel: {
-            isFirstChange: () => false,
-            firstChange: false,
-            previousValue: "something",
-            currentValue: "something new"
-          }
-        };
+      let myModel = [ 'something' ];
+      let newModel = [ 'something new' ];
+      let drake = simpleDrake([document.createElement('div')], [myModel]);
+      mockDrake(drake);
 
-      const find = td.function();
-      td.when(find(BAG_NAME)).thenReturn(bagObj);
-      td.replace(dragServ, 'find', find);
-      // create an existing drake with models
-      dragulaDir.ngOnInit();
-      dragulaDir.ngOnChanges(changes);
+      component.model = myModel;
+      fixture.detectChanges();
+      component.model = newModel;
+      fixture.detectChanges();
 
-      expect(bagObj.drake.models[0]).toEqual("something new");
+      expect(drake.models[0]).toEqual(newModel);
     });
 
     // ngOnChanges
     it('should update the model value on an existing drake, with no models', () => {
-      let bagObj = {
-        drake: {
-          containers: [document.createElement('div')],
-        } as Partial<DrakeWithModels>,
-      }, changes = {
-        dragulaModel: {
-          isFirstChange: () => false,
-          firstChange: false,
-          previousValue: "something",
-          currentValue: "something new"
-        }
-      };
+      let drake = simpleDrake();
+      mockDrake(drake);
+      let myModel = ["something"];
+      let newModel = ["something new"];
 
-      const find = td.function();
-      td.when(find(BAG_NAME)).thenReturn(bagObj);
-      td.replace(dragServ, 'find', find);
-      // create an existing drake with no models
-      dragulaDir.ngOnInit();
-      dragulaDir.ngOnChanges(changes);
+      component.model = myModel;
+      fixture.detectChanges();
+      component.model = newModel;
+      fixture.detectChanges();
 
-      expect(bagObj.drake.models[0]).toEqual("something new");
+      expect(drake.models[0]).toEqual(newModel);
     });
+
+    // ngOnChanges
+    it('should add a container and a model on init, take 2', () => {
+      let theirModel = [ "someone else's model" ];
+      let myModel = [ "something" ];
+      // create an existing drake with models
+      let drake = simpleDrake([document.createElement('div')], [theirModel]);
+      mockDrake(drake);
+
+      component.model = myModel;
+      fixture.detectChanges();
+
+      expect(drake.containers.length).toBe(2);
+      expect(drake.containers).toContain(component.host.nativeElement);
+      expect(drake.models).toContain(myModel);
+    });
+
+    // ngOnChanges
+    it('should do nothing if there is no bag name', () => {
+      // if DragulaDirective is initialized, it tries to find the bag
+      let drake = simpleDrake();
+      let find = mockDrake(drake)
+
+      component.bagName = null;
+      component.model = [];
+      fixture.detectChanges();
+
+      expect().toVerify({ called: find(), times: 0, ignoreExtraArgs: true });
+    });
+
+    // ngOnChanges
+    it('should cleanly move to another drake when bag name changes', () => {
+      let CAT = "CAT", DOG = "DOG";
+      let catDrake = simpleDrake();
+      let dogDrake = simpleDrake();
+      let find = mockMultipleDrakes([catDrake, CAT], [dogDrake, DOG])
+
+      component.bagName = CAT;
+      component.model = [ { animal: 'generic four-legged creature' } ];
+      fixture.detectChanges();
+      component.bagName = DOG;
+      fixture.detectChanges();
+
+      // setup CAT, teardown CAT, setup DOG
+      expectFindsInSequence(find, [CAT, CAT, DOG])
+
+      // clean move to another drake
+      expect(catDrake.models.length).toBe(0);
+      expect(catDrake.containers.length).toBe(0);
+      expect(dogDrake.models.length).toBe(1);
+      expect(dogDrake.models).toContain(component.model);
+      expect(dogDrake.containers.length).toBe(1);
+      expect(dogDrake.containers).toContain(component.host.nativeElement);
+    });
+
+    // ngOnChanges
+    it('should clean up when un-setting bag name', () => {
+      let drake = simpleDrake();
+      let find = mockDrake(drake);
+
+      component.bagName = BAG_NAME;
+      component.model = [];
+      fixture.detectChanges();
+      component.bagName = null;
+      fixture.detectChanges();
+
+      // setup, then teardown
+      expectFindsInSequence(find, [ BAG_NAME, BAG_NAME ]);
+
+      expect(drake.models.length).toBe(0);
+      expect(drake.containers.length).toBe(0);
+    });
+
+    const testUnsettingModel = (drake: SimpleDrake) => {
+      let find = mockDrake(drake);
+      const initialContainers = drake.containers.length;
+      const initialModels = drake.models.length;
+      let firstModel = [{ first: 'model' }];
+      let nextModel = [{ next: 'model' }];
+
+      component.bagName = BAG_NAME;
+      component.model = firstModel;
+      fixture.detectChanges();
+      component.model = null;
+      fixture.detectChanges();
+
+      // setup, then teardown
+      expectFindsInSequence(find, [ BAG_NAME ]);
+
+      console.log(drake.models);
+      expect(drake.models).not.toContain(firstModel, 'old model not removed');
+      expect(drake.containers).toContain(component.host.nativeElement, 'newly added container should still be there');
+
+      component.model = nextModel;
+      fixture.detectChanges();
+
+      expect(drake.models).not.toContain(firstModel, 'old model not removed');
+      expect(drake.models).toContain(nextModel, 'new model not inserted');
+
+    };
+
+    // ngOnChanges
+    it('should clean up when un-setting the model, with no other members', () => {
+      console.log('only model');
+      const drake = simpleDrake();
+      testUnsettingModel(drake);
+      console.log(drake);
+    });
+
+    // ngOnChanges
+    it('should clean up when un-setting the model, with other active models in the drake', () => {
+      console.log('other active models');
+      const existingContainer = document.createElement('div');
+      const existingModel = [{ existing: 'model' }];
+      const drake = simpleDrake([existingContainer], [existingModel]);
+      testUnsettingModel(drake);
+      console.log(drake);
+      expect(drake.containers).toContain(existingContainer);
+      expect(drake.models).toContain(existingModel);
+    });
+
   });
 });

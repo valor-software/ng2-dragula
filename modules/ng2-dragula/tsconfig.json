@@ -3,7 +3,8 @@
   "compilerOptions": {
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "types": [ "jasmine", "webpack", "dragula" ]
+    "experimentalDecorators": true,
+    "types": [ "dragula" ]
   },
   "exclude": [
     "node_modules",
