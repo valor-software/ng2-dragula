@@ -90,12 +90,10 @@ export class DragulaService {
     filterEvent(
       EventTypes.DropModel,
       filterType,
-      ( type,
-        [
-          el, target, source, sibling, item
-        ]: [Element, Element, Element, Element, T]
-      ) => {
-        return { type, el, target, source, sibling, item }
+      (type, [
+        el, target, source, sibling, item, sourceModel, targetModel
+      ]: [Element, Element, Element, Element, T, T[], T[]]) => {
+        return { type, el, target, source, sibling, item, sourceModel, targetModel }
       })
   );
 
@@ -103,13 +101,12 @@ export class DragulaService {
     filterEvent(
       EventTypes.RemoveModel,
       filterType,
-      ( type,
-        [
-          el, container, source, item
-        ]: [Element, Element, Element, T]
-      ) => {
-        return { type, el, container, source, item }
-      })
+      (type, [
+        el, container, source, item, sourceModel
+      ]: [Element, Element, Element, T, T[]]) => {
+        return { type, el, container, source, item, sourceModel }
+      }
+    )
   );
 
   private bags: Bag[] = [];
@@ -167,19 +164,20 @@ export class DragulaService {
     let dragElm: any;
     let dragIndex: number;
     let dropIndex: number;
-    let sourceModel: any;
     drake.on('remove', (el: any, container: any, source: any) => {
       if (!drake.models) {
         return;
       }
-      sourceModel = drake.models[drake.containers.indexOf(source)];
+      let sourceModel = drake.models[drake.containers.indexOf(source)];
+      sourceModel = sourceModel.slice(0); // clone it
       const item = sourceModel.splice(dragIndex, 1)[0];
+      drake.models[drake.containers.indexOf(source)] = sourceModel;
       // console.log('REMOVE');
       // console.log(sourceModel);
       this.dispatch$.next({
         event: EventTypes.RemoveModel,
         type: name,
-        args: [ el, container, source, item ]
+        args: [ el, container, source, item, sourceModel ]
       });
     });
     drake.on('drag', (el: any, source: any) => {
@@ -191,16 +189,21 @@ export class DragulaService {
         return;
       }
       dropIndex = this.domIndexOf(dropElm, target);
-      sourceModel = drake.models[drake.containers.indexOf(source)];
+      let sourceModel = drake.models[drake.containers.indexOf(source)];
+      let targetModel = drake.models[drake.containers.indexOf(target)];
       // console.log('DROP');
       // console.log(sourceModel);
       let item: any;
       if (target === source) {
+        sourceModel = sourceModel.slice(0)
         item = sourceModel.splice(dragIndex, 1)[0];
         sourceModel.splice(dropIndex, 0, item);
+        drake.models[drake.containers.indexOf(source)] = sourceModel;
+        // this was true before we cloned and updated sourceModel,
+        // but targetModel still has the old value
+        targetModel = sourceModel;
       } else {
         let notCopy = dragElm === dropElm;
-        let targetModel = drake.models[drake.containers.indexOf(target)];
         let dropElmModel = notCopy
           ? sourceModel[dragIndex]
           // TODO: BURN WITH FIRE
@@ -208,15 +211,21 @@ export class DragulaService {
         item = dropElmModel;
 
         if (notCopy) {
+          sourceModel = sourceModel.slice(0)
           sourceModel.splice(dragIndex, 1);
         }
+        targetModel = targetModel.slice(0)
         targetModel.splice(dropIndex, 0, dropElmModel);
+        drake.models[drake.containers.indexOf(source)] = sourceModel;
+        drake.models[drake.containers.indexOf(target)] = targetModel;
+
+        // TODO: remove line?
         target.removeChild(dropElm); // element must be removed for ngFor to apply correctly
       }
       this.dispatch$.next({
         event: EventTypes.DropModel,
         type: name,
-        args: [ dropElm, target, source, sibling, item ]
+        args: [ dropElm, target, source, sibling, item, sourceModel, targetModel ]
       });
     });
   }
