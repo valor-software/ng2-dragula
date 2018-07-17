@@ -68,7 +68,6 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   // call ngOnInit 'setup' because we want to call it in ngOnChanges
   // and it would otherwise run twice
   public setup(): void {
-    // console.log(this.bag);
     let bag = this.dragulaService.find(this.dragula);
     let checkModel = () => {
       if (this.dragulaModel) {
@@ -104,10 +103,10 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       .dropModel(name)
       .subscribe(({ type, source, target, sourceModel, targetModel }) => {
         if (source === this.el.nativeElement) {
-          this.dragulaModel = sourceModel;
+          // this.dragulaModel = sourceModel;
           this.dragulaModelChange.emit(sourceModel);
         } else if (target === this.el.nativeElement) {
-          this.dragulaModel = targetModel;
+          // this.dragulaModel = targetModel;
           this.dragulaModelChange.emit(targetModel);
         }
       })
