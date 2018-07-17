@@ -1,7 +1,7 @@
 <div class='parent'>
     <label for='hy'><strong>Angular-specific example.</strong> Fancy some nested <code>ngFor</code>?</label>
     <div class='wrapper'>
-        <div class='container' *ngFor='let group of groups' [dragula]="'nested-bag'">
+        <div class='container' *ngFor='let group of groups' [dragula]="'nested-bag'" [(dragulaModel)]="group.items">
             <span>{{group.name}}</span>
             <div *ngFor='let item of group.items' [innerHtml]='item.name'></div>
         </div>
@@ -9,7 +9,7 @@
     <pre>
       <code>
 &lt;div class='wrapper'&gt;
-  &lt;div class='container' *ngFor='let group of groups' [dragula]='&quot;nested-bag&quot;'&gt;
+  &lt;div class='container' *ngFor='let group of groups' [dragula]='&quot;nested-bag&quot;' [(dragulaModel)]='group.items'&gt;
     &lt;div *ngFor='let item of group.items' [innerHtml]='item.name'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
