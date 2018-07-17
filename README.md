@@ -34,10 +34,19 @@ npm install ng2-dragula --save
 
 # Setup
 
-You'll need to add `DragulaModule` to your application module.
+### 1. Important: add the following line to your `polyfills.ts`:
+
+```ts
+(window as any).global = window;
+```
+
+This is a temporary workaround for
+[#849](https://github.com/valor-software/ng2-dragula/issues/849), while upstream
+dragula still relies on `global`.
+
+### 2. You'll need to add `DragulaModule` to your application module.
 
 ```typescript
-
 import { DragulaModule } from 'ng2-dragula';
 @NgModule({
   declarations: [
@@ -55,6 +64,8 @@ export class AppModule {
 }
 
 ```
+
+### Then you're ready to go
 
 ```typescript
 @Component({
@@ -146,7 +157,7 @@ Whenever a `drake` instance is created with the `dragula` directive, there are s
 
 ```js
 export class EventExample {
-  
+
   constructor(private dragulaService: DragulaService) {
     dragulaService.drag.subscribe((value) => {
       console.log(`drag: ${value[0]}`);
@@ -165,22 +176,22 @@ export class EventExample {
       this.onOut(value.slice(1));
     });
   }
-  
+
   private onDrag(args) {
     let [e, el] = args;
     // do something
   }
-  
+
   private onDrop(args) {
     let [e, el] = args;
     // do something
   }
-  
+
   private onOver(args) {
     let [e, el, container] = args;
     // do something
   }
-  
+
   private onOut(args) {
     let [e, el, container] = args;
     // do something
