@@ -1,4 +1,5 @@
 import { Component, Input, ViewChild, ElementRef } from "@angular/core";
+import { BehaviorSubject } from 'rxjs';
 
 import { DragulaDirective } from '../components/dragula.directive';
 
@@ -10,7 +11,9 @@ import { DragulaDirective } from '../components/dragula.directive';
 })
 export class TestHostComponent {
   @Input() bagName = "BAG_NAME";
-  @Input() model: any[] = [];
+  // don't give model a default value
+  // because the Asynchronous subclass setter would get called
+  @Input() model: any[];
   @Input() localMirror = false;
   @ViewChild('host') host: ElementRef<HTMLDivElement>;
   @ViewChild(DragulaDirective) directive: DragulaDirective;
@@ -27,8 +30,6 @@ export class TestHostComponent {
 })
 export class TwoWay extends TestHostComponent { }
 
-import { Subject } from 'rxjs';
-
 @Component({
   template: `
   <div #host [dragula]="bagName" [dragulaModel]="model$|async" (dragulaModelChange)="model$.next($event)" [dragulaLocalMirror]="localMirror">
@@ -36,8 +37,8 @@ import { Subject } from 'rxjs';
   `
 })
 export class Asynchronous extends TestHostComponent {
-  model$ = new Subject<any[]>();
-  ngOnInit() {
-    this.model$.next(this.model);
+  model$ = new BehaviorSubject<any[]>([]);
+  @Input() set model(neu: any[]) {
+    this.model$.next(neu);
   }
 }

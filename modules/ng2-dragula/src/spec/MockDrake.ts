@@ -15,7 +15,7 @@ export class MockDrake implements DrakeWithModels {
     public containers: Element[] = [],
     public options: DragulaOptions = {},
     // nonstandard, but useful for testing using new MockDrake directly
-    public models: any[][] = []
+    public models?: any[][]
   ) {}
 
   /** This property will be true whenever an element is being dragged. */

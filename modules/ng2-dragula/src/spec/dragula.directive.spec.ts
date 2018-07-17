@@ -2,16 +2,17 @@
 /// <reference path="../testdouble-jasmine.d.ts" />
 import { } from 'jasmine';
 import * as td from 'testdouble'
-import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, inject, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { Bag } from '../Bag';
+import { DrakeFactory } from '../DrakeFactory';
 import { EventTypes } from '../EventTypes';
-import { MockDrake } from './MockDrake';
+import { MockDrake, MockDrakeFactory } from './MockDrake';
 import { Component, ElementRef } from "@angular/core";
 import { TestHostComponent, TwoWay, Asynchronous } from './test-host.component';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 const BAG_NAME = "BAG_NAME";
 
@@ -27,10 +28,11 @@ describe('In the ng2-dragula app', () => {
         Asynchronous
       ],
       providers: [
+        { provide: DrakeFactory, useValue: MockDrakeFactory },
         DragulaService
       ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   describe('DragulaDirective', () => {
@@ -81,7 +83,6 @@ describe('In the ng2-dragula app', () => {
     });
 
     // ngOnInit AND checkModel
-    // checkModel: no dragulaModel
     it('should initialize with new drake and call DragulaService.add', () => {
       td.replace(dragServ, 'add');
 
@@ -90,6 +91,19 @@ describe('In the ng2-dragula app', () => {
       fixture.detectChanges();
 
       expect().toVerify(dragServ.add(BAG_NAME, td.matchers.isA(Object)));
+    });
+
+    // checkModel: no dragulaModel
+    it('should not setup with drake.models when dragulaModel == null', () => {
+      let add = td.replace(dragServ, 'add');
+
+      component.bagName = BAG_NAME;
+      component.model = null;
+      fixture.detectChanges();
+
+      let captor = td.matchers.captor();
+      expect().toVerify({ called: add(BAG_NAME, captor.capture()), times: 1 });
+      expect(captor.values[0].models).toBeFalsy();
     });
 
     // ngOnInit AND checkModel
@@ -329,22 +343,29 @@ describe('In the ng2-dragula app', () => {
       expect().toVerify(modelChange(myNewModel));
     });
 
-    const testModelChange = (componentClass: any) => {
-      fixture = TestBed.createComponent(TwoWay);
-      component = fixture.componentInstance;
+    const testModelChange = <T extends TestHostComponent | TwoWay | Asynchronous>(
+      componentClass: { new(...args: any[]): T},
+      saveToComponent = true,
+    ) => {
+      let fixture = TestBed.createComponent(componentClass);
+      let component = fixture.componentInstance;
       let removeModel = mockServiceEvent(EventTypes.RemoveModel);
       let same = { a: 'same' };
+      let same2 = { same2: '2' };
       let item = { a: 'to be removed' };
-      let myModel = [same, item];
+      let myModel = [same, item, same2];
       component.bagName = BAG_NAME;
       component.model = myModel;
       fixture.detectChanges();
 
       let bag = dragServ.find(BAG_NAME);
-      expect(bag.drake.models[0]).toBe(myModel);
+      // if(componentClass === Asynchronous) console.log( bag.drake )
+      expect(bag).toBeTruthy('bag not truthy');
+      expect(bag.drake.models).toBeTruthy('bag.drake.models not truthy');
+      expect(bag.drake.models && bag.drake.models[0]).toBe(myModel);
 
       let source = component.host.nativeElement;
-      let myNewModel: any[] = [same];
+      let myNewModel: any[] = [same, same2];
       bag.drake.models[0] = myNewModel; // simulate the drake.on(remove) handler
       removeModel.next({
         type: BAG_NAME,
@@ -353,22 +374,27 @@ describe('In the ng2-dragula app', () => {
         sourceModel: myNewModel
       });
 
-      expect(component.model).toBe(
-        myNewModel,
-        "[(dragulaModel)] didn't save model to component"
-      );
+      if (saveToComponent) {
+        expect(component.model).toBe(
+          myNewModel,
+          "[(dragulaModel)] didn't save model to component"
+        );
+      }
 
       // now test whether the new array causes a teardown/setup cycle
       let setup = td.replace(component.directive, 'setup');
       let teardown = td.replace(component.directive, 'teardown');
 
       // before change detection
-      expect(component.directive.dragulaModel).toBe(myNewModel, "directive didn't save the new model");
+      expect(component.directive.dragulaModel).not.toBe(myNewModel, "directive didn't save the new model");
 
       // now propagate dragulaModelChange to the directive
       fixture.detectChanges();
 
       // after change detection
+      if (saveToComponent) {
+        expect(component.model).toBe(myNewModel, "component didn't save model");
+      }
       expect(component.directive.dragulaModel).toBe(myNewModel);
       // the directive shouldn't trigger a teardown/re-up
       expect().toVerify({ called: teardown(), times: 0, ignoreExtraArgs: true });
@@ -385,7 +411,7 @@ describe('In the ng2-dragula app', () => {
         testModelChange(TwoWay);
       });
       it('should work with an async pipe', () => {
-        testModelChange(Asynchronous);
+        testModelChange(Asynchronous, false);
       });
     });
 
