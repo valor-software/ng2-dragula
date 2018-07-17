@@ -1,6 +1,5 @@
 import { Directive, Input, ElementRef, OnInit, OnChanges, OnDestroy, SimpleChange } from '@angular/core';
-import { DragulaService } from './dragula.provider';
-import { dragula } from './dragula.class';
+import { DragulaService } from './dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { DragulaOptions } from 'dragula';
 
@@ -27,9 +26,12 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       const { previousValue: prev, currentValue: current, firstChange } = changes.dragula;
       let hadPreviousValue = !!prev;
       let hasNewValue = !!current;
-      // we can assume at least one of the two has a value
+      // something -> null       =>  teardown only
+      // something -> something  =>  teardown, then setup
+      //      null -> something  =>  setup only
+      //
+      //      null -> null (precluded by fact of change being present)
       if (hadPreviousValue) {
-        // someone sets it to null
         this.teardown(prev);
       }
       if (hasNewValue) {
@@ -80,7 +82,10 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       if (this.dragulaLocalMirror) {
         this.dragulaOptions.mirrorContainer = this.el.nativeElement;
       }
-      this.drake = dragula([this.container], Object.assign({}, this.dragulaOptions));
+      this.drake = this.dragulaService.drakeFactory.build(
+        [this.container],
+        { ... this.dragulaOptions }
+      );
       checkModel();
       this.dragulaService.add(this.dragula, this.drake);
     }

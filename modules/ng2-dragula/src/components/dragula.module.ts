@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DragulaDirective } from './dragula.directive';
-import { DragulaService } from './dragula.provider';
+import { DragulaService } from './dragula.service';
 
 @NgModule({
   exports: [DragulaDirective],

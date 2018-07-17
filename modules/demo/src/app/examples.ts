@@ -14,22 +14,19 @@ export class ExampleAComponent {
   templateUrl: './templates/example-b.html'
 })
 export class ExampleBComponent {
+  BAG = "EXAMPLE_B";
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.drag.subscribe((value:any) => {
-      // console.log(`drag: ${value[0]}`); // value[0] will always be bag name
-      this.onDrag(value.slice(1));
+    dragulaService.drag(this.BAG).subscribe(({ type, el }) => {
+      this.removeClass(el, 'ex-moved');
     });
-    dragulaService.drop.subscribe((value:any) => {
-      // console.log(`drop: ${value[0]}`);
-      this.onDrop(value.slice(1));
+    dragulaService.drop(this.BAG).subscribe(({ type, el }) => {
+      this.addClass(el, 'ex-moved');
     });
-    dragulaService.over.subscribe((value:any) => {
-      // console.log(`over: ${value[0]}`);
-      this.onOver(value.slice(1));
+    dragulaService.over(this.BAG).subscribe(({ type, el }) => {
+      this.addClass(el, 'ex-over');
     });
-    dragulaService.out.subscribe((value:any) => {
-      // console.log(`out: ${value[0]}`);
-      this.onOut(value.slice(1));
+    dragulaService.out(this.BAG).subscribe(({ type, el }) => {
+      this.removeClass(el, 'ex-over');
     });
   }
 
@@ -49,25 +46,6 @@ export class ExampleBComponent {
     }
   }
 
-  private onDrag(args:any):void {
-    let [e] = args;
-    this.removeClass(e, 'ex-moved');
-  }
-
-  private onDrop(args:any):void {
-    let [e] = args;
-    this.addClass(e, 'ex-moved');
-  }
-
-  private onOver(args:any):void {
-    let [el] = args;
-    this.addClass(el, 'ex-over');
-  }
-
-  private onOut(args:any):void {
-    let [el] = args;
-    this.removeClass(el, 'ex-over');
-  }
 }
 
 @Component({
@@ -149,32 +127,26 @@ export class WowExampleComponent {
   templateUrl: './templates/repeat-example.html'
 })
 export class RepeatExampleComponent {
+  MANY_ITEMS = "MANY_ITEMS";
   public many:Array<string> = ['The', 'possibilities', 'are', 'endless!'];
   public many2:Array<string> = ['Explore', 'them'];
 
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.dropModel.subscribe((value:any) => {
-      this.onDropModel(value.slice(1));
+    dragulaService.dropModel(this.MANY_ITEMS).subscribe(({ el, target, source, item }) => {
+      console.log('dropModel:');
+      console.log(el);
+      console.log(target);
+      console.log(source);
+      console.log(item);
     });
-    dragulaService.removeModel.subscribe((value:any) => {
-      this.onRemoveModel(value.slice(1));
+    dragulaService.removeModel(this.MANY_ITEMS).subscribe(({ el, source, item }) => {
+      console.log('removeModel:');
+      console.log(el);
+      console.log(source);
+      console.log(item);
     });
   }
 
-  private onDropModel(args:any):void {
-    let [el, target, source] = args;
-    console.log('onDropModel:');
-    console.log(el);
-    console.log(target);
-    console.log(source);
-  }
-
-  private onRemoveModel(args:any):void {
-    let [el, source] = args;
-    console.log('onRemoveModel:');
-    console.log(el);
-    console.log(source);
-  }
 }
 
 @Component({

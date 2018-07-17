@@ -2,10 +2,9 @@
 /// <reference path="../testdouble-jasmine.d.ts" />
 import { } from 'jasmine';
 import * as td from 'testdouble'
-import * as tdJasmine from 'testdouble-jasmine';
-const tdMatchers = tdJasmine.get(td);
 import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
-import { DragulaDirective, DragulaService } from '..';
+import { DragulaDirective } from '../components/dragula.directive';
+import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { Bag } from '../Bag';
 import { Component, ElementRef } from "@angular/core";
@@ -65,12 +64,7 @@ describe('In the ng2-dragula app', () => {
       component = fixture.componentInstance;
       component.bagName = BAG_NAME;
 
-      let elRef = {
-        nativeElement: nativeElement
-      };
       dragServ = dragService;
-      elRef.nativeElement.innerHTML = '<div>item 1</div><div>item 2</div>';
-      jasmine.addMatchers(tdMatchers);
     }));
 
     afterEach(() => {
@@ -245,7 +239,6 @@ describe('In the ng2-dragula app', () => {
       // setup, then teardown
       expectFindsInSequence(find, [ BAG_NAME ]);
 
-      console.log(drake.models);
       expect(drake.models).not.toContain(firstModel, 'old model not removed');
       expect(drake.containers).toContain(component.host.nativeElement, 'newly added container should still be there');
 
@@ -259,20 +252,16 @@ describe('In the ng2-dragula app', () => {
 
     // ngOnChanges
     it('should clean up when un-setting the model, with no other members', () => {
-      console.log('only model');
       const drake = simpleDrake();
       testUnsettingModel(drake);
-      console.log(drake);
     });
 
     // ngOnChanges
     it('should clean up when un-setting the model, with other active models in the drake', () => {
-      console.log('other active models');
       const existingContainer = document.createElement('div');
       const existingModel = [{ existing: 'model' }];
       const drake = simpleDrake([existingContainer], [existingModel]);
       testUnsettingModel(drake);
-      console.log(drake);
       expect(drake.containers).toContain(existingContainer);
       expect(drake.models).toContain(existingModel);
     });
