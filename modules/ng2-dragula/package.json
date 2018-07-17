@@ -38,7 +38,7 @@
     "dragula": "^3.7.2"
   },
   "peerDependencies": {
-    "@angular/core": ">=5.0.0",
+    "@angular/core": ">=6.0.0",
     "rxjs": ">=6.0.0"
   },
   "devDependencies": {
