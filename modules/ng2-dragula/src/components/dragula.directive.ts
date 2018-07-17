@@ -1,14 +1,19 @@
-import { Directive, Input, ElementRef, OnInit, OnChanges, OnDestroy, SimpleChange } from '@angular/core';
+import { Directive, Input, Output, ElementRef, OnInit, OnChanges, OnDestroy, SimpleChange, EventEmitter } from '@angular/core';
 import { DragulaService } from './dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { DragulaOptions } from 'dragula';
+import { Subscription } from 'rxjs';
+import { Bag } from '../Bag';
 
 @Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnChanges, OnDestroy {
   @Input() public dragula: string;
   @Input() public dragulaModel: any[];
+  @Output() public dragulaModelChange = new EventEmitter<any[]>();
   @Input() public dragulaOptions: DragulaOptions = {};
   @Input() dragulaLocalMirror: boolean = false;
+
+  private subs: Subscription;
 
   private container: any;
   private drake: DrakeWithModels;
@@ -89,9 +94,38 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       checkModel();
       this.dragulaService.add(this.dragula, this.drake);
     }
+    this.subscribe(this.dragula);
+  }
+
+  public subscribe(name: string) {
+    this.subs = new Subscription();
+    this.subs.add(
+      this.dragulaService
+      .dropModel(name)
+      .subscribe(({ type, source, target, sourceModel, targetModel }) => {
+        if (source === this.el.nativeElement) {
+          this.dragulaModel = sourceModel;
+          this.dragulaModelChange.emit(sourceModel);
+        } else if (target === this.el.nativeElement) {
+          this.dragulaModel = targetModel;
+          this.dragulaModelChange.emit(targetModel);
+        }
+      })
+    );
+    this.subs.add(
+      this.dragulaService
+      .removeModel(name)
+      .subscribe(({ type, source, sourceModel }) => {
+        if (source === this.el.nativeElement) {
+          this.dragulaModel = sourceModel;
+          this.dragulaModelChange.emit(sourceModel);
+        }
+      })
+    );
   }
 
   public teardown(bagName: string): void {
+    if (this.subs) { this.subs.unsubscribe(); }
     const bag = this.dragulaService.find(bagName);
     if (bag) {
       const itemToRemove = bag.drake.containers.indexOf(this.el.nativeElement);

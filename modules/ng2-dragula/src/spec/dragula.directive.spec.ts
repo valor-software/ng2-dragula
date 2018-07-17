@@ -7,8 +7,11 @@ import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { Bag } from '../Bag';
+import { EventTypes } from '../EventTypes';
+import { MockDrake } from './MockDrake';
 import { Component, ElementRef } from "@angular/core";
-import { TestHostComponent } from './test-host.component';
+import { TestHostComponent, TwoWay, Asynchronous } from './test-host.component';
+import { Subject } from 'rxjs';
 
 const BAG_NAME = "BAG_NAME";
 
@@ -19,7 +22,9 @@ describe('In the ng2-dragula app', () => {
     TestBed.configureTestingModule({
       declarations: [
         DragulaDirective,
-        TestHostComponent
+        TestHostComponent,
+        TwoWay,
+        Asynchronous
       ],
       providers: [
         DragulaService
@@ -264,6 +269,124 @@ describe('In the ng2-dragula app', () => {
       testUnsettingModel(drake);
       expect(drake.containers).toContain(existingContainer);
       expect(drake.models).toContain(existingModel);
+    });
+
+    // set up fake event subscription so we can fire events manually
+    const mockServiceEvent = (eventName: EventTypes) => {
+      let mockDropModel = td.function();
+      let evts = new Subject();
+      td.when(mockDropModel(BAG_NAME)).thenReturn(evts)
+      td.replace(dragServ, 'dropModel', mockDropModel);
+      return evts;
+    };
+
+    it('should fire dragulaModelChange on dropModel', () => {
+      let dropModel = mockServiceEvent(EventTypes.DropModel);
+      // called via (dragulaModelChange)="modelChange($event)" in the test component
+      let modelChange = td.replace(component, 'modelChange');
+      let item = { a: 'dragged' };
+      let myModel = [{ a: 'static' }];
+      let theirModel = [item];
+      component.bagName = BAG_NAME;
+      component.model = myModel;
+      fixture.detectChanges();
+
+      let source = document.createElement('ul');
+      let target = component.host.nativeElement;
+      let myNewModel = myModel.slice(0);
+      myNewModel.push(item);
+      let theirNewModel: any[] = [];
+      dropModel.next({
+        type: BAG_NAME,
+        source,
+        target,
+        sourceModel: theirNewModel,
+        targetModel: myNewModel
+      });
+
+      expect().toVerify(modelChange(myNewModel));
+    });
+
+    it('should fire dragulaModelChange on removeModel', () => {
+      let removeModel = mockServiceEvent(EventTypes.RemoveModel);
+      // called via (dragulaModelChange)="modelChange($event)" in the test component
+      let modelChange = td.replace(component, 'modelChange');
+      let item = { a: 'to be removed' };
+      let myModel = [item];
+      component.bagName = BAG_NAME;
+      component.model = myModel;
+      fixture.detectChanges();
+
+      let source = component.host.nativeElement;
+      let myNewModel: any[] = [];
+      removeModel.next({
+        type: BAG_NAME,
+        item,
+        source,
+        sourceModel: myNewModel
+      });
+
+      expect().toVerify(modelChange(myNewModel));
+    });
+
+    const testModelChange = (componentClass: any) => {
+      fixture = TestBed.createComponent(TwoWay);
+      component = fixture.componentInstance;
+      let removeModel = mockServiceEvent(EventTypes.RemoveModel);
+      let same = { a: 'same' };
+      let item = { a: 'to be removed' };
+      let myModel = [same, item];
+      component.bagName = BAG_NAME;
+      component.model = myModel;
+      fixture.detectChanges();
+
+      let bag = dragServ.find(BAG_NAME);
+      expect(bag.drake.models[0]).toBe(myModel);
+
+      let source = component.host.nativeElement;
+      let myNewModel: any[] = [same];
+      bag.drake.models[0] = myNewModel; // simulate the drake.on(remove) handler
+      removeModel.next({
+        type: BAG_NAME,
+        item,
+        source,
+        sourceModel: myNewModel
+      });
+
+      expect(component.model).toBe(
+        myNewModel,
+        "[(dragulaModel)] didn't save model to component"
+      );
+
+      // now test whether the new array causes a teardown/setup cycle
+      let setup = td.replace(component.directive, 'setup');
+      let teardown = td.replace(component.directive, 'teardown');
+
+      // before change detection
+      expect(component.directive.dragulaModel).toBe(myNewModel, "directive didn't save the new model");
+
+      // now propagate dragulaModelChange to the directive
+      fixture.detectChanges();
+
+      // after change detection
+      expect(component.directive.dragulaModel).toBe(myNewModel);
+      // the directive shouldn't trigger a teardown/re-up
+      expect().toVerify({ called: teardown(), times: 0, ignoreExtraArgs: true });
+      expect().toVerify({ called: setup(), times: 0, ignoreExtraArgs: true });
+      expect(bag.drake.models[0]).toBe(myNewModel);
+
+    };
+
+    describe('(dragulaModelChange)', () => {
+      it('should work with (event) binding', () => {
+        testModelChange(TestHostComponent);
+      });
+      it('should work with two-way binding', () => {
+        testModelChange(TwoWay);
+      });
+      it('should work with an async pipe', () => {
+        testModelChange(Asynchronous);
+      });
     });
 
   });
