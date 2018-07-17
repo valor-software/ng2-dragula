@@ -14,7 +14,11 @@
           "options": {
             "main": "src/test.ts",
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js"
+            "karmaConfig": "karma.conf.js",
+            "codeCoverageExclude": [
+              "src/spec",
+              "src/test.ts"
+            ]
           }
         },
         "lint": {
