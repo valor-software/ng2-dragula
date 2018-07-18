@@ -132,28 +132,72 @@ export class RepeatExampleComponent {
   public many2 = ['Explore', 'them'];
 
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.dropModel(this.MANY_ITEMS).subscribe(({ el, target, source, item }) => {
+    dragulaService.dropModel(this.MANY_ITEMS).subscribe(({ el, target, source, item, sourceModel, targetModel }) => {
       console.log('dropModel:');
       console.log(el);
-      console.log(target);
       console.log(source);
+      console.log(target);
+      console.log(sourceModel);
+      console.log(targetModel);
       console.log(item);
     });
-    dragulaService.removeModel(this.MANY_ITEMS).subscribe(({ el, source, item }) => {
+    dragulaService.removeModel(this.MANY_ITEMS).subscribe(({ el, source, item, sourceModel }) => {
       console.log('removeModel:');
       console.log(el);
       console.log(source);
+      console.log(sourceModel);
       console.log(item);
     });
   }
 
 }
 
+const nestedExampleCode = `
+<div class="wrapper" dragula="COLUMNS" [(dragulaModel)]="groups">
+    <div class="container" *ngFor="let group of groups">
+      <span class="group-handle">{{group.name}}</span>
+      <div class="container" dragula="ITEMS" [(dragulaModel)]="group.items">
+        <div *ngFor="let item of group.items" [innerHtml]="item.name"></div>
+      </div>
+    </div>
+</div>
+
+export class NestedRepeatExampleComponent {
+
+  constructor(private dragulaService: DragulaService) {
+    this.dragulaService.setOptions("COLUMNS", {
+      direction: 'horizontal',
+      moves: (el, source, handle) => handle.className === "group-handle"
+    });
+  }
+
+  public groups:Array<any> = [
+    {
+      name: 'Group A',
+      items: [{name: 'Item A'}, {name: 'Item B'}, {name: 'Item C'}, {name: 'Item D'}]
+    },
+    {
+      name: 'Group B',
+      items: [{name: 'Item 1'}, {name: 'Item 2'}, {name: 'Item 3'}, {name: 'Item 4'}]
+    }
+  ];
+}
+`;
+
 @Component({
   selector: 'nested-repeat-example',
   templateUrl: './templates/nested-repeat-example.html'
 })
 export class NestedRepeatExampleComponent {
+  example = nestedExampleCode;
+
+  constructor(private dragulaService: DragulaService) {
+    this.dragulaService.setOptions("COLUMNS", {
+      direction: 'horizontal',
+      moves: (el, source, handle) => handle.className === "group-handle"
+    });
+  }
+
   public groups:Array<any> = [
     {
       name: 'Group A',

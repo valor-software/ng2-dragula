@@ -1,31 +1,12 @@
 <div class="parent">
     <label for="hy"><strong>Angular-specific example.</strong> Fancy some nested <code>ngFor</code>?</label>
-    <div class="wrapper">
-        <div class="container" *ngFor="let group of groups" dragula="COLUMNS" [(dragulaModel)]="group.items">
-            <span>{{group.name}}</span>
+    <div class="wrapper" dragula="COLUMNS" [(dragulaModel)]="groups">
+        <div class="container" *ngFor="let group of groups">
+          <span class="group-handle">{{group.name}}</span>
+          <div class="container" dragula="ITEMS" [(dragulaModel)]="group.items">
             <div *ngFor="let item of group.items" [innerHtml]="item.name"></div>
+          </div>
         </div>
     </div>
-    <pre>
-      <code>
-&lt;div class="wrapper"&gt;
-  &lt;div class="container" *ngFor="let group of groups" dragula=&quot;COLUMNS&quot; [(dragulaModel)]='group.items'&gt;
-    &lt;div *ngFor="let item of group.items" [innerHtml]="item.name"&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-class NestedRepeatExample &#123;
-  public groups: Array&lt;any&gt; = [
-    &#123;
-      name: 'Group A',
-      items: [&#123;name: 'Item A'},&#123;name: 'Item B'},&#123;name: 'Item C'},&#123;name: 'Item D'}]
-    },
-    &#123;
-      name: 'Group B',
-      items: [&#123;name: 'Item 1'},&#123;name: 'Item 2'},&#123;name: 'Item 3'},&#123;name: 'Item 4'}]
-    }
-  ];
-}
-      </code>
-    </pre>
+    <pre><code>{{ example }}</code></pre>
 </div>
