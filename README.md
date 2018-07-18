@@ -316,7 +316,7 @@ Returns a `{ name, drake }` for a group named 'name', if there is one. Contains 
 
 ### `dragulaService.destroy(name)`
 
-Destroys a `drake` instance named `name`. Silently fails if it doesn't exist.
+Destroys a `drake` instance named `name`.
 
 ## Contribution
 
