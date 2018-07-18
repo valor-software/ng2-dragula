@@ -14,7 +14,7 @@ export class ExampleAComponent {
   templateUrl: './templates/example-b.html'
 })
 export class ExampleBComponent {
-  BAG = "EXAMPLE_B";
+  BAG = "DRAGULA_EVENTS";
   public constructor(private dragulaService:DragulaService) {
     dragulaService.drag(this.BAG).subscribe(({ type, el }) => {
       this.removeClass(el, 'ex-moved');
@@ -54,7 +54,7 @@ export class ExampleBComponent {
 })
 export class AnotherExampleComponent {
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('third-bag', {
+    dragulaService.setOptions('REMOVABLE', {
       removeOnSpill: true
     });
   }
@@ -66,7 +66,7 @@ export class AnotherExampleComponent {
 })
 export class SuchExampleComponent {
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('fourth-bag', {
+    dragulaService.setOptions('REVERT', {
       revertOnSpill: true
     });
   }
@@ -78,7 +78,7 @@ export class SuchExampleComponent {
 })
 export class VeryExampleComponent {
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('fifth-bag', {
+    dragulaService.setOptions('COPYABLE', {
       copy: true
     });
   }
@@ -90,7 +90,7 @@ export class VeryExampleComponent {
 })
 export class MuchExampleComponent {
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('sixth-bag', {
+    dragulaService.setOptions('HANDLES', {
       moves: function (el:any, container:any, handle:any):any {
         console.log(el, container);
         return handle.className === 'handle';

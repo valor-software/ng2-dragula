@@ -1,13 +1,13 @@
 <div class='parent'>
     <label for='hy'>Drag handles float your cruise?</label>
     <div class='wrapper'>
-        <div class='container' [dragula]='"sixth-bag"'>
+        <div class='container' dragula="HANDLES">
             <div><span class='handle'>+</span>Move me, but you can use the plus sign to drag me around.</div>
             <div><span class='handle'>+</span>Note that <code>handle</code> element in the <code>moves</code> handler is
                 just the original event target.
             </div>
         </div>
-        <div class='container' [dragula]='"sixth-bag"'>
+        <div class='container' dragula="HANDLES">
             <div><span class='handle'>+</span>This might also be useful if you want multiple children of an element to
                 be able to trigger a drag event.
             </div>
@@ -18,12 +18,12 @@
     </div>
     <pre>
       <code>
-&lt;div [dragula]=&#039;&quot;sixth-bag&quot;&#039;&gt;&lt;/div&gt;
-&lt;div [dragula]=&#039;&quot;sixth-bag&quot;&#039;&gt;&lt;/div&gt;
+&lt;div dragula=&quot;HANDLES&quot;&gt;&lt;/div&gt;
+&lt;div dragula=&quot;HANDLES&quot;&gt;&lt;/div&gt;
 
 class MuchExample &#123;
   constructor(private dragulaService: DragulaService) &#123;
-    dragulaService.setOptions('sixth-bag', &#123;
+    dragulaService.setOptions('HANDLES', &#123;
       moves: function (el, container, handle) &#123;
         return handle.className === 'handle';
       }

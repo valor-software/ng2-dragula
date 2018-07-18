@@ -1,7 +1,7 @@
 <div class='parent'>
     <label><strong>Click or Drag!</strong> Fires a click when the mouse button is released before a <code>mousemove</code> event, otherwise a drag event is fired. No extra configuration is necessary.</label>
     <div class='wrapper'>
-        <div class='container' [dragula]='"seventh-bag"'>
+        <div class='container' dragula="CLICKS">
             <div (click)='onclick("one")'>{{clicked.one ? "Clicked!" : "Clicking on these elements triggers a regular click event you can listen to."}}</div>
             <div (click)='onclick("two")'>{{clicked.two ? "Clicked!" : "Try dragging or clicking on this element."}}</div>
             <div (click)='onclick("three")'>{{clicked.three ? "Clicked!" : "Note how you can click normally?"}}</div>
@@ -13,7 +13,7 @@
     </div>
     <pre>
       <code>
-&lt;div [dragula]=&#039;&quot;seventh-bag&quot;&#039;&gt;&lt;/div&gt;
+&lt;div dragula=&quot;CLICKS&quot;&gt;&lt;/div&gt;
 
 class WowExample &#123;
   public clicked: any = &#123;

@@ -108,19 +108,19 @@ but you may wish to make your own modifications.
 
 ```typescript
 @Component({
-  selector: 'sample',
+  selector: "sample",
   template:`
   <div>
-    <div class='wrapper'>
-      <div class='container' dragula='first-bag'>
+    <div class="wrapper">
+      <div class="container" dragula="DRAGULA_FACTS">
         <div>You can move these elements between these two containers</div>
         <div>Moving them anywhere else isn't quite possible</div>
         <div>There's also the possibility of moving elements around in the same container, changing their position</div>
       </div>
-      <div class='container' dragula='first-bag'>
+      <div class="container" dragula="DRAGULA_FACTS">
         <div>This is the default use case. You only need to specify the containers you want to use</div>
         <div>More interactive use cases lie ahead</div>
-        <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
+        <div>Make sure to check out the <a href="https://github.com/bevacqua/dragula#readme">documentation on GitHub!</a></div>
       </div>
     </div>
   </div>
@@ -292,8 +292,8 @@ export class EventExample {
 
 | Event Name      | Listener Arguments          | Event Description                                                                        |
 | :-------------: | :-------------------------: | ---------------------------------------------------------------------------------------- |
-| dropModel       | bagName, el, target, source | same as normal drop, but model was synced, just available with the use of dragulaModel   |
-| removeModel     | bagName, el, container      | same as normal remove, but model was synced, just available with the use of dragulaModel |
+| dropModel       | type, el, target, source    | same as normal drop, but model was synced, just available with the use of dragulaModel   |
+| removeModel     | type, el, container         | same as normal remove, but model was synced, just available with the use of dragulaModel |
 
 ## `DragulaService`
 
@@ -301,7 +301,7 @@ This service exposes a few different methods with which you can interact with `d
 
 ### `dragulaService.add(name, drake)`
 
-Creates a `bag` identified by `name`. You should provide the entire `drake` instance. Typically, the directive takes care of this step.
+Creates a `group` identified by `name`. You should provide the entire `drake` instance. Typically, the directive takes care of this step.
 
 ### `dragulaService.setOptions(name, options)`
 
