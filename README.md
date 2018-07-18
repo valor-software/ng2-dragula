@@ -104,15 +104,6 @@ but you may wish to make your own modifications.
 }
 ```
 
-```scss
-// in scss
-@import "~dragula/dist/dragula.css";
-```
-
-```ts
-import 'dragula/dist/dragula.css';
-```
-
 ### Then you're ready to go
 
 ```typescript
