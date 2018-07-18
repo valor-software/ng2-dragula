@@ -8,7 +8,7 @@ import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing'
 import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
-import { Bag } from '../Bag';
+import { Group } from '../Group';
 import { Component, ElementRef, EventEmitter } from "@angular/core";
 import { TestHostComponent } from './test-host.component';
 import dragula = require('dragula');
@@ -17,7 +17,7 @@ import { filter, take } from 'rxjs/operators';
 import { MockDrake, MockDrakeFactory } from './MockDrake';
 import { EventTypes } from '../EventTypes';
 
-const BAG_NAME = "BAG_NAME";
+const GROUP = "GROUP";
 
 type SimpleDrake = Partial<DrakeWithModels>;
 
@@ -45,17 +45,17 @@ describe('DragulaService', () => {
 
 
   it('should add a bag', () => {
-    service.add(BAG_NAME, dragula());
-    let bag = service.find(BAG_NAME);
+    service.add(GROUP, dragula());
+    let bag = service.find(GROUP);
     expect(bag).toBeTruthy();
-    expect(bag.name).toBe(BAG_NAME);
+    expect(bag.name).toBe(GROUP);
   });
 
   it('should add a bag with models', () => {
-    service.add(BAG_NAME, dragula());
-    let bag = service.find(BAG_NAME);
+    service.add(GROUP, dragula());
+    let bag = service.find(GROUP);
     expect(bag).toBeTruthy();
-    expect(bag.name).toBe(BAG_NAME);
+    expect(bag.name).toBe(GROUP);
   });
 
   const subscribeSync = <T>(obs: Observable<T>, trigger: Function): T => {
@@ -78,13 +78,13 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li']);
     const li = ul.children[0];
     let mock = new MockDrake();
-    service.add(BAG_NAME, mock);
+    service.add(GROUP, mock);
     let ev = subscribeSync(service.drag(), () => {
       mock.emit(EventTypes.Drag, li, ul);
     });
     expect(ev).toBeTruthy();
     expect(ev.el).toBe(li);
-    service.destroy(BAG_NAME);
+    service.destroy(GROUP);
   });
 
   it('should not fire drag for an irrelevant drag type', () => {

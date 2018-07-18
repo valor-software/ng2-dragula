@@ -6,7 +6,7 @@ import { TestBed, inject, async, ComponentFixture, fakeAsync, tick } from '@angu
 import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
-import { Bag } from '../Bag';
+import { Group } from '../Group';
 import { DrakeFactory } from '../DrakeFactory';
 import { EventTypes } from '../EventTypes';
 import { MockDrake, MockDrakeFactory } from './MockDrake';
@@ -14,7 +14,7 @@ import { Component, ElementRef } from "@angular/core";
 import { TestHostComponent, TwoWay, Asynchronous } from './test-host.component';
 import { Subject, BehaviorSubject } from 'rxjs';
 
-const BAG_NAME = "BAG_NAME";
+const GROUP = "GROUP";
 
 type SimpleDrake = Partial<DrakeWithModels>;
 
@@ -44,13 +44,13 @@ describe('In the ng2-dragula app', () => {
     const mockMultipleDrakes = (...pairs: [Partial<DrakeWithModels>, string][]) => {
       const find = td.function();
       pairs.forEach(([drake, name]) => {
-        let bag: Bag = { name, drake: drake as any as DrakeWithModels };
-        td.when(find(name)).thenReturn(bag);
+        let group = new Group(name, drake as any as DrakeWithModels);
+        td.when(find(name)).thenReturn(group);
       });
       td.replace(dragServ, 'find', find);
       return find;
     };
-    const mockDrake = (drake: Partial<DrakeWithModels>, name = BAG_NAME) => {
+    const mockDrake = (drake: Partial<DrakeWithModels>, name = GROUP) => {
       return mockMultipleDrakes([drake, name]);
     };
 
@@ -69,7 +69,7 @@ describe('In the ng2-dragula app', () => {
     beforeEach(inject([DragulaService], (dragService: DragulaService) => {
       fixture = TestBed.createComponent(TestHostComponent);
       component = fixture.componentInstance;
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
 
       dragServ = dragService;
     }));
@@ -77,8 +77,8 @@ describe('In the ng2-dragula app', () => {
     afterEach(() => {
       fixture.destroy();
       td.reset();
-      if (dragServ.find(BAG_NAME)) {
-        dragServ.destroy(BAG_NAME);
+      if (dragServ.find(GROUP)) {
+        dragServ.destroy(GROUP);
       }
     });
 
@@ -86,30 +86,30 @@ describe('In the ng2-dragula app', () => {
     it('should initialize with new drake and call DragulaService.add', () => {
       td.replace(dragServ, 'add');
 
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = [];
       fixture.detectChanges();
 
-      expect().toVerify(dragServ.add(BAG_NAME, td.matchers.isA(Object)));
+      expect().toVerify(dragServ.add(GROUP, td.matchers.isA(Object)));
     });
 
     // checkModel: no dragulaModel
     it('should not setup with drake.models when dragulaModel == null', () => {
       let add = td.replace(dragServ, 'add');
 
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = null;
       fixture.detectChanges();
 
       let captor = td.matchers.captor();
-      expect().toVerify({ called: add(BAG_NAME, captor.capture()), times: 1 });
+      expect().toVerify({ called: add(GROUP, captor.capture()), times: 1 });
       expect(captor.values[0].models).toBeFalsy();
     });
 
     // ngOnInit AND checkModel
     // checkModel: dragulaModel, drake, add new drake.models
     it('should initialize with new drake, with local mirror container', () => {
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = [];
       component.localMirror = true;
       fixture.detectChanges();
@@ -192,7 +192,7 @@ describe('In the ng2-dragula app', () => {
       let drake = simpleDrake();
       let find = mockDrake(drake)
 
-      component.bagName = null;
+      component.group = null;
       component.model = [];
       fixture.detectChanges();
 
@@ -206,10 +206,10 @@ describe('In the ng2-dragula app', () => {
       let dogDrake = simpleDrake();
       let find = mockMultipleDrakes([catDrake, CAT], [dogDrake, DOG])
 
-      component.bagName = CAT;
+      component.group = CAT;
       component.model = [ { animal: 'generic four-legged creature' } ];
       fixture.detectChanges();
-      component.bagName = DOG;
+      component.group = DOG;
       fixture.detectChanges();
 
       // setup CAT, teardown CAT, setup DOG
@@ -229,14 +229,14 @@ describe('In the ng2-dragula app', () => {
       let drake = simpleDrake();
       let find = mockDrake(drake);
 
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = [];
       fixture.detectChanges();
-      component.bagName = null;
+      component.group = null;
       fixture.detectChanges();
 
       // setup, then teardown
-      expectFindsInSequence(find, [ BAG_NAME, BAG_NAME ]);
+      expectFindsInSequence(find, [ GROUP, GROUP ]);
 
       expect(drake.models.length).toBe(0);
       expect(drake.containers.length).toBe(0);
@@ -249,14 +249,14 @@ describe('In the ng2-dragula app', () => {
       let firstModel = [{ first: 'model' }];
       let nextModel = [{ next: 'model' }];
 
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = firstModel;
       fixture.detectChanges();
       component.model = null;
       fixture.detectChanges();
 
       // setup, then teardown
-      expectFindsInSequence(find, [ BAG_NAME ]);
+      expectFindsInSequence(find, [ GROUP ]);
 
       expect(drake.models).not.toContain(firstModel, 'old model not removed');
       expect(drake.containers).toContain(component.host.nativeElement, 'newly added container should still be there');
@@ -289,7 +289,7 @@ describe('In the ng2-dragula app', () => {
     const mockServiceEvent = (eventName: EventTypes) => {
       let mockDropModel = td.function();
       let evts = new Subject();
-      td.when(mockDropModel(BAG_NAME)).thenReturn(evts)
+      td.when(mockDropModel(GROUP)).thenReturn(evts)
       td.replace(dragServ, 'dropModel', mockDropModel);
       return evts;
     };
@@ -301,7 +301,7 @@ describe('In the ng2-dragula app', () => {
       let item = { a: 'dragged' };
       let myModel = [{ a: 'static' }];
       let theirModel = [item];
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = myModel;
       fixture.detectChanges();
 
@@ -311,7 +311,7 @@ describe('In the ng2-dragula app', () => {
       myNewModel.push(item);
       let theirNewModel: any[] = [];
       dropModel.next({
-        type: BAG_NAME,
+        name: GROUP,
         source,
         target,
         sourceModel: theirNewModel,
@@ -327,14 +327,14 @@ describe('In the ng2-dragula app', () => {
       let modelChange = td.replace(component, 'modelChange');
       let item = { a: 'to be removed' };
       let myModel = [item];
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = myModel;
       fixture.detectChanges();
 
       let source = component.host.nativeElement;
       let myNewModel: any[] = [];
       removeModel.next({
-        type: BAG_NAME,
+        name: GROUP,
         item,
         source,
         sourceModel: myNewModel
@@ -354,11 +354,11 @@ describe('In the ng2-dragula app', () => {
       let same2 = { same2: '2' };
       let item = { a: 'to be removed' };
       let myModel = [same, item, same2];
-      component.bagName = BAG_NAME;
+      component.group = GROUP;
       component.model = myModel;
       fixture.detectChanges();
 
-      let bag = dragServ.find(BAG_NAME);
+      let bag = dragServ.find(GROUP);
       // if(componentClass === Asynchronous) console.log( bag.drake )
       expect(bag).toBeTruthy('bag not truthy');
       expect(bag.drake.models).toBeTruthy('bag.drake.models not truthy');
@@ -368,7 +368,7 @@ describe('In the ng2-dragula app', () => {
       let myNewModel: any[] = [same, same2];
       bag.drake.models[0] = myNewModel; // simulate the drake.on(remove) handler
       removeModel.next({
-        type: BAG_NAME,
+        name: GROUP,
         item,
         source,
         sourceModel: myNewModel

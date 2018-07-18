@@ -3,7 +3,7 @@ import { DragulaService } from './dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { DragulaOptions } from 'dragula';
 import { Subscription } from 'rxjs';
-import { Bag } from '../Bag';
+import { Group } from '../Group';
 
 @Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnChanges, OnDestroy {
@@ -43,9 +43,9 @@ export class DragulaDirective implements OnChanges, OnDestroy {
         this.setup();
       }
     } else if (changes && changes.dragulaModel) {
-      // this code only runs when you're not changing the bag name
-      // because if you're changing the bag name, you'll be doing setup or teardown
-      // it also only runs if there is a bag name to attach to.
+      // this code only runs when you're not changing the group name
+      // because if you're changing the group name, you'll be doing setup or teardown
+      // it also only runs if there is a group name to attach to.
       const { previousValue: prev, currentValue: current, firstChange } = changes.dragulaModel;
       if (this.dragula && this.drake) {
         this.drake.models = this.drake.models || [];
@@ -68,7 +68,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   // call ngOnInit 'setup' because we want to call it in ngOnChanges
   // and it would otherwise run twice
   public setup(): void {
-    let bag = this.dragulaService.find(this.dragula);
+    let group = this.dragulaService.find(this.dragula);
     let checkModel = () => {
       if (this.dragulaModel) {
         if (this.drake.models) {
@@ -78,8 +78,8 @@ export class DragulaDirective implements OnChanges, OnDestroy {
         }
       }
     };
-    if (bag) {
-      this.drake = bag.drake;
+    if (group) {
+      this.drake = group.drake;
       checkModel();
       this.drake.containers.push(this.container);
     } else {
@@ -101,7 +101,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     this.subs.add(
       this.dragulaService
       .dropModel(name)
-      .subscribe(({ type, source, target, sourceModel, targetModel }) => {
+      .subscribe(({ source, target, sourceModel, targetModel }) => {
         if (source === this.el.nativeElement) {
           // this.dragulaModel = sourceModel;
           this.dragulaModelChange.emit(sourceModel);
@@ -114,7 +114,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     this.subs.add(
       this.dragulaService
       .removeModel(name)
-      .subscribe(({ type, source, sourceModel }) => {
+      .subscribe(({ source, sourceModel }) => {
         if (source === this.el.nativeElement) {
           this.dragulaModel = sourceModel;
           this.dragulaModelChange.emit(sourceModel);
@@ -123,13 +123,13 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     );
   }
 
-  public teardown(bagName: string): void {
+  public teardown(groupName: string): void {
     if (this.subs) { this.subs.unsubscribe(); }
-    const bag = this.dragulaService.find(bagName);
-    if (bag) {
-      const itemToRemove = bag.drake.containers.indexOf(this.el.nativeElement);
+    const group = this.dragulaService.find(groupName);
+    if (group) {
+      const itemToRemove = group.drake.containers.indexOf(this.el.nativeElement);
       if (itemToRemove !== -1) {
-        bag.drake.containers.splice(itemToRemove, 1);
+        group.drake.containers.splice(itemToRemove, 1);
       }
       if (this.dragulaModel && this.drake && this.drake.models) {
         let modelIndex = this.drake.models.indexOf(this.dragulaModel);

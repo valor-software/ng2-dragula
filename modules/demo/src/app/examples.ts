@@ -16,16 +16,16 @@ export class ExampleAComponent {
 export class ExampleBComponent {
   BAG = "DRAGULA_EVENTS";
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.drag(this.BAG).subscribe(({ type, el }) => {
+    dragulaService.drag(this.BAG).subscribe(({ name, el }) => {
       this.removeClass(el, 'ex-moved');
     });
-    dragulaService.drop(this.BAG).subscribe(({ type, el }) => {
+    dragulaService.drop(this.BAG).subscribe(({ name, el }) => {
       this.addClass(el, 'ex-moved');
     });
-    dragulaService.over(this.BAG).subscribe(({ type, el }) => {
+    dragulaService.over(this.BAG).subscribe(({ name, el }) => {
       this.addClass(el, 'ex-over');
     });
-    dragulaService.out(this.BAG).subscribe(({ type, el }) => {
+    dragulaService.out(this.BAG).subscribe(({ name, el }) => {
       this.removeClass(el, 'ex-over');
     });
   }
@@ -127,9 +127,9 @@ export class WowExampleComponent {
   templateUrl: './templates/repeat-example.html'
 })
 export class RepeatExampleComponent {
-  MANY_ITEMS = "MANY_ITEMS";
-  public many:Array<string> = ['The', 'possibilities', 'are', 'endless!'];
-  public many2:Array<string> = ['Explore', 'them'];
+  MANY_ITEMS = 'MANY_ITEMS';
+  public many = ['The', 'possibilities', 'are', 'endless!'];
+  public many2 = ['Explore', 'them'];
 
   public constructor(private dragulaService:DragulaService) {
     dragulaService.dropModel(this.MANY_ITEMS).subscribe(({ el, target, source, item }) => {

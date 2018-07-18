@@ -1,32 +1,32 @@
 import { Injectable, EventEmitter, Optional } from '@angular/core';
 import { DrakeWithModels } from '../DrakeWithModels';
-import { Bag } from '../Bag';
+import { Group } from '../Group';
 import { DragulaOptions } from 'dragula';
 import { Subject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { EventTypes, AllEvents } from '../EventTypes';
 import { DrakeFactory } from '../DrakeFactory';
 
-type FilterProjector<T extends { type: string; }> = (type: string, args: any[]) => T;
-type Dispatch = { event: EventTypes; type: string; args: any[]; };
+type FilterProjector<T extends { name: string; }> = (name: string, args: any[]) => T;
+type Dispatch = { event: EventTypes; name: string; args: any[]; };
 
-const filterEvent = <T extends { type: string; }>(
+const filterEvent = <T extends { name: string; }>(
   eventType: EventTypes,
   filterDragType: string | undefined,
   projector: FilterProjector<T>
 ) => (input: Observable<Dispatch>): Observable<T> => {
   return input.pipe(
-    filter(({ event, type }) => {
+    filter(({ event, name }) => {
       return event === eventType
-          && (filterDragType === undefined || type === filterDragType);
+          && (filterDragType === undefined || name === filterDragType);
     }),
-    map(({ type, args }) => projector(type, args))
+    map(({ name, args }) => projector(name, args))
   );
 }
 
 const elContainerSourceProjector =
-  (type: string, [el, container, source]: [Element, Element, Element]) =>
-    ({ type, el, container, source });
+  (name: string, [el, container, source]: [Element, Element, Element]) =>
+    ({ name, el, container, source });
 
 @Injectable()
 export class DragulaService {
@@ -35,38 +35,38 @@ export class DragulaService {
 
   private dispatch$ = new Subject<Dispatch>();
 
-  public drag = (filterType?: string) => this.dispatch$.pipe(
+  public drag = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(
       EventTypes.Drag,
-      filterType,
-      (type, [el, source]: [Element, Element]) => ({ type, el, source })
+      groupName,
+      (name, [el, source]: [Element, Element]) => ({ name, el, source })
     )
   );
 
-  public dragend = (filterType?: string) => this.dispatch$.pipe(
+  public dragend = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(
       EventTypes.DragEnd,
-      filterType,
-      (type, [el]: [Element]) => ({ type, el })
+      groupName,
+      (name, [el]: [Element]) => ({ name, el })
     )
   );
 
-  public drop = (filterType?: string) => this.dispatch$.pipe(
+  public drop = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(
       EventTypes.Drop,
-      filterType,
-      (type, [
+      groupName,
+      (name, [
         el, target, source, sibling
       ]: [Element, Element, Element, Element]) => {
-        return { type, el, target, source, sibling };
+        return { name, el, target, source, sibling };
       })
   );
 
   private elContainerSource =
     (eventType: EventTypes) =>
-    (filterType?: string) =>
+    (groupName?: string) =>
     this.dispatch$.pipe(
-      filterEvent(EventTypes.Cancel, filterType, elContainerSourceProjector)
+      filterEvent(EventTypes.Cancel, groupName, elContainerSourceProjector)
     );
 
   public cancel = this.elContainerSource(EventTypes.Cancel);
@@ -75,41 +75,41 @@ export class DragulaService {
   public over = this.elContainerSource(EventTypes.Over);
   public out = this.elContainerSource(EventTypes.Out);
 
-  public cloned = (filterType?: string) => this.dispatch$.pipe(
+  public cloned = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(
       EventTypes.Cloned,
-      filterType,
-      (type, [
+      groupName,
+      (name, [
         clone, original, cloneType
       ]: [Element, Element, 'mirror' | 'copy']) => {
-        return { type, clone, original, cloneType }
+        return { name, clone, original, cloneType }
       })
   );
 
-  public dropModel = <T = any>(filterType?: string) => this.dispatch$.pipe(
+  public dropModel = <T = any>(groupName?: string) => this.dispatch$.pipe(
     filterEvent(
       EventTypes.DropModel,
-      filterType,
-      (type, [
+      groupName,
+      (name, [
         el, target, source, sibling, item, sourceModel, targetModel
       ]: [Element, Element, Element, Element, T, T[], T[]]) => {
-        return { type, el, target, source, sibling, item, sourceModel, targetModel }
+        return { name, el, target, source, sibling, item, sourceModel, targetModel }
       })
   );
 
-  public removeModel = <T = any>(filterType?: string) => this.dispatch$.pipe(
+  public removeModel = <T = any>(groupName?: string) => this.dispatch$.pipe(
     filterEvent(
       EventTypes.RemoveModel,
-      filterType,
-      (type, [
+      groupName,
+      (name, [
         el, container, source, item, sourceModel
       ]: [Element, Element, Element, T, T[]]) => {
-        return { type, el, container, source, item, sourceModel }
+        return { name, el, container, source, item, sourceModel }
       }
     )
   );
 
-  private bags: Bag[] = [];
+  private groups: Group[] = [];
 
   constructor (@Optional() public drakeFactory: DrakeFactory = null) {
     if (this.drakeFactory === null) {
@@ -118,23 +118,23 @@ export class DragulaService {
   }
 
   public add(name: string, drake: DrakeWithModels): any {
-    let bag = this.find(name);
-    if (bag) {
-      throw new Error('Bag named: "' + name + '" already exists.');
+    let group = this.find(name);
+    if (group) {
+      throw new Error('Group named: "' + name + '" already exists.');
     }
-    bag = {name, drake};
-    this.bags.push(bag);
+    group = new Group(name, drake);
+    this.groups.push(group);
     if (drake.models) { // models to sync with (must have same structure as containers)
       this.handleModels(name, drake);
     }
-    this.setupEvents(bag);
-    return bag;
+    this.setupEvents(group);
+    return group;
   }
 
-  public find(name: string): Bag {
-    for (let bag of this.bags) {
-      if (bag.name === name) {
-        return bag;
+  public find(name: string): Group {
+    for (let group of this.groups) {
+      if (group.name === name) {
+        return group;
       }
     }
   }
@@ -144,11 +144,11 @@ export class DragulaService {
     if (!bag) {
       return;
     }
-    let i = this.bags.indexOf(bag);
+    let i = this.groups.indexOf(bag);
     if (i === -1) {
       return;
     }
-    this.bags.splice(i, 1);
+    this.groups.splice(i, 1);
     bag.drake && bag.drake.destroy();
   }
 
@@ -176,7 +176,7 @@ export class DragulaService {
       // console.log(sourceModel);
       this.dispatch$.next({
         event: EventTypes.RemoveModel,
-        type: name,
+        name,
         args: [ el, container, source, item, sourceModel ]
       });
     });
@@ -224,7 +224,7 @@ export class DragulaService {
       }
       this.dispatch$.next({
         event: EventTypes.DropModel,
-        type: name,
+        name,
         args: [ dropElm, target, source, sibling, item, sourceModel, targetModel ]
       });
     });
@@ -235,11 +235,11 @@ export class DragulaService {
       return;
     }
     bag.initEvents = true;
-    const type = bag.name;
+    const name = bag.name;
     let that: any = this;
     let emitter = (event: EventTypes) => {
       bag.drake.on(event, (...args: any[]) => {
-        this.dispatch$.next({ event, type, args });
+        this.dispatch$.next({ event, name, args });
       });
     };
     AllEvents.forEach(emitter);

@@ -5,12 +5,12 @@ import { DragulaDirective } from '../components/dragula.directive';
 
 @Component({
   template: `
-  <div #host [dragula]="bagName" [dragulaModel]="model" [dragulaLocalMirror]="localMirror" (dragulaModelChange)="modelChange($event)">
+  <div #host [dragula]="group" [dragulaModel]="model" [dragulaLocalMirror]="localMirror" (dragulaModelChange)="modelChange($event)">
   </div>
   `
 })
 export class TestHostComponent {
-  @Input() bagName = "BAG_NAME";
+  @Input() group = "GROUP";
   // don't give model a default value
   // because the Asynchronous subclass setter would get called
   @Input() model: any[];
@@ -24,7 +24,7 @@ export class TestHostComponent {
 
 @Component({
   template: `
-  <div #host [dragula]="bagName" [(dragulaModel)]="model" [dragulaLocalMirror]="localMirror">
+  <div #host [dragula]="group" [(dragulaModel)]="model" [dragulaLocalMirror]="localMirror">
   </div>
   `
 })
@@ -32,7 +32,7 @@ export class TwoWay extends TestHostComponent { }
 
 @Component({
   template: `
-  <div #host [dragula]="bagName" [dragulaModel]="model$|async" (dragulaModelChange)="model$.next($event)" [dragulaLocalMirror]="localMirror">
+  <div #host [dragula]="group" [dragulaModel]="model$|async" (dragulaModelChange)="model$.next($event)" [dragulaLocalMirror]="localMirror">
   </div>
   `
 })

@@ -9,13 +9,9 @@
   "exclude": [
     "node_modules",
     "dist",
-    "scripts",
-    "src/spec",
-    "src/test.ts",
-    "**/*.spec.ts"
+    "scripts"
   ],
   "files": [
-    "./src/public_api.ts",
-    "./src/index.ts"
+    "./src/public_api.ts"
   ]
 }

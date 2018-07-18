@@ -26,30 +26,30 @@
     &lt;div *ngFor='let text of many2' [innerHtml]='text'&gt;&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
+</code>
+<code>{{"export class RepeatExampleComponent {
+  MANY_ITEMS = 'MANY_ITEMS';
+  public many = ['The', 'possibilities', 'are', 'endless!'];
+  public many2 = ['Explore', 'them'];
 
-class RepeatExample &#123;
-  public many: Array&lt;string&gt; = ['The', 'possibilities', 'are', 'endless!'];
-  public many2: Array&lt;string&gt; = ['Explore', 'them'];
-
-  constructor(private dragulaService: DragulaService) &#123;
-    dragulaService.dropModel.subscribe((value) => &#123;
-      this.onDropModel(value.slice(1));
+  public constructor(private dragulaService:DragulaService) {
+    dragulaService.dropModel(this.MANY_ITEMS).subscribe(({ el, target, source, item }) => {
+      console.log('dropModel:');
+      console.log(el);
+      console.log(target);
+      console.log(source);
+      console.log(item);
     });
-    dragulaService.removeModel.subscribe((value) => &#123;
-      this.onRemoveModel(value.slice(1));
+    dragulaService.removeModel(this.MANY_ITEMS).subscribe(({ el, source, item }) => {
+      console.log('removeModel:');
+      console.log(el);
+      console.log(source);
+      console.log(item);
     });
   }
 
-  private onDropModel(args) &#123;
-    let [el, target, source] = args;
-    // do something else
-  }
-
-  private onRemoveModel(args) &#123;
-    let [el, source] = args;
-    // do something else
-  }
 }
-      </code>
+
+"}}</code>
     </pre>
 </div>
