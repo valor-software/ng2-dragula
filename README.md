@@ -65,6 +65,54 @@ export class AppModule {
 
 ```
 
+### 3. Add the CSS to your project
+
+You'll also need to add Dragula's CSS stylesheet `dragula.css` to your
+application (e.g. in `styles.scss`). The following is **slightly better** than
+`node_modules/dragula/dist/dragula.css` (it includes `pointer-events: none`
+([#508](https://github.com/valor-software/ng2-dragula/issues/508)) and
+[this fix](https://github.com/bevacqua/dragula/issues/373)),
+but you may wish to make your own modifications.
+
+```scss
+/* in-flight clone */
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  pointer-events: none;
+}
+/* high-performance display:none; helper */
+.gu-hide {
+  left: -9999px !important;
+}
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+```
+
+```scss
+// in scss
+@import "~dragula/dist/dragula.css";
+```
+
+```ts
+import 'dragula/dist/dragula.css';
+```
+
 ### Then you're ready to go
 
 ```typescript
@@ -89,8 +137,6 @@ export class AppModule {
 })
 class Sample {}
 ```
-
-You'll also need to add Dragula's CSS stylesheet `dragula.min.css` to your application.  You can find this in `node_modules/dragula/dist/dragula.css`.
 
 # Usage
 
