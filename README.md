@@ -94,40 +94,84 @@ You'll also need to add Dragula's CSS stylesheet `dragula.min.css` to your appli
 
 # Usage
 
-This package isn't very different from `dragula` itself. I'll mark the differences here, but please refer to the documentation for [`dragula`](https://github.com/bevacqua/dragula) if you need to learn more about `dragula` itself.
+This package isn't very different from `dragula` itself. I'll mark the differences here, but please refer to the documentation for [dragula](https://github.com/bevacqua/dragula) if you need to learn more about `dragula` itself.
 
 ## Directive
 
-There's a `dragula` directive that allows you to group containers together. That grouping of containers is called a `bag`.
+There's a `dragula` directive that makes a container's direct children
+draggable. You must supply a string. Both syntaxes, `dragula="VAMPIRES"` or
+`[dragula]="'VAMPIRES'"`, work equally well.
 
 ```html
-<div [dragula]='"bag-one"'></div>
-<div [dragula]='"bag-one"'></div>
-<div [dragula]='"bag-two"'></div>
+<ul dragula="VAMPIRES">
+  <li>Dracula</li>
+  <li>Kurz</li>
+  <li>Vladislav</li>
+  <li>Deacon</li>
+</ul>
+```
+
+## Grouping containers by type
+
+You can group containers together by giving them the same type. When you
+do, the children of each container can be dragged to any container in the same
+group.
+
+```html
+<div dragula="VAMPIRES">
+  <!-- vamps in here -->
+</div>
+<div dragula="VAMPIRES">
+  <!-- vamps in here -->
+</div>
+
+<div dragula="ZOMBIES">
+  <!-- but zombies in here! -->
+</div>
+```
+
+If you want to make sure you are using the same type string in different places,
+use the `[dragula]` syntax to pass a string variable from your component:
+
+```html
+<div [dragula]="Vampires"></div>
+<div [dragula]="Vampires"></div>
+```
+```ts
+class MyComponent {
+  Vampires = "VAMPIRES";
+}
 ```
 
 ### `dragulaModel`
 
-If your `ngFor` is compiled from array, you may wish to have it synced. For that purpose you need to provide model by setting the `dragulaModel` attribute on the bag element.
+If your container's children are rendered using `ngFor`, you may wish to have it synced. If you provide the same array to the `dragulaModel` attribute on the container element, any changes will be synced back to the array.
 
 ```html
-<ul [dragula]='"bag-one"' [dragulaModel]='items'>
-  <li *ngFor="let item of items"></li>
+<ul dragula="VAMPIRES" [dragulaModel]="vampires">
+  <li *ngFor="let vamp of vampires">
+    {{ vamp.name }} likes {{ vamp.favouriteColor }}
+  </li>
 </ul>
 ```
 
-The standard `drop` event is fired before the model is synced. For that purpose you need to use the `dropModel`. The same behavior exists in the `remove` event. Therefore is the `removeModel` event. Further details are available under `Events`
+Note: **DO NOT** put any other elements inside the container. The library relies
+on having the index of a DOM element inside a container mapping directly to
+their associated items in the array. Everything will be messed up if you do
+this.
+
+On top of the normal Dragula events, when `[dragulaModel]` is provided, there are two extra events: `dropModel` and `removeModel`. Further details are available under `Events`
 
 ### `drake` options
 
-If you need to configure the `drake` _(there's only one `drake` per `bag`)_, you can use the `DragulaService`.
+If you need to configure the `drake` _(there's exactly one `drake` per `group`)_, you can use the `DragulaService`.
 
-```js
+```ts
 import { DragulaService } from 'ng2-dragula';
 
 class ConfigExample {
   constructor(private dragulaService: DragulaService) {
-    dragulaService.setOptions('third-bag', {
+    dragulaService.setOptions("VAMPIRES", {
       removeOnSpill: true
     });
   }
@@ -136,26 +180,34 @@ class ConfigExample {
 
 You can also set your options by binding an options object to the `dragulaOptions` attribute.
 
-```js
+```ts
 options: any = {
   removeOnSpill: true
 }
 ```
 
 ```html
-<div [dragula]='"bag-one"' [dragulaOptions]="options"></div>
-<div [dragula]='"bag-two"' [dragulaOptions]="options"></div>
+<div dragula="REMOVABLE" [dragulaOptions]="options"></div>
+<div dragula="REMOVABLE" [dragulaOptions]="options"></div>
 ```
+
+Note that any modifications you make after the directive is initialized will not
+be applied.
 
 ## Events
 
-Whenever a `drake` instance is created with the `dragula` directive, there are several events you can subscribe to via `DragulaService`. Each event emits an `Array` where the first item is the name of the bag. The remaining items depend on the event. The sample below illustrates how you can use destructuring to assign the values from the event. Refer to: https://github.com/bevacqua/dragula#drakeon-events
+Whenever a `drake` instance is created with the `dragula` directive, there are
+several events you can subscribe to via `DragulaService`. Each event emits an
+`Array` where the first item is the type string used by the group. The remaining
+items depend on the event. The sample below illustrates how you can use
+destructuring to assign the values from the event. Refer to
+https://github.com/bevacqua/dragula#drakeon-events
 
 ```html
-<div [dragula]='"evented-bag"'></div>
+<div dragula="VAMPIRES"></div>
 ```
 
-```js
+```ts
 export class EventExample {
 
   constructor(private dragulaService: DragulaService) {
@@ -201,10 +253,10 @@ export class EventExample {
 
 ## Special Events for ng2-dragula
 
-| Event Name |      Listener Arguments      |  Event Description |
-| :-------------: |:-------------:| -----|
-| dropModel | bagName, el, target, source | same as normal drop, but model was synced, just available with the use of dragulaModel |
-| removeModel | bagName, el, container | same as normal remove, but model was synced, just available with the use of dragulaModel |
+| Event Name      | Listener Arguments          | Event Description                                                                        |
+| :-------------: | :-------------------------: | ---------------------------------------------------------------------------------------- |
+| dropModel       | bagName, el, target, source | same as normal drop, but model was synced, just available with the use of dragulaModel   |
+| removeModel     | bagName, el, container      | same as normal remove, but model was synced, just available with the use of dragulaModel |
 
 ## `DragulaService`
 
@@ -216,18 +268,18 @@ Creates a `bag` identified by `name`. You should provide the entire `drake` inst
 
 ### `dragulaService.setOptions(name, options)`
 
-Sets the `options` used to instantiate a `drake`. Refer to the documentation for [`dragula`](https://github.com/bevacqua/dragula#readme) to learn more about the `options` themselves.
+Sets the `options` used to instantiate a `drake`. Refer to the documentation for [dragula](https://github.com/bevacqua/dragula#readme) to learn more about the `options` themselves.
 
 ### `dragulaService.find(name)`
 
-Returns the `bag` for a `drake` instance. Contains the following properties.
+Returns a `{ name, drake }` for a group named 'name', if there is one. Contains the following properties.
 
-- `name` is the name that identifies the bag under `scope`
+- `name` is the name that identifies the drake
 - `drake` is the raw `drake` instance itself
 
 ### `dragulaService.destroy(name)`
 
-Destroys a `drake` instance named `name`.
+Destroys a `drake` instance named `name`. Silently fails if it doesn't exist.
 
 ## Contribution
 
@@ -235,18 +287,37 @@ Please read central `ng2` modules [readme](https://github.com/valor-software/ng2
 
 ## Development
 
-Run demo locally:
-1. build lib `npm run build` (`npm run build.watch` to run build in watch mode)
-2. link lib `npm run link`
-3. run demo `npm start`
+You must use Yarn.
 
-Publish
-1. ./node_modules/.bin/ngm -p src version patch
-2. ./node_modules/.bin/ngm -p src publish
+#### Setup:
 
-Update demo (gh-pages)
-1. npm run demo.build (or ./node_modules/.bin/ng build -prod)
-2. npm run demo.deploy
+```sh
+yarn
+(cd modules/ng2-dragula && yarn build)
+```
+
+#### run tests
+
+```sh
+(cd modules/ng2-dragula && yarn test)
+# or
+(cd modules/ng2-dragula && yarn test:headless)
+```
+
+#### run demo server
+
+```sh
+yarn watch # listens for changes in the library and rebuilds
+(cd modules/demo && yarn start)
+```
+
+#### Publishing a new version
+
+```
+yarn lerna publish
+```
+
+#### TODO: put gh-pages updating in travis
 
 ## Credits
 Crossbrowser testing sponsored by [Browser Stack](https://www.browserstack.com)

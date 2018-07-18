@@ -30,6 +30,7 @@
     "lint": "tslint --config tslint.json src/**/*.ts",
     "docs": "compodoc -p tsconfig.json -c compodoc.json src",
     "test": "ng test",
+    "test:headless": "ng test --browsers=CustomChromeHeadless",
     "test-coverage": "yarn test --code-coverage --watch=false --progress=false",
     "prepare": "yarn clean && yarn build",
     "watch": "chokidar 'src/**/*.ts' 'src/**/*.html' 'src/**/*.scss' -c 'yarn build'"

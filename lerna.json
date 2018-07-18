@@ -8,6 +8,7 @@
   "version": "1.5.0",
   "commands": {
     "publish": {
+      "conventionalCommits": true,
       "preid": "alpha",
       "npmTag": "next"
     }
