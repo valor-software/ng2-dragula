@@ -218,9 +218,6 @@ export class DragulaService {
         targetModel.splice(dropIndex, 0, dropElmModel);
         drake.models[drake.containers.indexOf(source)] = sourceModel;
         drake.models[drake.containers.indexOf(target)] = targetModel;
-
-        // TODO: remove line?
-        target.removeChild(dropElm); // element must be removed for ngFor to apply correctly
       }
       this.dispatch$.next({
         event: EventTypes.DropModel,
