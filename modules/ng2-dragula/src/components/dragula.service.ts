@@ -117,7 +117,7 @@ export class DragulaService {
     }
   }
 
-  /* Used internally by the directive. */
+  /** Used internally by the directive. */
   public add(group: Group): Group {
     let existingGroup = this.find(group.name);
     if (existingGroup) {
@@ -156,13 +156,11 @@ export class DragulaService {
    * Note: formerly known as `setOptions`
    */
   public createGroup<T = any>(name: string, options: DragulaOptions<T>): Group {
-    let group = this.add(new Group(
+    return this.add(new Group(
       name,
       this.drakeFactory.build([], options),
       options
     ));
-    this.handleModels(group);
-    return group;
   }
 
   private handleModels({ name, drake, options }: Group): void {
