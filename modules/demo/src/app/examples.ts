@@ -151,6 +151,10 @@ export class CopyComponent {
     dragulaService.setOptions('COPYABLE', {
       copy: (el, source) => {
         return source.id === 'left';
+      },
+      accepts: (el, target, source, sibling) => {
+        // To avoid dragging from right to left container
+        return target.id !== 'left';
       }
     });
   }
@@ -167,6 +171,10 @@ export class CopyComponent {
     dragulaService.setOptions('COPYABLE', {
       copy: (el, source) => {
         return source.id === 'left';
+      },
+      accepts: (el, target, source, sibling) => {
+        // To avoid dragging from right to left container
+        return target.id !== 'left';
       }
     });
   }
