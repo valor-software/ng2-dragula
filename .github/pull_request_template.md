@@ -1,8 +1,3 @@
----
-name: Pull Request
-about: Any pull request
----
-
 **Before submitting**
 
 If your pull request includes changes to the library code:
