@@ -4,7 +4,7 @@
 Version 2.0.0 is big. It has lots of breaking API changes are bundled into one
 release. (Thankfully, it also gains a hefty test suite.) Rather than reading all
 the changes here, maybe check out the [V2 migration
-guide](../.../MIGRATION-v2.md).
+guide](../../MIGRATION-v2.md).
 
 ### Bug Fixes
 
