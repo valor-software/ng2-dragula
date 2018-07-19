@@ -4,6 +4,13 @@
 
 Official **Angular** wrapper for [`dragula`](https://github.com/bevacqua/dragula).
 
+# Notice: v2 has been released
+
+**It contains a number of breaking changes. Follow the [migration guide
+here][migration].**
+
+[migration]: ./MIGRATION-v2.md
+
 [![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula) [![slack](https://ngx-slack.herokuapp.com/badge.svg)](https://ngx-slack.herokuapp.com)
 [![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
 [![codecov](https://codecov.io/gh/valor-software/ng2-dragula/branch/master/graph/badge.svg)](https://codecov.io/gh/valor-software/ng2-dragula)
@@ -21,10 +28,10 @@ Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
     * [Directive](#directive)
     * [Grouping containers](#grouping-containers)
     * [dragulaModel](#dragulamodel)
+    * [DragulaService](#dragulaservice)
     * [Drake options](#drake-options)
     * [Events](#events)
     * [Special events for ng2-dragula](#special-events-for-ng2-dragula)
-    * [DragulaService](#dragulaservice)
 * [Classic Blunders](#classic-blunders)
 * [Development](#development)
 
@@ -471,8 +478,6 @@ yarn watch
 ```
 yarn lerna publish
 ```
-
-TODO: put gh-pages updating in travis
 
 ## Credits
 
