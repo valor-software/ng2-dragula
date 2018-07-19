@@ -1,7 +1,6 @@
 import { Directive, Input, Output, ElementRef, OnInit, OnChanges, OnDestroy, SimpleChange, EventEmitter } from '@angular/core';
 import { DragulaService } from './dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
-import { DragulaOptions } from '../DragulaOptions';
 import { Subscription } from 'rxjs';
 import { Group } from '../Group';
 
@@ -10,7 +9,6 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   @Input() public dragula: string;
   @Input() public dragulaModel: any[];
   @Output() public dragulaModelChange = new EventEmitter<any[]>();
-  @Input() public dragulaOptions: DragulaOptions = {};
 
   private subs: Subscription;
 
@@ -82,12 +80,13 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       checkModel();
       this.drake.containers.push(this.container);
     } else {
+      let options = {};
       this.drake = this.dragulaService.drakeFactory.build(
         [this.container],
-        { ...this.dragulaOptions }
+        options
       );
       checkModel();
-      let group = new Group(this.dragula, this.drake, this.dragulaOptions);
+      let group = new Group(this.dragula, this.drake, options);
       this.dragulaService.add(group);
     }
     this.subscribe(this.dragula);
