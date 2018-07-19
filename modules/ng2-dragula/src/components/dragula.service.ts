@@ -66,7 +66,7 @@ export class DragulaService {
     (eventType: EventTypes) =>
     (groupName?: string) =>
     this.dispatch$.pipe(
-      filterEvent(EventTypes.Cancel, groupName, elContainerSourceProjector)
+      filterEvent(eventType, groupName, elContainerSourceProjector)
     );
 
   public cancel = this.elContainerSource(EventTypes.Cancel);
