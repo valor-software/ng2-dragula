@@ -18,10 +18,7 @@ class Person {
   }
 }
 
-@Component({ ... })
 export class CopyModelComponent {
-  code = copyModelCode;
-
   left = [
     new Person('Steven'),
     new Person('Paula'),
@@ -61,21 +58,8 @@ class Person {
 }
 
 @Component({
-  selector: 'copy-model-example',
-  template: `
-<div class='parent'>
-    <label for='hy'>You must provide a <code>copyItem</code> function if you're using <code>copy</code> with <code>[dragulaModel]</code>.</label>
-    <div class='wrapper'>
-        <div class='container' dragula="PERSON" id="left" [(dragulaModel)]="left">
-          <div *ngFor="let person of left">{{person | json}}</div>
-        </div>
-        <div class='container' dragula="PERSON" id="right" [(dragulaModel)]="right">
-          <div *ngFor="let person of right">{{person | json}}</div>
-        </div>
-    </div>
-    <pre><code>{{ code }}</code></pre>
-</div>
-  `
+  selector: 'ex-06-copy-model',
+  templateUrl: './06-copy-model.component.html'
 })
 export class CopyModelComponent {
   code = copyModelCode;

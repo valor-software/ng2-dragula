@@ -1,27 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'example-app',
+  selector: 'ex-app',
   template: `
     <div class="examples">
-      <example-a></example-a>
-
-      <example-b></example-b>
-
-      <another-example></another-example>
-
-      <such-example></such-example>
-
-      <copy-example></copy-example>
-      <copy-model-example></copy-model-example>
-
-      <much-example></much-example>
-
-      <wow-example></wow-example>
-
-      <repeat-example></repeat-example>
-
-      <nested-repeat-example></nested-repeat-example>
+      <ex-01-basic></ex-01-basic>
+      <ex-02-events></ex-02-events>
+      <ex-03-spill></ex-03-spill>
+      <ex-04-revert></ex-04-revert>
+      <ex-05-copy></ex-05-copy>
+      <ex-06-copy-model></ex-06-copy-model>
+      <ex-07-handle></ex-07-handle>
+      <ex-08-click></ex-08-click>
+      <ex-09-ngfor></ex-09-ngfor>
+      <ex-10-nested></ex-10-nested>
     </div>
   `,
   encapsulation: ViewEncapsulation.None

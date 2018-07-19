@@ -11,28 +11,5 @@
             <div (click)='onclick("seven")'>{{clicked.seven ? "ZOMG, THAT TICKLES! PLEASE. STOP." : "Business as usual."}}</div>
         </div>
     </div>
-    <pre>
-      <code>
-&lt;div dragula=&quot;CLICKS&quot;&gt;&lt;/div&gt;
-
-class WowExample &#123;
-  public clicked: any = &#123;
-    'one': false,
-    'two': false,
-    'three': false,
-    'four': false,
-    'five': false,
-    'six': false,
-    'seven': false
-  };
-
-  public onclick(key): void &#123;
-    this.clicked[key] = true;
-    setTimeout(() => &#123;
-      this.clicked[key] = false;
-    }, 2000);
-  }
-}
-      </code>
-    </pre>
+    <pre><code>{{ code }}</code></pre>
 </div>

@@ -16,22 +16,8 @@
             </div>
         </div>
     </div>
-    <pre>
-      <code>
-&lt;div dragula=&quot;HANDLES&quot;&gt;&lt;/div&gt;
-&lt;div dragula=&quot;HANDLES&quot;&gt;&lt;/div&gt;
+    <pre><code>{{ code }}</code></pre>
 
-class MuchExample &#123;
-  constructor(private dragulaService: DragulaService) &#123;
-    dragulaService.createGroup('HANDLES', &#123;
-      moves: function (el, container, handle) &#123;
-        return handle.className === 'handle';
-      }
-    });
-  }
-}
-      </code>
-    </pre>
     <div>There are a few similar mechanisms to determine whether an element can be dragged from a certain container <a
             href='https://github.com/bevacqua/dragula#optionsmoves'>(<code>moves</code>)</a>, whether an element can be
         dropped into a certain container at a certain position <a

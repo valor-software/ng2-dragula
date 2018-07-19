@@ -2,7 +2,7 @@
     <label for='hy'>Need to be able to quickly delete stuff when it spills out of the chosen containers? Note how you
         can easily sort the items in any containers by just dragging and dropping.</label>
     <div class='wrapper'>
-        <div class='container' dragula="REMOVABLE">
+        <div class='container' dragula="SPILL">
             <div>Banana Boat</div>
             <div>Orange Juice</div>
             <div>Cuban Cigar</div>
@@ -12,17 +12,5 @@
             <div>Calm Clam</div>
         </div>
     </div>
-    <pre>
-      <code>
-&lt;div dragula=&quot;REMOVABLE&quot;&gt;&lt;/div&gt;
-
-class AnotherExample &#123;
-  constructor(private dragulaService: DragulaService) &#123;
-    dragulaService.createGroup('REMOVABLE', &#123;
-      removeOnSpill: true
-    });
-  }
-}
-      </code>
-    </pre>
+    <pre><code>{{ code }}</code></pre>
 </div>
