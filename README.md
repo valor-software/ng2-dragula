@@ -7,9 +7,10 @@ Official **Angular** wrapper for [`dragula`](https://github.com/bevacqua/dragula
 # Notice: v2 has been released
 
 **It contains a number of breaking changes. Follow the [migration guide
-here][migration].**
+here][migration] or read the [full changelog][changelog].**
 
 [migration]: ./MIGRATION-v2.md
+[changelog]: ./modules/ng2-dragula/CHANGELOG.md
 
 [![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula) [![slack](https://ngx-slack.herokuapp.com/badge.svg)](https://ngx-slack.herokuapp.com)
 [![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
