@@ -27,7 +27,7 @@ after_success:
 deploy:
   provider:     pages
   skip_cleanup: true
-  local_dir:    modules/demo/dist
+  local_dir:    modules/demo/dist/demo
   github_token: $GH_TOKEN # Set in travis-ci.org dashboard
   on:
     branch: master
