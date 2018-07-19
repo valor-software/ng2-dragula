@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, Optional } from '@angular/core';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { Group } from '../Group';
-import { DragulaOptions } from 'dragula';
+import { DragulaOptions } from '../DragulaOptions';
 import { Subject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { EventTypes, AllEvents } from '../EventTypes';

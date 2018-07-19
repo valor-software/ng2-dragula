@@ -1,7 +1,7 @@
 import { Directive, Input, Output, ElementRef, OnInit, OnChanges, OnDestroy, SimpleChange, EventEmitter } from '@angular/core';
 import { DragulaService } from './dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
-import { DragulaOptions } from 'dragula';
+import { DragulaOptions } from '../DragulaOptions';
 import { Subscription } from 'rxjs';
 import { Group } from '../Group';
 

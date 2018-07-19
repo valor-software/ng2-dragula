@@ -2,7 +2,7 @@ import { DrakeWithModels } from '../DrakeWithModels';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { EventTypes } from '../EventTypes';
-import { DragulaOptions } from 'dragula';
+import { DragulaOptions } from '../DragulaOptions';
 import { DrakeFactory } from '../DrakeFactory';
 
 export const MockDrakeFactory = new DrakeFactory((containers, options) => {
