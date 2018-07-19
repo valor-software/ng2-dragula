@@ -109,32 +109,28 @@ export class DragulaService {
     )
   );
 
-  private groups: Group[] = [];
+  private groups: { [k: string]: Group } = {};
 
-  constructor (@Optional() public drakeFactory: DrakeFactory = null) {
+  constructor (@Optional() private drakeFactory: DrakeFactory = null) {
     if (this.drakeFactory === null) {
       this.drakeFactory = new DrakeFactory();
     }
   }
 
-  /** Used internally by the directive. */
+  /** Public mainly for testing purposes. Prefer `createGroup()`. */
   public add(group: Group): Group {
     let existingGroup = this.find(group.name);
     if (existingGroup) {
-      throw new Error('Group named: "' + name + '" already exists.');
+      throw new Error('Group named: "' + group.name + '" already exists.');
     }
-    this.groups.push(group);
+    this.groups[group.name] = group;
     this.handleModels(group);
     this.setupEvents(group);
     return group;
   }
 
   public find(name: string): Group {
-    for (let group of this.groups) {
-      if (group.name === name) {
-        return group;
-      }
-    }
+    return this.groups[name];
   }
 
   public destroy(name: string): void {
@@ -142,12 +138,8 @@ export class DragulaService {
     if (!group) {
       return;
     }
-    let i = this.groups.indexOf(group);
-    if (i === -1) {
-      return;
-    }
-    this.groups.splice(i, 1);
     group.drake && group.drake.destroy();
+    delete this.groups[name];
   }
 
   /**

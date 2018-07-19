@@ -13,7 +13,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   private subs: Subscription;
 
   private container: any;
-  private drake: DrakeWithModels;
+  private group: Group;
 
   private el: ElementRef;
   private dragulaService: DragulaService;
@@ -44,19 +44,20 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       // because if you're changing the group name, you'll be doing setup or teardown
       // it also only runs if there is a group name to attach to.
       const { previousValue: prev, currentValue: current, firstChange } = changes.dragulaModel;
-      if (this.dragula && this.drake) {
-        this.drake.models = this.drake.models || [];
-        let prevIndex = this.drake.models.indexOf(prev);
+      const { drake } = this.group;
+      if (this.dragula && drake) {
+        drake.models = drake.models || [];
+        let prevIndex = drake.models.indexOf(prev);
         if (prevIndex !== -1) {
           // delete the previous
-          this.drake.models.splice(prevIndex, 1);
+          drake.models.splice(prevIndex, 1);
           // maybe insert a new one at the same spot
           if (!!current) {
-            this.drake.models.splice(prevIndex, 0, current);
+            drake.models.splice(prevIndex, 0, current);
           }
         } else if (!!current) {
           // no previous one to remove; just push this one.
-          this.drake.models.push(current);
+          drake.models.push(current);
         }
       }
     }
@@ -65,31 +66,29 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   // call ngOnInit 'setup' because we want to call it in ngOnChanges
   // and it would otherwise run twice
   public setup(): void {
-    let group = this.dragulaService.find(this.dragula);
-    let checkModel = () => {
+    let checkModel = (group: Group) => {
       if (this.dragulaModel) {
-        if (this.drake.models) {
-          this.drake.models.push(this.dragulaModel);
+        if (group.drake.models) {
+          group.drake.models.push(this.dragulaModel);
         } else {
-          this.drake.models = [this.dragulaModel];
+          group.drake.models = [this.dragulaModel];
         }
       }
     };
-    if (group) {
-      this.drake = group.drake;
-      checkModel();
-      this.drake.containers.push(this.container);
-    } else {
+
+    // find or create a group
+    let group = this.dragulaService.find(this.dragula);
+    if (!group) {
       let options = {};
-      this.drake = this.dragulaService.drakeFactory.build(
-        [this.container],
-        options
-      );
-      checkModel();
-      let group = new Group(this.dragula, this.drake, options);
-      this.dragulaService.add(group);
+      group = this.dragulaService.createGroup(this.dragula, options);
     }
+
+    // ensure model and container element are pushed
+    checkModel(group);
+    group.drake.containers.push(this.container);
     this.subscribe(this.dragula);
+
+    this.group = group;
   }
 
   public subscribe(name: string) {
@@ -129,10 +128,10 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       if (itemToRemove !== -1) {
         group.drake.containers.splice(itemToRemove, 1);
       }
-      if (this.dragulaModel && this.drake && this.drake.models) {
-        let modelIndex = this.drake.models.indexOf(this.dragulaModel);
+      if (this.dragulaModel && group.drake && group.drake.models) {
+        let modelIndex = group.drake.models.indexOf(this.dragulaModel);
         if (modelIndex !== -1) {
-          this.drake.models.splice(modelIndex, 1);
+          group.drake.models.splice(modelIndex, 1);
         }
       }
     }
