@@ -32,8 +32,10 @@ Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
 You can get it on npm.
 
-```shell
-npm install ng2-dragula --save
+```sh
+npm install ng2-dragula
+# or
+yarn add ng2-dragula
 ```
 
 # Setup
@@ -48,12 +50,11 @@ This is a temporary workaround for
 [#849](https://github.com/valor-software/ng2-dragula/issues/849), while upstream
 dragula still relies on `global`.
 
-### 2. You'll need to add `DragulaModule.forRoot()` to your application module.
+### 2. Add `DragulaModule.forRoot()` to your application module.
 
 ```typescript
 import { DragulaModule } from 'ng2-dragula';
 @NgModule({
-	...
   imports: [
     ...,
     DragulaModule.forRoot()
@@ -240,13 +241,32 @@ be applied.
 ## Events
 
 Whenever a `drake` instance is created with the `dragula` directive, there are
-several events you can subscribe to via `DragulaService`. Each event emits an
-object. The remaining items depend on the event. The sample below illustrates
-how you can use destructuring to assign the values from the event.
+several events you can subscribe to via `DragulaService`. Each event emits
+a typed object, which you can use to get information about what happened.
 
 Refer to [the Drake events
 documentation](https://github.com/bevacqua/dragula#drakeon-events) for more
-information about the different events available.
+information about the different events available. Each event follows this
+format:
+
+```yml
+Event named: 'drag'
+
+Native dragula:
+  Use: drake.on('drag', listener)
+  Listener arguments: (el, source)
+
+ng2-dragula:
+  Method: DragulaService.drag(groupName?: string): Observable<...>
+  Observable of: { name: string; el: Element; source: Element; }
+```
+
+Each supports an optional parameter, `groupName?: string`, which filters events
+to the group you're interested in. This is usually better than getting all
+groups in one observable.
+
+The sample below illustrates how you can use destructuring to pull values from
+the event, and unsubscribe when your component is destroyed.
 
 ```html
 <div dragula="VAMPIRES"></div>
@@ -258,6 +278,7 @@ import { DragulaService } from 'ng2-dragula';
 
 export class MyComponent {
   // RxJS Subscription is an excellent API for managing many unsubscribe calls.
+  // See note below about unsubscribing.
   subs = new Subscription();
 
   constructor(private dragulaService: DragulaService) {
@@ -299,12 +320,34 @@ export class MyComponent {
 
 ```
 
+**NOTE: You should always unsubscribe each time you listen to an event.** This
+is especially true for a component, which should tear itself down completely in
+`ngOnDestroy`, including any subscriptions. It might not be necessary if you
+have a global singleton service (which is never destroyed) doing the
+subscribing.
+
+You can also engineer your use of events to avoid subscribing in the first
+place:
+
+```ts
+import { merge } from 'rxjs';
+import { mapTo, startWith } from 'rxjs/operators';
+
+dragStart$ = this.dragulaService.drag("VAMPIRES").pipe(mapTo(true));
+dragEnd$ = this.dragulaService.dragend("VAMPIRES").pipe(mapTo(false));
+isDragging$ = merge(dragStart$, dragEnd$).pipe(startWith(false));
+
+// html: [class.dragging]="isDragging$ | async"
+```
+
 ## Special Events for `ng2-dragula`
 
-| Event Name      | Listener Arguments          | Event Description                                                                        |
-| :-------------: | :-------------------------: | ---------------------------------------------------------------------------------------- |
-| dropModel       | type, el, target, source    | same as normal drop, but model was synced, just available with the use of dragulaModel   |
-| removeModel     | type, el, container         | same as normal remove, but model was synced, just available with the use of dragulaModel |
+Each of `dropModel(name?: string)` and `removeModel(name?: string)` takes
+
+| Event Name      | Listener Arguments                                           | Event Description                                                                        |
+| :-------------: | :-------------------------:                                  | ---------------------------------------------------------------------------------------- |
+| dropModel       | { type, el, target, source, sourceModel, targetModel, item } | same as normal drop, but with updated models + the item that was dropped                 |
+| removeModel     | { type, el, container, source, sourceModel, item }           | same as normal remove, but with updated model + the item that got removed                |
 
 ## `DragulaService`
 
