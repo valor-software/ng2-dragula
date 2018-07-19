@@ -9,41 +9,62 @@ export const MockDrakeFactory = new DrakeFactory((containers, options) => {
   return new MockDrake(containers, options);
 });
 
+/** You can use MockDrake to simulate Drake events.
+ *
+ * The three methods that actually do anything are `on(event, listener)`,
+ * `destroy()`, and a new method, `emit()`. Use `emit()` to manually emit Drake
+ * events, and if you injected MockDrake properly with MockDrakeFactory or
+ * mocked the DragulaService.find() method, then you can make ng2-dragula think
+ * drags and drops are happening.
+ *
+ * Caveats:
+ *
+ * 1. YOU MUST MAKE THE DOM CHANGES YOURSELF.
+ * 2. REPEAT: YOU MUST MAKE THE DOM CHANGES YOURSELF.
+ *    That means `source.removeChild(el)`, and `target.insertBefore(el)`.
+ * 3. None of the other methods do anything.
+ *    That's ok, because ng2-dragula doesn't use them.
+ */
 export class MockDrake implements DrakeWithModels {
-  /** ng2-dragula specific */
+  /**
+   * @param containers A list of container elements.
+   * @param options These will NOT be used. At all.
+   * @param models Nonstandard, but useful for testing using `new MockDrake()` directly.
+   *               Note, default value is undefined, like a real Drake. Don't change that.
+   */
   constructor(
     public containers: Element[] = [],
     public options: DragulaOptions = {},
-    // nonstandard, but useful for testing using new MockDrake directly
     public models?: any[][]
   ) {}
 
-  /** This property will be true whenever an element is being dragged. */
+  /* Doesn't represent anything meaningful. */
   dragging: boolean = false;
 
-  /** Enter drag mode without a shadow. This method is most useful when
-   * providing complementary keyboard shortcuts to an existing drag and drop
-   * solution. Even though a shadow won't be created at first, the user will
-   * get one as soon as they click on item and start dragging it around. Note
-   * that if they click and drag something else, .end will be called before
-   * picking up the new item. */
+  /* Does nothing useful. */
   start(item: Element): void {
-    throw new Error("Method not implemented.");
+    this.dragging = true;
   }
+  /* Does nothing useful. */
   end(): void {
-    throw new Error("Method not implemented.");
+    this.dragging = false;
   }
+  /* Does nothing useful. */
   cancel(revert: boolean): void;
   cancel(): void;
   cancel(revert?: any) {
     this.dragging = false;
-    // TODO: revert whatever you did
   }
+  /* Does nothing useful. */
   remove(): void {
     this.dragging = false;
   }
-  emitter$ = new Subject<{ eventType: EventTypes, args: any[] }>();
-  subs = new Subscription();
+
+  // Basic but fully functional event emitter shim
+  private emitter$ = new Subject<{ eventType: EventTypes, args: any[] }>();
+
+  private subs = new Subscription();
+
   on(event: string, callback: Function): void {
     this.subs.add(this.emitter$
       .pipe(
@@ -53,11 +74,24 @@ export class MockDrake implements DrakeWithModels {
         callback(...args);
       }));
   }
-  /** https://github.com/bevacqua/dragula#drakeon-events */
-  public emit(eventType: EventTypes, ...args: any[]) {
-    this.emitter$.next({ eventType, args })
-  }
+
   destroy(): void {
     this.subs.unsubscribe();
   }
+
+  /**
+   * This is the most useful method. You can use it to manually fire events that would normally
+   * be fired by a real drake.
+   *
+   * You're likely most interested in firing `drag`, `remove` and `drop`, the three events
+   * DragulaService uses to implement [dragulaModel].
+   *
+   * See https://github.com/bevacqua/dragula#drakeon-events for what you should emit (and in what order).
+   *
+   * (Note also, firing dropModel and removeModel won't work. You would have to mock DragulaService for that.)
+   */
+  emit(eventType: EventTypes, ...args: any[]) {
+    this.emitter$.next({ eventType, args })
+  }
+
 }

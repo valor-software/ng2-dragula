@@ -6,4 +6,5 @@ export { dragula, DrakeFactory } from './DrakeFactory';
 export { Group } from './Group';
 export { DrakeWithModels } from './DrakeWithModels';
 
+export { EventTypes } from './EventTypes';
 export { MockDrake, MockDrakeFactory } from './spec/MockDrake';
