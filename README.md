@@ -215,28 +215,71 @@ import { DragulaService } from 'ng2-dragula';
 
 class ConfigExample {
   constructor(private dragulaService: DragulaService) {
-    dragulaService.setOptions("VAMPIRES", {
+    dragulaService.createGroup("VAMPIRES", {
       removeOnSpill: true
     });
   }
 }
 ```
 
-You can also set your options by binding an options object to the `dragulaOptions` attribute.
+See below for more info on options.
+
+## `DragulaService`
+
+This service exposes a few different methods with which you can interact with `dragula`.
+
+### `dragulaService.createGroup(name, options)`
+
+NOTE: formerly known as `setOptions()`
+
+Creates a group named `name`, with an
+[options](#dragulaoptions) object.
+
+### `dragulaService.find(name: string)`
+
+Returns a `Group` named `name`, if there is one. A `Group` contains the following
+properties.
+
+- `name` is the name that identifies the group
+- `drake` is the raw `drake` instance itself
+- `options` is the options object used to create the drake. Modifying it won't
+  do anything useful.
+
+### `dragulaService.destroy(name)`
+
+Destroys a `Group` named `name` and its associated `drake` instance. Silently
+returns if the group does not exist.
+
+### DragulaOptions
+
+Refer to the documentation for
+[dragula](https://github.com/bevacqua/dragula#readme) to learn more about the
+native options.
+
+All of the native options work with ng2-dragula. However, there is one addition:
+
+#### `copyItem: <T>(item: T) => T`
+
+When you have:
+
+* `[dragulaModel]`
+* `copy` is `true` or a *function that returns true*
+
+... ng2-dragula will have to create a clone of the JS object you picked up. In
+previous versions of `ng2-dragula`, there was a terribly buggy,
+one-size-fits-all clone function. From v2 onwards, you **MUST** provide your own
+`copyItem` function.
+
+If you have a simple object with no nested values, it could be as simple as:
 
 ```ts
-options: any = {
-  removeOnSpill: true
+{
+  copy: ...,
+  copyItem: (item: MyType) => ({ ...item })
 }
 ```
 
-```html
-<div dragula="REMOVABLE" [dragulaOptions]="options"></div>
-<div dragula="REMOVABLE" [dragulaOptions]="options"></div>
-```
-
-Note that any modifications you make after the directive is initialized will not
-be applied.
+There is a complete example using a `Person` class on the demo page.
 
 ## Events
 
@@ -348,56 +391,6 @@ Each of `dropModel(name?: string)` and `removeModel(name?: string)` takes
 | :-------------: | :-------------------------:                                  | ---------------------------------------------------------------------------------------- |
 | dropModel       | { type, el, target, source, sourceModel, targetModel, item } | same as normal drop, but with updated models + the item that was dropped                 |
 | removeModel     | { type, el, container, source, sourceModel, item }           | same as normal remove, but with updated model + the item that got removed                |
-
-## `DragulaService`
-
-This service exposes a few different methods with which you can interact with `dragula`.
-
-### `dragulaService.add(name, drake)`
-
-Creates a `group` identified by `name`. You should provide the entire `drake`
-instance. Typically, the directive takes care of this step.
-
-### `dragulaService.setOptions(name, options)`
-
-Sets the `options` used to instantiate a `drake`. Refer to the documentation for [dragula](https://github.com/bevacqua/dragula#readme) to learn more about the `options` themselves.
-
-Note that you cannot dynamically set options. You should only call `setOptions`
-once per group. If you want the behaviour of the drake to change over time, you should:
-
-1. Use callbacks instead of booleans on the drake properties. E.g. `{ copy: (el,
-source) => ... }` instead of `{ copy: true }`.
-
-2. Have the callbacks refer to the relevant `el` and `source` elements (and any
-attributes or classes set on them), and refer to other values that might change
-over time.
-
-Example:
-
-```ts
-draggingEnabled = false;
-constructor(private dragulaService: DragulaService) {
-    this.dragulaService.setOptions("VAMPIRES", {
-        moves: (el, source) => {
-            return this.draggingEnabled && source.getAttribute('undead');
-        }
-    });
-    this.someService.call().subscribe(() => this.draggingEnabled = true);
-}
-```
-
-### `dragulaService.find(name)`
-
-Returns a `Group` named `name`, if there is one. A `Group` contains the following
-properties.
-
-- `name` is the name that identifies the group
-- `drake` is the raw `drake` instance itself
-
-### `dragulaService.destroy(name)`
-
-Destroys a `Group` named `name` and its associated `drake` instance. Silently
-returns if the group does not exist.
 
 # Classic Blunders
 
