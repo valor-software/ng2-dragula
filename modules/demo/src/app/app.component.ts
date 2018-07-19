@@ -13,6 +13,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
       <such-example></such-example>
 
       <copy-example></copy-example>
+      <copy-model-example></copy-model-example>
 
       <much-example></much-example>
 

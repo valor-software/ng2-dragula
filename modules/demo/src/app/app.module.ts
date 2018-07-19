@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { DragulaModule } from 'ng2-dragula';
 
 import { EXAMPLES } from './examples';
+import { CopyModelComponent } from './examples/copy-model.component';
 import { DemoComponent } from './app.component';
 
 @NgModule({
   declarations: [
     DemoComponent,
+    CopyModelComponent,
     ...EXAMPLES
   ],
   imports: [
