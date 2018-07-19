@@ -98,7 +98,7 @@ The new API is much more helpful. There are three notable changes:
 
 There is much more info in the README.
 
-### If you are using `copy` with `[(dragulaModel)]`, provide a `copyItem` function.
+### 4. If you are using `copy` with `[(dragulaModel)]`, provide a `copyItem` function.
 
 ```diff
 interface MyItem {
