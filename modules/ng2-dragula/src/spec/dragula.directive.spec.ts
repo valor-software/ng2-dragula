@@ -106,20 +106,6 @@ describe('In the ng2-dragula app', () => {
       expect(captor.values[0].models).toBeFalsy();
     });
 
-    // ngOnInit AND checkModel
-    // checkModel: dragulaModel, drake, add new drake.models
-    it('should initialize with new drake, with local mirror container', () => {
-      component.group = GROUP;
-      component.model = [];
-      component.localMirror = true;
-      fixture.detectChanges();
-
-      let directive = component.directive;
-      expect(directive.dragulaLocalMirror).toBe(true);
-
-      expect(directive.dragulaOptions.mirrorContainer).toEqual(component.host.nativeElement);
-    });
-
     // ngOnInit
     // checkModel: dragulaModel, drake, push to drake.models
     it('should initialize and add to existing drake', () => {

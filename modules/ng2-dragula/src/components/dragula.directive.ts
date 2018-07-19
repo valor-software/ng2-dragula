@@ -11,7 +11,6 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   @Input() public dragulaModel: any[];
   @Output() public dragulaModelChange = new EventEmitter<any[]>();
   @Input() public dragulaOptions: DragulaOptions = {};
-  @Input() dragulaLocalMirror: boolean = false;
 
   private subs: Subscription;
 
@@ -83,12 +82,9 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       checkModel();
       this.drake.containers.push(this.container);
     } else {
-      if (this.dragulaLocalMirror) {
-        this.dragulaOptions.mirrorContainer = this.el.nativeElement;
-      }
       this.drake = this.dragulaService.drakeFactory.build(
         [this.container],
-        { ... this.dragulaOptions }
+        { ...this.dragulaOptions }
       );
       checkModel();
       this.dragulaService.add(this.dragula, this.drake);
