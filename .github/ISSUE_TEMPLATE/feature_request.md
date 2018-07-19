@@ -7,7 +7,7 @@ about: Suggest an idea for this project
 
 - [ ] My issue title starts with `[feature request]`
 - [ ] I have thoroughly read through the README, and the [dragula docs](https://github.com/bevacqua/dragula).
-- [ ] I am aware that this library is a thin wrapper over Dragula, and only features relating to the directive and the DragulaService are relevant.
+- [ ] I am aware that this library is a thin wrapper over Dragula, and only features relating to the directive, the model syncing, and the DragulaService are relevant.
 - [ ] I have searched through the **[`ng2-dragula` issues](https://github.com/valor-software/ng2-dragula/issues)** for related problems, including closed issues, and I didn't find anything.
 
 **Is your feature request related to a problem? Please describe.**
