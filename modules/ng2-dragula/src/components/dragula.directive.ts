@@ -87,7 +87,8 @@ export class DragulaDirective implements OnChanges, OnDestroy {
         { ...this.dragulaOptions }
       );
       checkModel();
-      this.dragulaService.add(this.dragula, this.drake);
+      let group = new Group(this.dragula, this.drake, this.dragulaOptions);
+      this.dragulaService.add(group);
     }
     this.subscribe(this.dragula);
   }
@@ -120,7 +121,9 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   }
 
   public teardown(groupName: string): void {
-    if (this.subs) { this.subs.unsubscribe(); }
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
     const group = this.dragulaService.find(groupName);
     if (group) {
       const itemToRemove = group.drake.containers.indexOf(this.el.nativeElement);

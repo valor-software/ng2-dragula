@@ -120,7 +120,7 @@ export class ExampleBComponent {
 })
 export class AnotherExampleComponent {
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('REMOVABLE', {
+    dragulaService.createGroup('REMOVABLE', {
       removeOnSpill: true
     });
   }
@@ -132,7 +132,7 @@ export class AnotherExampleComponent {
 })
 export class SuchExampleComponent {
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('REVERT', {
+    dragulaService.createGroup('REVERT', {
       revertOnSpill: true
     });
   }
@@ -147,8 +147,8 @@ let copyCode = `
 </div>
 
 export class CopyComponent {
-  public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('COPYABLE', {
+  constructor(private dragulaService: DragulaService) {
+    dragulaService.createGroup('COPYABLE', {
       copy: (el, source) => {
         return source.id === 'left';
       },
@@ -167,8 +167,9 @@ export class CopyComponent {
 })
 export class CopyComponent {
   code = copyCode;
-  public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('COPYABLE', {
+
+  constructor(private dragulaService: DragulaService) {
+    dragulaService.createGroup('COPYABLE', {
       copy: (el, source) => {
         return source.id === 'left';
       },
@@ -191,7 +192,7 @@ export class CopyComponent {
 })
 export class MuchExampleComponent {
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.setOptions('HANDLES', {
+    dragulaService.createGroup('HANDLES', {
       moves: (el, container, handle) => {
         return handle.className === 'handle';
       }
@@ -324,7 +325,7 @@ const nestedExampleCode = `
 export class NestedRepeatExample {
 
   constructor(private dragulaService: DragulaService) {
-    this.dragulaService.setOptions("COLUMNS", {
+    this.dragulaService.createGroup("COLUMNS", {
       direction: 'horizontal',
       moves: (el, source, handle) => handle.className === "group-handle"
     });
@@ -357,7 +358,7 @@ export class NestedRepeatExampleComponent {
   example = nestedExampleCode;
 
   constructor(private dragulaService: DragulaService) {
-    this.dragulaService.setOptions("COLUMNS", {
+    this.dragulaService.createGroup("COLUMNS", {
       direction: 'horizontal',
       moves: (el, source, handle) => handle.className === "group-handle"
     });

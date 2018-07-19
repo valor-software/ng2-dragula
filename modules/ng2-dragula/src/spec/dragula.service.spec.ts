@@ -45,14 +45,14 @@ describe('DragulaService', () => {
 
 
   it('should add a bag', () => {
-    service.add(GROUP, dragula());
+    service.add(new Group(GROUP, dragula(), {}));
     let bag = service.find(GROUP);
     expect(bag).toBeTruthy();
     expect(bag.name).toBe(GROUP);
   });
 
   it('should add a bag with models', () => {
-    service.add(GROUP, dragula());
+    service.add(new Group(GROUP, dragula(), {}));
     let bag = service.find(GROUP);
     expect(bag).toBeTruthy();
     expect(bag.name).toBe(GROUP);
@@ -78,7 +78,7 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li']);
     const li = ul.children[0];
     let mock = new MockDrake();
-    service.add(GROUP, mock);
+    service.add(new Group(GROUP, mock, {}));
     let ev = subscribeSync(service.drag(), () => {
       mock.emit(EventTypes.Drag, li, ul);
     });
@@ -91,7 +91,7 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li']);
     const li = ul.children[0];
     let mock = new MockDrake();
-    service.add("MY_COOL_TYPE", mock);
+    service.add(new Group("MY_COOL_TYPE", mock, {}));
     let ev = subscribeSync(service.drag("IRRELEVANT"), () => {
       mock.emit(EventTypes.Drag, li, ul);
     });
@@ -107,23 +107,23 @@ describe('DragulaService', () => {
 
   it('should throw when creating a bag that already exists', () => {
     expect(() => {
-      service.add("EXISTENT", new MockDrake());
-      service.add("EXISTENT", new MockDrake());
+      service.add(new Group("EXISTENT", new MockDrake(), {}));
+      service.add(new Group("EXISTENT", new MockDrake(), {}));
     }).toThrow();
     service.destroy("EXISTENT");
   });
 
-  it('should create a drake when setting options', () => {
-    service.setOptions("NEWLY", {});
-    let drake = service.find("NEWLY");
-    expect(drake).toBeTruthy();
+  it('should createGroup', () => {
+    service.createGroup("NEWLY", {});
+    let group = service.find("NEWLY");
+    expect(group).toBeTruthy();
     service.destroy("NEWLY");
   });
 
   it('should destroy a drake when destroying a bag', () => {
     let mock = new MockDrake();
     let destroyDrake = td.replace(mock, 'destroy');
-    service.add("_", mock);
+    service.add(new Group("_", mock, {}));
 
     service.destroy("_");
     expect().toVerify(destroyDrake());
@@ -138,7 +138,7 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li']);
     const li = ul.children[0];
     let mock = new MockDrake([], {}, null);
-    service.add("NOMODELS", mock);
+    service.add(new Group("NOMODELS", mock, {}));
     let ev = subscribeSync(service.drag("NOMODELS"), () => {
       mock.emit(EventTypes.Drag, li, ul);
     });
@@ -156,7 +156,7 @@ describe('DragulaService', () => {
       {},
       [ [myItem, { my: 'cat' }] ]
     );
-    service.add("MODELS", mock);
+    service.add(new Group("MODELS", mock, {}));
     let ev = subscribeSync(service.dropModel<Item>("MODELS"), () => {
       mock.emit(EventTypes.Drag, li, ul);
       mock.emit(EventTypes.Drop, li, ul, ul, ul.children[1]);
@@ -170,7 +170,7 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li']);
     const li = ul.children[0];
     let mock = new MockDrake([], {}, null);
-    service.add("NOMODELS", mock);
+    service.add(new Group("NOMODELS", mock, {}));
     let ev = subscribeSync(service.dropModel("NOMODELS"), () => {
       mock.emit(EventTypes.Drag, li, ul);
       mock.emit(EventTypes.Drop, li, ul, ul, undefined);
@@ -184,7 +184,7 @@ describe('DragulaService', () => {
     const li = ul.children[0];
     let model = ['a', 'b'];
     let mock = new MockDrake([ ul ], {}, [ model ]);
-    service.add("DROPMODEL", mock);
+    service.add(new Group("DROPMODEL", mock, {}));
 
     let ev = subscribeSync(service.dropModel("DROPMODEL"), () => {
       mock.emit(EventTypes.Drag, li, ul);
@@ -211,7 +211,7 @@ describe('DragulaService', () => {
     const li = ul.children[2];
     let model = ['a', 'b', 'c'];
     let mock = new MockDrake([ ul ], {}, [ model ]);
-    service.add("DROPMODEL", mock);
+    service.add(new Group("DROPMODEL", mock, {}));
 
     let ev = subscribeSync(service.dropModel("DROPMODEL"), () => {
       mock.emit(EventTypes.Drag, li, ul);
@@ -240,8 +240,9 @@ describe('DragulaService', () => {
     const source = buildList('ul', ['li', 'li', 'li']);
     const target = buildList('ul', ['li', 'li']);
     const li = source.children[1]; // b
-    let mock = new MockDrake([ source, target ], {}, [ sourceModel, targetModel ]);
-    service.add("DROPMODEL", mock);
+    let options = {};
+    let mock = new MockDrake([ source, target ], options, [ sourceModel, targetModel ]);
+    service.add(new Group("DROPMODEL", mock, options));
 
     let ev = subscribeSync(service.dropModel("DROPMODEL"), () => {
       mock.emit(EventTypes.Drag, li, source);
@@ -274,7 +275,7 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li', 'li', 'li']);
     const li = ul.children[1]; // b
     let mock = new MockDrake([ ul ], {}, [ model ]);
-    service.add("REMOVEMODEL", mock);
+    service.add(new Group("REMOVEMODEL", mock, {}));
 
     let ev = subscribeSync(service.removeModel("REMOVEMODEL"), () => {
       mock.emit(EventTypes.Drag, li, ul);

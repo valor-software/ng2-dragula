@@ -23,7 +23,7 @@
 
 class MuchExample &#123;
   constructor(private dragulaService: DragulaService) &#123;
-    dragulaService.setOptions('HANDLES', &#123;
+    dragulaService.createGroup('HANDLES', &#123;
       moves: function (el, container, handle) &#123;
         return handle.className === 'handle';
       }

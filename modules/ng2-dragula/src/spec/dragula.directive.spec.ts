@@ -44,7 +44,7 @@ describe('In the ng2-dragula app', () => {
     const mockMultipleDrakes = (...pairs: [Partial<DrakeWithModels>, string][]) => {
       const find = td.function();
       pairs.forEach(([drake, name]) => {
-        let group = new Group(name, drake as any as DrakeWithModels);
+        let group = new Group(name, drake as any as DrakeWithModels, {});
         td.when(find(name)).thenReturn(group);
       });
       td.replace(dragServ, 'find', find);
@@ -90,7 +90,10 @@ describe('In the ng2-dragula app', () => {
       component.model = [];
       fixture.detectChanges();
 
-      expect().toVerify(dragServ.add(GROUP, td.matchers.isA(Object)));
+      let captor = td.matchers.captor();
+      expect().toVerify(dragServ.add(captor.capture()));
+      expect(captor.values[0]).toBeTruthy();
+      expect(captor.values[0].name).toBe(GROUP);
     });
 
     // checkModel: no dragulaModel
@@ -102,8 +105,8 @@ describe('In the ng2-dragula app', () => {
       fixture.detectChanges();
 
       let captor = td.matchers.captor();
-      expect().toVerify({ called: add(GROUP, captor.capture()), times: 1 });
-      expect(captor.values[0].models).toBeFalsy();
+      expect().toVerify({ called: add(captor.capture()), times: 1 });
+      expect(captor.values[0].drake.models).toBeFalsy();
     });
 
     // ngOnInit

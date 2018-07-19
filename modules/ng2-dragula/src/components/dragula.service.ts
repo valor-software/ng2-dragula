@@ -117,15 +117,15 @@ export class DragulaService {
     }
   }
 
-  public add(name: string, drake: DrakeWithModels): any {
-    let group = this.find(name);
-    if (group) {
+  /* Used internally by the directive. */
+  public add(group: Group): Group {
+    let existingGroup = this.find(group.name);
+    if (existingGroup) {
       throw new Error('Group named: "' + name + '" already exists.');
     }
-    group = new Group(name, drake);
     this.groups.push(group);
-    if (drake.models) { // models to sync with (must have same structure as containers)
-      this.handleModels(name, drake);
+    if (group.drake.models) { // models to sync with (must have same structure as containers)
+      this.handleModels(group);
     }
     this.setupEvents(group);
     return group;
@@ -140,27 +140,34 @@ export class DragulaService {
   }
 
   public destroy(name: string): void {
-    let bag = this.find(name);
-    if (!bag) {
+    let group = this.find(name);
+    if (!group) {
       return;
     }
-    let i = this.groups.indexOf(bag);
+    let i = this.groups.indexOf(group);
     if (i === -1) {
       return;
     }
     this.groups.splice(i, 1);
-    bag.drake && bag.drake.destroy();
+    group.drake && group.drake.destroy();
   }
 
-  public setOptions(name: string, options: DragulaOptions): void {
-    let bag = this.add(
+  /**
+   * Creates a group with the specified name and options.
+   *
+   * Note: formerly known as `setOptions`
+   */
+  public createGroup<T = any>(name: string, options: DragulaOptions<T>): Group {
+    let group = this.add(new Group(
       name,
-      this.drakeFactory.build([], options)
-    );
-    this.handleModels(name, bag.drake);
+      this.drakeFactory.build([], options),
+      options
+    ));
+    this.handleModels(group);
+    return group;
   }
 
-  private handleModels(name: string, drake: DrakeWithModels): void {
+  private handleModels({ name, drake, options }: Group): void {
     let dragElm: any;
     let dragIndex: number;
     let dropIndex: number;
@@ -227,15 +234,15 @@ export class DragulaService {
     });
   }
 
-  private setupEvents(bag: any): void {
-    if (bag.initEvents) {
+  private setupEvents(group: Group): void {
+    if (group.initEvents) {
       return;
     }
-    bag.initEvents = true;
-    const name = bag.name;
+    group.initEvents = true;
+    const name = group.name;
     let that: any = this;
     let emitter = (event: EventTypes) => {
-      bag.drake.on(event, (...args: any[]) => {
+      group.drake.on(event, (...args: any[]) => {
         this.dispatch$.next({ event, name, args });
       });
     };
