@@ -210,21 +210,28 @@ export class DragulaService {
         // but targetModel still has the old value
         targetModel = sourceModel;
       } else {
-        let notCopy = dragElm === dropElm;
-        let dropElmModel = notCopy
-          ? sourceModel[dragIndex]
-          // TODO: BURN WITH FIRE
-          : JSON.parse(JSON.stringify(sourceModel[dragIndex]));
-        item = dropElmModel;
+        let isCopying = dragElm !== dropElm;
+        item = sourceModel[dragIndex];
+        if (isCopying) {
+          if (!options.copyItem) {
+            throw new Error("If you have enabled `copy` on a group, you must provide a `copyItem` function.")
+          }
+          item = options.copyItem(item);
+        }
 
-        if (notCopy) {
+        if (!isCopying) {
           sourceModel = sourceModel.slice(0)
           sourceModel.splice(dragIndex, 1);
         }
         targetModel = targetModel.slice(0)
-        targetModel.splice(dropIndex, 0, dropElmModel);
+        targetModel.splice(dropIndex, 0, item);
         drake.models[drake.containers.indexOf(source)] = sourceModel;
         drake.models[drake.containers.indexOf(target)] = targetModel;
+        if (isCopying) {
+          try {
+            target.removeChild(dropElm);
+          } catch (e) {}
+        }
       }
       this.dispatch$.next({
         event: EventTypes.DropModel,

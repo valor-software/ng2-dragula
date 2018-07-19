@@ -3,7 +3,12 @@
 // the copy prop in @types/dragula are just booleans, which is severely limiting.
 // and it doesn't have copySortSource.
 // TODO: PR this against @types/dragula
-export interface DragulaOptions {
+export interface DragulaOptions<T = any> {
+
+  // note: it's possible you could wrap DragulaOptions such that
+  // the important functions would get model data included.
+  // that wouldn't be a breaking change if you appended the args to the callbacks.
+
   /* from @types/dragula */
   containers?: Element[];
   isContainer?: (el?: Element) => boolean;
@@ -19,4 +24,6 @@ export interface DragulaOptions {
   /* modifications */
   copy?: boolean | ((el: Element, source: Element) => boolean);
   copySortSource?: boolean | ((el: Element, source: Element) => boolean);
+
+  copyItem?: (item: T) => T;
 }
