@@ -1,12 +1,15 @@
 <div class="parent">
-    <label for="hy"><strong>Angular-specific example.</strong> Fancy some nested <code>ngFor</code>?</label>
-    <div class="wrapper" dragula="COLUMNS" [(dragulaModel)]="groups">
-        <div class="container" *ngFor="let group of groups">
-          <span class="group-handle">{{group.name}}</span>
-          <div class="container" dragula="ITEMS" [(dragulaModel)]="group.items">
-            <div *ngFor="let item of group.items" [innerHtml]="item.name"></div>
-          </div>
-        </div>
+  <label for="hy">
+    <strong>Angular-specific example.</strong>
+    Fancy some nested <code>ngFor</code>?
+  </label>
+  <div class="wrapper" dragula="COLUMNS" [(dragulaModel)]="groups">
+    <div class="container" *ngFor="let group of groups">
+      <span class="group-handle">{{group.name}}</span>
+      <div class="container" dragula="ITEMS" [(dragulaModel)]="group.items">
+        <div *ngFor="let item of group.items" [innerHtml]="item.name"></div>
+      </div>
     </div>
-    <pre><code>{{ example }}</code></pre>
+  </div>
+  <pre><code>{{ example }}</code></pre>
 </div>

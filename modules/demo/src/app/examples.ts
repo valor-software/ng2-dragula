@@ -1,46 +1,112 @@
 /* tslint:disable */
 import { Component } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'example-a',
   templateUrl: './templates/example-a.html'
 })
 export class ExampleAComponent {
+  code = `
+  <div dragula="DRAGULA_FACTS">
+    <div>...</div>
+    <div>...</div>
+  </div>
+  <div dragula="DRAGULA_FACTS">
+    <div>...</div>
+    <div>...</div>
+  </div>
+  `;
 }
+
+let eventsCode = `
+<div dragula="DRAGULA_EVENTS"> ... </div>
+<div dragula="DRAGULA_EVENTS"> ... </div>
+
+export class ExampleBComponent {
+  BAG = "DRAGULA_EVENTS";
+  subs = new Subscription();
+  public constructor(private dragulaService:DragulaService) {
+    this.subs.add(dragulaService.drag(this.BAG)
+      .subscribe(({ el }) => {
+        this.removeClass(el, 'ex-moved');
+      })
+    );
+    this.subs.add(dragulaService.drop(this.BAG)
+      .subscribe(({ el }) => {
+        this.addClass(el, 'ex-moved');
+      })
+    );
+    this.subs.add(dragulaService.over(this.BAG)
+      .subscribe(({ el, container }) => {
+        console.log('over', container);
+        this.addClass(container, 'ex-over');
+      })
+    );
+    this.subs.add(dragulaService.out(this.BAG)
+      .subscribe(({ el, container }) => {
+        console.log('out', container);
+        this.removeClass(container, 'ex-over');
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
+  addClass() { ... }
+  removeClass() { ... }
+}
+`;
 
 @Component({
   selector: 'example-b',
   templateUrl: './templates/example-b.html'
 })
 export class ExampleBComponent {
+  template = eventsCode;
   BAG = "DRAGULA_EVENTS";
+  subs = new Subscription();
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.drag(this.BAG).subscribe(({ name, el }) => {
-      this.removeClass(el, 'ex-moved');
-    });
-    dragulaService.drop(this.BAG).subscribe(({ name, el }) => {
-      this.addClass(el, 'ex-moved');
-    });
-    dragulaService.over(this.BAG).subscribe(({ name, el }) => {
-      this.addClass(el, 'ex-over');
-    });
-    dragulaService.out(this.BAG).subscribe(({ name, el }) => {
-      this.removeClass(el, 'ex-over');
-    });
+    this.subs.add(dragulaService.drag(this.BAG)
+      .subscribe(({ el }) => {
+        this.removeClass(el, 'ex-moved');
+      })
+    );
+    this.subs.add(dragulaService.drop(this.BAG)
+      .subscribe(({ el }) => {
+        this.addClass(el, 'ex-moved');
+      })
+    );
+    this.subs.add(dragulaService.over(this.BAG)
+      .subscribe(({ el, container }) => {
+        this.addClass(container, 'ex-over');
+      })
+    );
+    this.subs.add(dragulaService.out(this.BAG)
+      .subscribe(({ el, container }) => {
+        this.removeClass(container, 'ex-over');
+      })
+    );
   }
 
-  private hasClass(el:any, name:string):any {
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
+  private hasClass(el: Element, name: string):any {
     return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
   }
 
-  private addClass(el:any, name:string):void {
+  private addClass(el: Element, name: string):void {
     if (!this.hasClass(el, name)) {
       el.className = el.className ? [el.className, name].join(' ') : name;
     }
   }
 
-  private removeClass(el:any, name:string):void {
+  private removeClass(el: Element, name: string):void {
     if (this.hasClass(el, name)) {
       el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
     }
@@ -72,27 +138,53 @@ export class SuchExampleComponent {
   }
 }
 
-@Component({
-  selector: 'very-example',
-  templateUrl: './templates/very-example.html'
-})
-export class VeryExampleComponent {
+let copyCode = `
+<div class='container' dragula="COPYABLE" id="left">
+  <div>...</div>
+</div>
+<div class='container' dragula="COPYABLE" id="right">
+  <div>...</div>
+</div>
+
+export class CopyComponent {
   public constructor(private dragulaService:DragulaService) {
     dragulaService.setOptions('COPYABLE', {
-      copy: true
+      copy: (el, source) => {
+        return source.id === 'left';
+      }
+    });
+  }
+}
+`;
+
+@Component({
+  selector: 'copy-example',
+  templateUrl: './templates/very-example.html'
+})
+export class CopyComponent {
+  code = copyCode;
+  public constructor(private dragulaService:DragulaService) {
+    dragulaService.setOptions('COPYABLE', {
+      copy: (el, source) => {
+        return source.id === 'left';
+      }
     });
   }
 }
 
 @Component({
   selector: 'much-example',
-  templateUrl: './templates/much-example.html'
+  templateUrl: './templates/much-example.html',
+  styles: [`
+  .container div {
+    cursor: initial !important;
+  }
+  `]
 })
 export class MuchExampleComponent {
   public constructor(private dragulaService:DragulaService) {
     dragulaService.setOptions('HANDLES', {
-      moves: function (el:any, container:any, handle:any):any {
-        console.log(el, container);
+      moves: (el, container, handle) => {
         return handle.className === 'handle';
       }
     });
@@ -122,32 +214,91 @@ export class WowExampleComponent {
   }
 }
 
-@Component({
-  selector: 'repeat-example',
-  templateUrl: './templates/repeat-example.html'
-})
+const repeatCode = `
+<div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many'>
+    <div *ngFor='let text of many' [innerHtml]='text'></div>
+</div>
+<div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many2'>
+    <div *ngFor='let text of many2' [innerHtml]='text'></div>
+</div>
+
 export class RepeatExampleComponent {
   MANY_ITEMS = 'MANY_ITEMS';
   public many = ['The', 'possibilities', 'are', 'endless!'];
   public many2 = ['Explore', 'them'];
 
+  subs = new Subscription();
+
   public constructor(private dragulaService:DragulaService) {
-    dragulaService.dropModel(this.MANY_ITEMS).subscribe(({ el, target, source, item, sourceModel, targetModel }) => {
-      console.log('dropModel:');
-      console.log(el);
-      console.log(source);
-      console.log(target);
-      console.log(sourceModel);
-      console.log(targetModel);
-      console.log(item);
-    });
-    dragulaService.removeModel(this.MANY_ITEMS).subscribe(({ el, source, item, sourceModel }) => {
-      console.log('removeModel:');
-      console.log(el);
-      console.log(source);
-      console.log(sourceModel);
-      console.log(item);
-    });
+    this.subs.add(dragulaService.dropModel(this.MANY_ITEMS)
+      .subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
+        console.log('dropModel:');
+        console.log(el);
+        console.log(source);
+        console.log(target);
+        console.log(sourceModel);
+        console.log(targetModel);
+        console.log(item);
+      })
+    );
+    this.subs.add(dragulaService.removeModel(this.MANY_ITEMS)
+      .subscribe(({ el, source, item, sourceModel }) => {
+        console.log('removeModel:');
+        console.log(el);
+        console.log(source);
+        console.log(sourceModel);
+        console.log(item);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
+}
+`;
+
+@Component({
+  selector: 'repeat-example',
+  templateUrl: './templates/repeat-example.html',
+  styles: [`
+  .container { min-width: 200px; }
+  `]
+})
+export class RepeatExampleComponent {
+  template = repeatCode;
+  MANY_ITEMS = 'MANY_ITEMS';
+  public many = ['The', 'possibilities', 'are', 'endless!'];
+  public many2 = ['Explore', 'them'];
+
+  subs = new Subscription();
+
+  public constructor(private dragulaService:DragulaService) {
+    this.subs.add(dragulaService.dropModel(this.MANY_ITEMS)
+      .subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
+        console.log('dropModel:');
+        console.log(el);
+        console.log(source);
+        console.log(target);
+        console.log(sourceModel);
+        console.log(targetModel);
+        console.log(item);
+      })
+    );
+    this.subs.add(dragulaService.removeModel(this.MANY_ITEMS)
+      .subscribe(({ el, source, item, sourceModel }) => {
+        console.log('removeModel:');
+        console.log(el);
+        console.log(source);
+        console.log(sourceModel);
+        console.log(item);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 }
@@ -162,7 +313,7 @@ const nestedExampleCode = `
     </div>
 </div>
 
-export class NestedRepeatExampleComponent {
+export class NestedRepeatExample {
 
   constructor(private dragulaService: DragulaService) {
     this.dragulaService.setOptions("COLUMNS", {
@@ -186,7 +337,13 @@ export class NestedRepeatExampleComponent {
 
 @Component({
   selector: 'nested-repeat-example',
-  templateUrl: './templates/nested-repeat-example.html'
+  templateUrl: './templates/nested-repeat-example.html',
+  styles: [`
+  .container span {
+    display: block;
+    padding: 8px;
+  }
+  `]
 })
 export class NestedRepeatExampleComponent {
   example = nestedExampleCode;
@@ -215,7 +372,7 @@ export const EXAMPLES:any[] = [
   ExampleBComponent,
   AnotherExampleComponent,
   SuchExampleComponent,
-  VeryExampleComponent,
+  CopyComponent,
   MuchExampleComponent,
   WowExampleComponent,
   RepeatExampleComponent,

@@ -16,40 +16,5 @@
             <pre>{{many2 | json}}</pre>
         </div>
     </div>
-    <pre>
-      <code>
-&lt;div class='wrapper'&gt;
-  &lt;div class='container' [dragula]='MANY_ITEMS' [(dragulaModel)]='many'&gt;
-    &lt;div *ngFor='let text of many' [innerHtml]='text'&gt;&lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class='container' [dragula]='MANY_ITEMS' [(dragulaModel)]='many2'&gt;
-    &lt;div *ngFor='let text of many2' [innerHtml]='text'&gt;&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</code>
-<code>{{"export class RepeatExampleComponent {
-  MANY_ITEMS = 'MANY_ITEMS';
-  public many = ['The', 'possibilities', 'are', 'endless!'];
-  public many2 = ['Explore', 'them'];
-
-  public constructor(private dragulaService:DragulaService) {
-    dragulaService.dropModel(this.MANY_ITEMS).subscribe(({ el, target, source, item }) => {
-      console.log('dropModel:');
-      console.log(el);
-      console.log(target);
-      console.log(source);
-      console.log(item);
-    });
-    dragulaService.removeModel(this.MANY_ITEMS).subscribe(({ el, source, item }) => {
-      console.log('removeModel:');
-      console.log(el);
-      console.log(source);
-      console.log(item);
-    });
-  }
-
-}
-
-"}}</code>
-    </pre>
+    <pre><code>{{ template }}</code></pre>
 </div>
