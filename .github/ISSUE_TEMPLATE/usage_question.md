@@ -11,7 +11,7 @@ Note: usage questions are for the community. You will likely not get support fro
 
 Change each `[ ]` to `[x]`  when you have done it.
 
-- [ ] My issue title starts with `"[usage question]"`
+- [ ] My issue title starts with `[usage question]`
 - [ ] I have thoroughly read through the README, and I have looked at the demos to see if my use case has obvious examples.
 - [ ] I have read the [dragula docs](https://github.com/bevacqua/dragula).
 - [ ] I have searched through the **[`ng2-dragula`

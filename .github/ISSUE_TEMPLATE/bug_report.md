@@ -11,7 +11,7 @@ about: Create a report to help improve ng2-dragula
 
 Change each `[ ]` to `[x]` when you have done it.
 
-- [ ] My issue title starts with `[bug]`
+- [ ] My issue title starts with `[bug report]`
 - [ ] I have thoroughly read through the README, and the [dragula docs](https://github.com/bevacqua/dragula).
 - [ ] I have searched through the **[`ng2-dragula` issues](https://github.com/valor-software/ng2-dragula/issues)** for related problems, including closed issues, and I didn't find anything.
 - [ ] I have searched through the **[upstream `dragula` issues](https://github.com/bevacqua/dragula/issues)** for related problems, including closed issues, and I didn't find anything.
