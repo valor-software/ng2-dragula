@@ -24,13 +24,13 @@ script:
 after_success:
   - cd modules/ng2-dragula && yarn codecov
 
-# deploy:
-#   provider:     pages
-#   skip_cleanup: true
-#   local_dir:    modules/demo/dist
-#   github_token: $GH_TOKEN # Set in travis-ci.org dashboard
-#   on:
-#     branch: master
+deploy:
+  provider:     pages
+  skip_cleanup: true
+  local_dir:    modules/demo/dist
+  github_token: $GH_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
 
 # addons:
   # sauce labs tunel connector (read more https://docs.travis-ci.com/user/sauce-connect/ )
