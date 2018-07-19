@@ -2,16 +2,12 @@
 
 > Drag and drop so simple it hurts
 
-Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragula). [![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula) [![slack](https://ngx-slack.herokuapp.com/badge.svg)](https://ngx-slack.herokuapp.com)
+Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragula).
 
-[![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
+[![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula) [![slack](https://ngx-slack.herokuapp.com/badge.svg)](https://ngx-slack.herokuapp.com)
 [![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
 [![codecov](https://codecov.io/gh/valor-software/ng2-dragula/branch/master/graph/badge.svg)](https://codecov.io/gh/valor-software/ng2-dragula)
 [![Dependency Status](https://david-dm.org/valor-software/ng2-dragula.svg)](https://david-dm.org/valor-software/ng2-dragula)
-
-[![NPM](https://nodei.co/npm/ng2-dragula.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/ng2-dragula)
-[![NPM](https://nodei.co/npm-dl/ng2-dragula.png?height=3&months=3)](https://npmjs.org/ng2-dragula)
-
 
 # Demo
 
@@ -21,8 +17,16 @@ Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
 * [Install](#install)
 * [Setup](#setup)
-* [Setup for Angular Docs 5 Min Quickstart guide and various seed projects](https://github.com/valor-software/ng2-dragula/wiki)
 * [Usage](#usage)
+    * [Directive](#directive)
+    * [Grouping containers](#grouping-containers)
+    * [dragulaModel](#dragulamodel)
+    * [Drake options](#drake-options)
+    * [Events](#events)
+    * [Special events for ng2-dragula](#special-events-for-ng2-dragula)
+    * [DragulaService](#dragulaservice)
+* [Classic Blunders](#classic-blunders)
+* [Development](#development)
 
 # Install
 
@@ -148,9 +152,9 @@ draggable. You must supply a string. Both syntaxes, `dragula="VAMPIRES"` or
 </ul>
 ```
 
-## Grouping containers by type
+## Grouping containers
 
-You can group containers together by giving them the same type. When you
+You can group containers together by giving them the same group name. When you
 do, the children of each container can be dragged to any container in the same
 group.
 
@@ -180,7 +184,7 @@ class MyComponent {
 }
 ```
 
-### `dragulaModel`
+## `dragulaModel`
 
 If your container's children are rendered using `ngFor`, you may wish to have it synced. If you provide the same array to the `dragulaModel` attribute on the container element, any changes will be synced back to the array.
 
@@ -199,7 +203,7 @@ this.
 
 On top of the normal Dragula events, when `[dragulaModel]` is provided, there are two extra events: `dropModel` and `removeModel`. Further details are available under `Events`
 
-### `drake` options
+## Drake options
 
 If you need to configure the `drake` _(there's exactly one `drake` per `group`)_, you can use the `DragulaService`.
 
@@ -318,11 +322,52 @@ Returns a `{ name, drake }` for a group named 'name', if there is one. Contains 
 
 Destroys a `drake` instance named `name`.
 
-## Contribution
+# Classic Blunders
 
-Please read central `ng2` modules [readme](https://github.com/valor-software/ng2-plans) for details, plans and approach and welcome :)
+There are a number of very common issues filed against this repo. You will be
+mocked terribly if you file a bug and it turns out you made one of these
+blunders and it wasn't a bug at all.
 
-## Development
+### 1. Do not put `[dragula]` or `[dragulaModel]` on the same element as `*ngFor`.
+
+**WRONG:**
+
+```html
+<div class="container">
+  <div *ngFor="let x of list"
+       dragula="WRONG" [dragulaModel]="list">...</div>
+</div>
+```
+
+**RIGHT:**
+
+```html
+<div class="container" dragula="RIGHT" [dragulaModel]="list">
+  <div *ngFor="let x of list">...</div>
+</div>
+```
+
+### 2. Do not add any child elements that aren't meant to be draggable
+
+**WRONG:**
+```html
+<div class="container" dragula="WRONG" [dragulaModel]="list">
+  <h2>WRONG: This header will mess up everything, and you will
+      get really weird bugs on drop</h2>
+  <div *ngFor="let x of list">...</div>
+</div>
+```
+
+**RIGHT:**
+```html
+<h2>This header will not be draggable or affect drags at all.</h2>
+<div class="container" dragula="RIGHT" [dragulaModel]="list">
+  <div *ngFor="let x of list">...</div>
+</div>
+```
+
+
+# Development
 
 You must use Yarn.
 
@@ -354,8 +399,11 @@ yarn watch # listens for changes in the library and rebuilds
 yarn lerna publish
 ```
 
-#### TODO: put gh-pages updating in travis
+TODO: put gh-pages updating in travis
 
 ## Credits
-Crossbrowser testing sponsored by [Browser Stack](https://www.browserstack.com)
-[<img src="https://camo.githubusercontent.com/a7b268f2785656ab3ca7b1cbb1633ee5affceb8f/68747470733a2f2f64677a6f7139623561736a67312e636c6f756466726f6e742e6e65742f70726f64756374696f6e2f696d616765732f6c61796f75742f6c6f676f2d6865616465722e706e67" alt="Browser Stack" height="31px" style="background: cornflowerblue;">](https://www.browserstack.com)
+
+- `v1`: Nathan Walker (@NathanWalker)
+- `v1.x`: Dmitriy Shekhovtsov (@valorkin)
+- `v2`: Cormac Relf (@cormacrelf)
+
