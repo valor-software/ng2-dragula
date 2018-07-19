@@ -2,7 +2,7 @@
 
 > Drag and drop so simple it hurts
 
-Official **Angular2** wrapper for [`dragula`](https://github.com/bevacqua/dragula).
+Official **Angular** wrapper for [`dragula`](https://github.com/bevacqua/dragula).
 
 [![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula) [![slack](https://ngx-slack.herokuapp.com/badge.svg)](https://ngx-slack.herokuapp.com)
 [![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
@@ -48,26 +48,21 @@ This is a temporary workaround for
 [#849](https://github.com/valor-software/ng2-dragula/issues/849), while upstream
 dragula still relies on `global`.
 
-### 2. You'll need to add `DragulaModule` to your application module.
+### 2. You'll need to add `DragulaModule.forRoot()` to your application module.
 
 ```typescript
 import { DragulaModule } from 'ng2-dragula';
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+	...
   imports: [
-    DragulaModule,
-    ...
+    ...,
+    DragulaModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
 })
-
-export class AppModule {
-}
-
+export class AppModule { }
 ```
+
+On any child modules (like lazy loaded route modules), just use `DragulaModule`.
 
 ### 3. Add the CSS to your project
 
@@ -110,6 +105,8 @@ but you may wish to make your own modifications.
 
 ### Then you're ready to go
 
+Here's a super quick sample to get you started:
+
 ```typescript
 @Component({
   selector: "sample",
@@ -135,7 +132,10 @@ class Sample {}
 
 # Usage
 
-This package isn't very different from `dragula` itself. I'll mark the differences here, but please refer to the documentation for [dragula](https://github.com/bevacqua/dragula) if you need to learn more about `dragula` itself.
+This package isn't very different from `dragula` itself. I'll mark the
+differences here, but please refer to the documentation for
+[dragula](https://github.com/bevacqua/dragula) if you need to learn more about
+`dragula` itself.
 
 ## Directive
 
@@ -188,8 +188,10 @@ class MyComponent {
 
 If your container's children are rendered using `ngFor`, you may wish to have it synced. If you provide the same array to the `dragulaModel` attribute on the container element, any changes will be synced back to the array.
 
+**NOTE: v2 changes the behaviour of [dragulaModel]. It no longer mutates the arrays you give it, but will shallow clone them and give you the results.** Use two-way binding with `[(dragulaModel)]="..."`, or use the DragulaService `dropModel` and `removeModel` events to save the new models produced.
+
 ```html
-<ul dragula="VAMPIRES" [dragulaModel]="vampires">
+<ul dragula="VAMPIRES" [(dragulaModel)]="vampires">
   <li *ngFor="let vamp of vampires">
     {{ vamp.name }} likes {{ vamp.favouriteColor }}
   </li>
@@ -239,60 +241,65 @@ be applied.
 
 Whenever a `drake` instance is created with the `dragula` directive, there are
 several events you can subscribe to via `DragulaService`. Each event emits an
-`Array` where the first item is the type string used by the group. The remaining
-items depend on the event. The sample below illustrates how you can use
-destructuring to assign the values from the event. Refer to
-https://github.com/bevacqua/dragula#drakeon-events
+object. The remaining items depend on the event. The sample below illustrates
+how you can use destructuring to assign the values from the event.
+
+Refer to [the Drake events
+documentation](https://github.com/bevacqua/dragula#drakeon-events) for more
+information about the different events available.
 
 ```html
 <div dragula="VAMPIRES"></div>
 ```
 
 ```ts
-export class EventExample {
+import { Subscription } from 'rxjs';
+import { DragulaService } from 'ng2-dragula';
+
+export class MyComponent {
+  // RxJS Subscription is an excellent API for managing many unsubscribe calls.
+  subs = new Subscription();
 
   constructor(private dragulaService: DragulaService) {
-    dragulaService.drag.subscribe((value) => {
-      console.log(`drag: ${value[0]}`);
-      this.onDrag(value.slice(1));
-    });
-    dragulaService.drop.subscribe((value) => {
-      console.log(`drop: ${value[0]}`);
-      this.onDrop(value.slice(1));
-    });
-    dragulaService.over.subscribe((value) => {
-      console.log(`over: ${value[0]}`);
-      this.onOver(value.slice(1));
-    });
-    dragulaService.out.subscribe((value) => {
-      console.log(`out: ${value[0]}`);
-      this.onOut(value.slice(1));
-    });
+
+    // These will get events limited to the VAMPIRES group.
+
+    this.subs.add(this.dragulaService.drag("VAMPIRES")
+      .subscribe(({ name, el, source }) => {
+        // ...
+      })
+    );
+    this.subs.add(this.dragulaService.drop("VAMPIRES")
+      .subscribe(({ name, el, target, source, sibling }) => {
+        // ...
+      })
+    );
+    // some events have lots of properties, just pick the ones you need
+    this.subs.add(this.dragulaService.dropModel("VAMPIRES")
+      // WHOA
+      // .subscribe(({ name, el, target, source, sibling, sourceModel, targetModel, item }) => {
+      .subscribe(({ sourceModel, targetModel, item }) => {
+        // ...
+      })
+    );
+
+    // You can also get all events, not limited to a particular group
+    this.subs.add(this.dragulaService.drop()
+      .subscribe(({ name, el, target, source, sibling }) => {
+        // ...
+      })
+    );
   }
 
-  private onDrag(args) {
-    let [e, el] = args;
-    // do something
-  }
-
-  private onDrop(args) {
-    let [e, el] = args;
-    // do something
-  }
-
-  private onOver(args) {
-    let [e, el, container] = args;
-    // do something
-  }
-
-  private onOut(args) {
-    let [e, el, container] = args;
-    // do something
+  ngOnDestroy() {
+    // destroy all the subscriptions at once
+    this.subs.unsubscribe();
   }
 }
+
 ```
 
-## Special Events for ng2-dragula
+## Special Events for `ng2-dragula`
 
 | Event Name      | Listener Arguments          | Event Description                                                                        |
 | :-------------: | :-------------------------: | ---------------------------------------------------------------------------------------- |
@@ -305,22 +312,49 @@ This service exposes a few different methods with which you can interact with `d
 
 ### `dragulaService.add(name, drake)`
 
-Creates a `group` identified by `name`. You should provide the entire `drake` instance. Typically, the directive takes care of this step.
+Creates a `group` identified by `name`. You should provide the entire `drake`
+instance. Typically, the directive takes care of this step.
 
 ### `dragulaService.setOptions(name, options)`
 
 Sets the `options` used to instantiate a `drake`. Refer to the documentation for [dragula](https://github.com/bevacqua/dragula#readme) to learn more about the `options` themselves.
 
+Note that you cannot dynamically set options. You should only call `setOptions`
+once per group. If you want the behaviour of the drake to change over time, you should:
+
+1. Use callbacks instead of booleans on the drake properties. E.g. `{ copy: (el,
+source) => ... }` instead of `{ copy: true }`.
+
+2. Have the callbacks refer to the relevant `el` and `source` elements (and any
+attributes or classes set on them), and refer to other values that might change
+over time.
+
+Example:
+
+```ts
+draggingEnabled = false;
+constructor(private dragulaService: DragulaService) {
+    this.dragulaService.setOptions("VAMPIRES", {
+        moves: (el, source) => {
+            return this.draggingEnabled && source.getAttribute('undead');
+        }
+    });
+    this.someService.call().subscribe(() => this.draggingEnabled = true);
+}
+```
+
 ### `dragulaService.find(name)`
 
-Returns a `{ name, drake }` for a group named 'name', if there is one. Contains the following properties.
+Returns a `Group` named `name`, if there is one. A `Group` contains the following
+properties.
 
-- `name` is the name that identifies the drake
+- `name` is the name that identifies the group
 - `drake` is the raw `drake` instance itself
 
 ### `dragulaService.destroy(name)`
 
-Destroys a `drake` instance named `name`.
+Destroys a `Group` named `name` and its associated `drake` instance. Silently
+returns if the group does not exist.
 
 # Classic Blunders
 
@@ -369,9 +403,10 @@ blunders and it wasn't a bug at all.
 
 # Development
 
-You must use Yarn.
+- You must use Yarn >= 1.3. It includes the 'workspaces' feature.
+- Please use [Conventional Commits](https://conventionalcommits.org/) in your commit messages.
 
-#### Setup:
+#### setup
 
 ```sh
 yarn
@@ -389,7 +424,9 @@ yarn
 #### run demo server
 
 ```sh
-yarn watch # listens for changes in the library and rebuilds
+# listens for changes in the library and rebuilds on save
+yarn watch
+# runs demo server
 (cd modules/demo && yarn start)
 ```
 
