@@ -124,9 +124,7 @@ export class DragulaService {
       throw new Error('Group named: "' + name + '" already exists.');
     }
     this.groups.push(group);
-    if (group.drake.models) { // models to sync with (must have same structure as containers)
-      this.handleModels(group);
-    }
+    this.handleModels(group);
     this.setupEvents(group);
     return group;
   }
@@ -188,6 +186,9 @@ export class DragulaService {
       });
     });
     drake.on('drag', (el: any, source: any) => {
+      if (!drake.models) {
+        return;
+      }
       dragElm = el;
       dragIndex = this.domIndexOf(el, source);
     });

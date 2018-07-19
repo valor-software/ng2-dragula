@@ -166,16 +166,31 @@ describe('DragulaService', () => {
     service.destroy("MODELS");
   });
 
-  it('should not start listening to dropModel events when drake without models passed to add', () => {
-    const ul = buildList('ul', ['li']);
+  it('should not act on to dropModel events until drake.models has a value', () => {
+    const ul = buildList('ul', ['li', 'li']);
     const li = ul.children[0];
-    let mock = new MockDrake([], {}, null);
+    let mock = new MockDrake([ul], {}, null);
     service.add(new Group("NOMODELS", mock, {}));
     let ev = subscribeSync(service.dropModel("NOMODELS"), () => {
       mock.emit(EventTypes.Drag, li, ul);
+      ul.removeChild(li);
+      ul.appendChild(li);
       mock.emit(EventTypes.Drop, li, ul, ul, undefined);
     });
-    expect(ev).not.toBeTruthy();
+    expect(ev).not.toBeTruthy("dropModel shouldn't have fired without drake.models being set");
+
+    // assume directive sets this
+    mock.models = [['b', 'a']];
+    ev = subscribeSync(service.dropModel("NOMODELS"), () => {
+      mock.emit(EventTypes.Drag, li, ul);
+      // put it back
+      ul.removeChild(li);
+      ul.insertBefore(li, ul.firstChild);
+      mock.emit(EventTypes.Drop, li, ul, ul, undefined);
+    });
+    expect(ev).toBeTruthy("didn't receive dropModel event after setting drake.models");
+    expect(ev.item).toBe('a', "ev.item wrong");
+
     service.destroy("NOMODELS");
   });
 
