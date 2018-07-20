@@ -1,7 +1,7 @@
 {
   "name": "ng2-dragula",
   "private": false,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple drag and drop with dragula",
   "repository": {
     "type": "git",
@@ -36,8 +36,8 @@
     "watch": "chokidar 'src/**/*.ts' 'src/**/*.html' 'src/**/*.scss' -c 'yarn build'"
   },
   "dependencies": {
-    "dragula": "^3.7.2",
-    "@types/dragula": "^2.1.33"
+    "@types/dragula": "^2.1.33",
+    "dragula": "^3.7.2"
   },
   "peerDependencies": {
     "@angular/core": ">=6.0.0",
