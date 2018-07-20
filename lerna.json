@@ -7,6 +7,8 @@
   "useWorkspaces": true,
   "version": "2.0.0",
   "commands": {
-    "publish": {}
+    "publish": {
+      "conventionalCommits": true
+    }
   }
 }
