@@ -266,9 +266,9 @@
     semver "^5.3.0"
     semver-intersect "^1.1.2"
 
-"@types/dragula@2.1.29":
-  version "2.1.29"
-  resolved "https://registry.yarnpkg.com/@types/dragula/-/dragula-2.1.29.tgz#77d688c03b77c654f9754474165fe7d17bb4373b"
+"@types/dragula@^2.1.33":
+  version "2.1.33"
+  resolved "https://registry.yarnpkg.com/@types/dragula/-/dragula-2.1.33.tgz#63a694bd8a5fb7bfa570778a12a069be98462919"
 
 "@types/estree@0.0.39":
   version "0.0.39"
