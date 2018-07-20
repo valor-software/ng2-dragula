@@ -26,6 +26,7 @@ after_success:
 
 deploy:
   provider:     pages
+  fqdn:         valor-software.com
   skip_cleanup: true
   local_dir:    modules/demo/dist/demo
   github_token: $GH_TOKEN # Set in travis-ci.org dashboard
