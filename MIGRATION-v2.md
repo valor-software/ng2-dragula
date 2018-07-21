@@ -17,7 +17,7 @@ guide](https://update.angular.io/)'s recommendations.
  )
 ```
 
-### 2. Add two-way binding brackets to `[(dragulaModel)]`
+### 3. Add two-way binding brackets to `[(dragulaModel)]`
 
 ```diff
 -<div dragula="VAMPIRES" [dragulaModel]="myList">
@@ -38,7 +38,7 @@ the results of drag/drop manipulation using one of these methods:
    group. These events are much improved, and now contain model data, which is
    ideal for triggering `@ngrx/store` actions.
 
-### 3. Replace `setOptions` and `[dragulaOptions]` with `DragulaService.createGroup`
+### 4. Replace `setOptions` and `[dragulaOptions]` with `DragulaService.createGroup`
 
 ```diff
  constructor(private dragulaService: DragulaService) {
@@ -63,7 +63,7 @@ You might also like to take the opportunity to give your groups descriptive
 names. A lot of users filing issues are still using `"first-bag"`, `"second-bag"`,
 etc.
 
-### 4. Use the new events API
+### 5. Use the new events API
 
 ```diff
  subs = new Subscription();
@@ -98,7 +98,7 @@ The new API is much more helpful. There are three notable changes:
 
 There is much more info in the README.
 
-### 5. If you are using `copy` with `[(dragulaModel)]`, provide a `copyItem` function.
+### 6. If you are using `copy` with `[(dragulaModel)]`, provide a `copyItem` function.
 
 ```diff
  interface MyItem {
