@@ -63,7 +63,7 @@ You might also like to take the opportunity to give your groups descriptive
 names. A lot of users filing issues are still using `"first-bag"`, `"second-bag"`,
 etc.
 
-### 3. Use the new events API
+### 4. Use the new events API
 
 ```diff
  subs = new Subscription();
@@ -98,12 +98,12 @@ The new API is much more helpful. There are three notable changes:
 
 There is much more info in the README.
 
-### 4. If you are using `copy` with `[(dragulaModel)]`, provide a `copyItem` function.
+### 5. If you are using `copy` with `[(dragulaModel)]`, provide a `copyItem` function.
 
 ```diff
-interface MyItem {
-  name: string;
-}
+ interface MyItem {
+   name: string;
+ }
  constructor(private dragulaService: DragulaService) {
    this.dragulaService.createGroup("VAMPIRES", {
      copy: true,
