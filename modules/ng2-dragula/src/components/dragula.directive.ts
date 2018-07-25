@@ -98,10 +98,8 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       .dropModel(name)
       .subscribe(({ source, target, sourceModel, targetModel }) => {
         if (source === this.el.nativeElement) {
-          // this.dragulaModel = sourceModel;
           this.dragulaModelChange.emit(sourceModel);
         } else if (target === this.el.nativeElement) {
-          // this.dragulaModel = targetModel;
           this.dragulaModelChange.emit(targetModel);
         }
       })
@@ -111,7 +109,6 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       .removeModel(name)
       .subscribe(({ source, sourceModel }) => {
         if (source === this.el.nativeElement) {
-          this.dragulaModel = sourceModel;
           this.dragulaModelChange.emit(sourceModel);
         }
       })
