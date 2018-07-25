@@ -12,15 +12,12 @@ export class DragulaDirective implements OnChanges, OnDestroy {
 
   private subs: Subscription;
 
-  private container: any;
+  private get container(): HTMLElement {
+    return this.el && this.el.nativeElement;
+  }
   private group: Group;
 
-  private el: ElementRef;
-  private dragulaService: DragulaService;
-  public constructor(el: ElementRef, dragulaService: DragulaService) {
-    this.el = el;
-    this.dragulaService = dragulaService;
-    this.container = el.nativeElement;
+  public constructor(private el: ElementRef, private dragulaService: DragulaService) {
   }
 
   public ngOnChanges(changes: {dragula?: SimpleChange, dragulaModel?: SimpleChange}): void {
