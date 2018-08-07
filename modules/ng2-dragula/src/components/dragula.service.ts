@@ -200,6 +200,7 @@ export class DragulaService {
         targetModel = sourceModel;
       } else {
         let isCopying = dragElm !== dropElm;
+        if (!sourceModel) return; 
         item = sourceModel[dragIndex];
         if (isCopying) {
           if (!options.copyItem) {
