@@ -1,3 +1,8 @@
+[![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula) [![slack](https://ngx-slack.herokuapp.com/badge.svg)](https://ngx-slack.herokuapp.com)
+[![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
+[![codecov](https://codecov.io/gh/valor-software/ng2-dragula/branch/master/graph/badge.svg)](https://codecov.io/gh/valor-software/ng2-dragula)
+[![Dependency Status](https://david-dm.org/valor-software/ng2-dragula.svg)](https://david-dm.org/valor-software/ng2-dragula)
+
 ![Logo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/logo.png)
 
 > Drag and drop so simple it hurts
@@ -12,16 +17,15 @@ here][migration] or read the [full changelog][changelog].**
 [migration]: ./MIGRATION-v2.md
 [changelog]: ./modules/ng2-dragula/CHANGELOG.md
 
-[![npm version](https://badge.fury.io/js/ng2-dragula.svg)](http://badge.fury.io/js/ng2-dragula) [![npm downloads](https://img.shields.io/npm/dm/ng2-dragula.svg)](https://npmjs.org/ng2-dragula) [![slack](https://ngx-slack.herokuapp.com/badge.svg)](https://ngx-slack.herokuapp.com)
-[![Build Status](https://travis-ci.org/valor-software/ng2-dragula.svg?branch=master)](https://travis-ci.org/valor-software/ng2-dragula)
-[![codecov](https://codecov.io/gh/valor-software/ng2-dragula/branch/master/graph/badge.svg)](https://codecov.io/gh/valor-software/ng2-dragula)
-[![Dependency Status](https://david-dm.org/valor-software/ng2-dragula.svg)](https://david-dm.org/valor-software/ng2-dragula)
-
 # Demo
 
-![Demo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/demo.png)
-
 Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
+
+Or play with [this starter in your browser][stackblitz] on StackBlitz.
+
+[stackblitz]: https://stackblitz.com/edit/ng2-dragula-base?file=src/app/app.component.html
+
+![Demo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/demo.png)
 
 * [Install](#install)
 * [Setup](#setup)
