@@ -3,37 +3,24 @@ name: Bug report
 about: Create a report to help improve ng2-dragula
 ---
 
-<!-- Note: Please fill out the below. If you do not, your issue may be closed without consideration. -->
+<!-- Note: Please fill out the below. IF YOU DO NOT, YOUR ISSUE WILL BE CLOSED AUTOMATICALLY. -->
 
-<!-- Note: Please do not post usage questions. Framing your usage question as a bug report will not help. -->
-
-**REQUIRED: Before you file a bug report**
+**REQUIRED: Before filing a bug report**
 
 Change each `[ ]` to `[x]` when you have done it.
 
 - [ ] My issue title starts with `[bug report]`
-- [ ] I have thoroughly read through the README, and the [dragula docs](https://github.com/bevacqua/dragula).
-- [ ] I have searched through the **[`ng2-dragula` issues](https://github.com/valor-software/ng2-dragula/issues)** for related problems, including closed issues, and I didn't find anything.
-- [ ] I have searched through the **[upstream `dragula` issues](https://github.com/bevacqua/dragula/issues)** for related problems, including closed issues, and I didn't find anything.
-- [ ] I am using the latest version of `ng2-dragula`
-- [ ] I have read through the ['classic blunders' section of the README](https://github.com/valor-software/ng2-dragula#classic-blunders) and I am not doing any of them
-- [ ] I have browsed through [the issues labeled "future reference"](https://github.com/valor-software/ng2-dragula/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22future+reference%22).
+- [ ] I have read the [README](https://github.com/valor-software/ng2-dragula), especially the ['classic blunders' section](https://github.com/valor-software/ng2-dragula#classic-blunders), and the [dragula docs](https://github.com/bevacqua/dragula).
+- [ ] I have searched through the [`ng2-dragula` issues](https://github.com/valor-software/ng2-dragula/issues) for related problems, including closed issues.
+- [ ] I have browsed through the [issues labeled "future reference"](https://github.com/valor-software/ng2-dragula/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22future+reference%22) for problems that have been solved before or have a known workaround.
+- [ ] I am using the latest version of `ng2-dragula`.
 
-**Please select what kind of bug this is**
+**Describe the bug (required)**
 
-- [ ] Build errors, incompatibility, errors that prevent using the library entirely
-- [ ] Incorrect behaviour with `[dragulaModel]`
-- [ ] Performance issue
-- [ ] Documentation/demo problem
-- [ ] Other
+A clear and concise description of what the bug is. What did you do, and what
+did you expected to happen? What happened instead?
 
- *(If you can, please fork and submit a pull request! See the [development](https://github.com/valor-software/ng2-dragula#development) section of the README.)*
-
-**Describe the bug**
-
-A clear and concise description of what the bug is.
-
-**To Reproduce**
+**To Reproduce (required)**
 
 Steps to reproduce the behavior:
 
@@ -42,28 +29,32 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-If you can, please fork this [StackBlitz template][stackblitz], modify it, and reproduce the issue. Add a link to it here.
+If your issue appears in a larger codebase and it you can't pin down why it is
+happening, please
+
+- Fork this [StackBlitz template][stackblitz]
+- Update it to the latest `ng2-dragula`
+- Modify it, and reproduce the issue
+- Add a link to it here.
 
 [stackblitz]: https://stackblitz.com/edit/ng2-dragula-base?file=src/app/app.component.html
 
-**Expected behavior**
-
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
+**Screenshots (optional)**
 
 If applicable, add screenshots to help explain your problem.
 
-**Versions**
+**Versions (required)**
+
+Please state which versions of the following packages you have installed:
 
  - `@angular/core`: [e.g. 6.0.4]
  - `ng2-dragula`: [e.g. 2.0.0]
 
-**Browsers affected**
+**Browsers affected (optional)**
 
 Is this a bug in a particular browser? If so, it's unlikely that it's a problem with `ng2-dragula`. Instead, it is probably a bug in [`dragula`](https://github.com/bevacqua/dragula/issues).
 
-**Additional context**
+**Additional context (optional)**
 
 Add any other context about the problem here.
 

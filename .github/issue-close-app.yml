@@ -1,0 +1,50 @@
+# for use with https://probot.github.io/apps/close-issue/
+# https://github.com/offu/close-issue-app
+
+comment: |
+  This issue has been closed automatically because it did not conform to an
+  issue template, or because some of the template was deleted.
+
+  You may file a new issue, if you complete all the required tasks, and add the
+  requested information, including a concise description of the problem.
+
+  Filling out the template helps ensure that your problems can be understood,
+  or any potential bugs can be spotted and fixed. Before you file a new issue,
+  please check that the solution to your problem isn't already here somewhere:
+
+  - The [README](https://github.com/valor-software/ng2-dragula), especially the ['classic blunders' section](https://github.com/valor-software/ng2-dragula#classic-blunders)
+  - The [upstream dragula documentation](https://github.com/bevacqua/dragula).
+  - The [issues](https://github.com/valor-software/ng2-dragula/issues) on this repository, including closed issues
+  - Especially [the issues labeled "future reference"](https://github.com/valor-software/ng2-dragula/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22future+reference%22).
+
+caseInsensitive: true
+issueConfigs:
+  - content:
+    - "bug report"
+    - "title starts with"
+    - "README"
+    - "classic blunders"
+    - "dragula docs"
+    - "searched"
+    - "for related problems, including closed issues"
+    - "future reference"
+    - "latest version"
+    - "to reproduce"
+    - "Versions"
+    - "`angular/core`"
+    - "`ng2-dragula`"
+  - content:
+    - "feature request"
+    - "title starts with"
+    - "README"
+    - "for related problems, including closed issues"
+  - content:
+    - "usage question"
+    - "title starts with"
+    - "README"
+    - "classic blunders"
+    - "demos"
+    - "searched"
+    - "including closed issues"
+    - "ng2-dragula"
+    - "future reference"
