@@ -31,7 +31,7 @@ Or play with [this starter in your browser][stackblitz] on StackBlitz.
 * [Usage](#usage)
     * [Directive](#directive)
     * [Grouping containers](#grouping-containers)
-    * [dragulaModel](#dragulamodel)
+    * [Saving changes to arrays with dragulaModel](#saving-changes-to-arrays-with-dragulamodel]
     * [DragulaService](#dragulaservice)
     * [Drake options](#drake-options)
     * [Events](#events)
