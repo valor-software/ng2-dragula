@@ -196,9 +196,9 @@ class MyComponent {
 }
 ```
 
-## `dragulaModel`
+## Saving changes to arrays with `[(dragulaModel)]`
 
-If your container's children are rendered using `ngFor`, you may wish to have it synced. If you provide the same array to the `dragulaModel` attribute on the container element, any changes will be synced back to the array.
+If your container's children are rendered using `ngFor`, you may wish to read what your users have done. If you provide the same array to the `[(dragulaModel)]` attribute on the **container** element, any changes will be synced back to the array.
 
 **NOTE: v2 changes the behaviour of [dragulaModel]. It no longer mutates the arrays you give it, but will shallow clone them and give you the results.** Use two-way binding with `[(dragulaModel)]="..."`, or use the DragulaService `dropModel` and `removeModel` events to save the new models produced.
 
@@ -207,6 +207,14 @@ If your container's children are rendered using `ngFor`, you may wish to have it
   <li *ngFor="let vamp of vampires">
     {{ vamp.name }} likes {{ vamp.favouriteColor }}
   </li>
+</ul>
+```
+
+You do not, of course, *have* to sync the changes back. The `[(dragulaModel)]` syntax is equivalent to:
+
+```html
+<ul dragula="VAMPIRES" [dragulaModel]="vampires" (dragulaModelChange)="vampires = $event">
+  ...
 </ul>
 ```
 
