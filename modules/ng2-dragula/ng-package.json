@@ -4,6 +4,9 @@
   ],
   "deleteDestPath": false,
   "lib": {
-    "name": "ng2Dragula"
+    "name": "ng2Dragula",
+    "umdModuleIds": {
+      "dragula": "dragula"
+    }
   }
 }
