@@ -223,7 +223,7 @@ on having the index of a DOM element inside a container mapping directly to
 their associated items in the array. Everything will be messed up if you do
 this.
 
-On top of the normal Dragula events, when `[dragulaModel]` is provided, there are two extra events: `dropModel` and `removeModel`. Further details are available under `Events`
+On top of the normal Dragula events, when `[(dragulaModel)]` is provided, there are two extra events: `dropModel` and `removeModel`. Further details are available under `Events`
 
 ## Drake options
 
@@ -281,7 +281,7 @@ All of the native options work with ng2-dragula. However, there is one addition:
 
 When you have:
 
-* `[dragulaModel]`
+* `[(dragulaModel)]`
 * `copy` is `true` or a *function that returns true*
 
 ... ng2-dragula will have to create a clone of the JS object you picked up. In
@@ -417,21 +417,21 @@ There are a number of very common issues filed against this repo. You will be
 mocked terribly if you file a bug and it turns out you made one of these
 blunders and it wasn't a bug at all.
 
-### 1. Do not put `[dragula]` or `[dragulaModel]` on the same element as `*ngFor`.
+### 1. Do not put `[dragula]` or `[(dragulaModel)]` on the same element as `*ngFor`.
 
 **WRONG:**
 
 ```html
 <div class="container">
   <div *ngFor="let x of list"
-       dragula="WRONG" [dragulaModel]="list">...</div>
+       dragula="WRONG" [(dragulaModel)]="list">...</div>
 </div>
 ```
 
 **RIGHT:**
 
 ```html
-<div class="container" dragula="RIGHT" [dragulaModel]="list">
+<div class="container" dragula="RIGHT" [(dragulaModel)]="list">
   <div *ngFor="let x of list">...</div>
 </div>
 ```
@@ -440,7 +440,7 @@ blunders and it wasn't a bug at all.
 
 **WRONG:**
 ```html
-<div class="container" dragula="WRONG" [dragulaModel]="list">
+<div class="container" dragula="WRONG" [(dragulaModel)]="list">
   <h2>WRONG: This header will mess up everything, and you will
       get really weird bugs on drop</h2>
   <div *ngFor="let x of list">...</div>
@@ -450,7 +450,7 @@ blunders and it wasn't a bug at all.
 **RIGHT:**
 ```html
 <h2>This header will not be draggable or affect drags at all.</h2>
-<div class="container" dragula="RIGHT" [dragulaModel]="list">
+<div class="container" dragula="RIGHT" [(dragulaModel)]="list">
   <div *ngFor="let x of list">...</div>
 </div>
 ```
