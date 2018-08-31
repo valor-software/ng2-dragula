@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/valor-software/ng2-dragula/compare/v2.0.3...v2.0.4) (2018-08-31)
+
+
+### Bug Fixes
+
+* **package:** make NPMJS.com readme link to GH ([c0e7b1b](https://github.com/valor-software/ng2-dragula/commit/c0e7b1b))
+
+
+
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/valor-software/ng2-dragula/compare/v2.0.2...v2.0.3) (2018-08-31)
 
