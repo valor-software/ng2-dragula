@@ -2,7 +2,7 @@ import { Subject, BehaviorSubject, Observable, empty } from 'rxjs';
 import { DragulaOptions } from '../DragulaOptions';
 import { DragulaService } from '../components/dragula.service';
 import { Group } from '../Group';
-import { MockDrake } from './MockDrake';
+import { MockDrake } from '../MockDrake';
 
 type Interface<T> = {
     [P in keyof T]: T[P]

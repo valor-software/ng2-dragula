@@ -8,4 +8,4 @@ export { DrakeWithModels } from './DrakeWithModels';
 export { DragulaOptions } from './DragulaOptions';
 
 export { EventTypes } from './EventTypes';
-export { MockDrake, MockDrakeFactory } from './spec/MockDrake';
+export { MockDrake, MockDrakeFactory } from './MockDrake';

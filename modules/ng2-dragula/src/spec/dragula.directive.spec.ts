@@ -1,5 +1,5 @@
-/// <reference path="../jasmine.d.ts" />
-/// <reference path="../testdouble-jasmine.d.ts" />
+/// <reference path="./jasmine.d.ts" />
+/// <reference path="./testdouble-jasmine.d.ts" />
 import { } from 'jasmine';
 import * as td from 'testdouble'
 import { TestBed, inject, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
@@ -9,7 +9,7 @@ import { DrakeWithModels } from '../DrakeWithModels';
 import { Group } from '../Group';
 import { DrakeFactory } from '../DrakeFactory';
 import { EventTypes } from '../EventTypes';
-import { MockDrake, MockDrakeFactory } from './MockDrake';
+import { MockDrake, MockDrakeFactory } from '../MockDrake';
 import { Component, ElementRef } from "@angular/core";
 import { TestHostComponent, TwoWay, Asynchronous } from './test-host.component';
 import { Subject, BehaviorSubject, Observable, empty } from 'rxjs';

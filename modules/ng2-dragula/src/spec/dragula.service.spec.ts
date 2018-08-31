@@ -1,5 +1,5 @@
-/// <reference path="../jasmine.d.ts" />
-/// <reference path="../testdouble-jasmine.d.ts" />
+/// <reference path="./jasmine.d.ts" />
+/// <reference path="./testdouble-jasmine.d.ts" />
 import { } from 'jasmine';
 import * as td from 'testdouble'
 import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
@@ -12,7 +12,7 @@ import { TestHostComponent } from './test-host.component';
 import dragula = require('dragula');
 import { Subject, Subscription, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { MockDrake, MockDrakeFactory } from './MockDrake';
+import { MockDrake, MockDrakeFactory } from '../MockDrake';
 import { EventTypes } from '../EventTypes';
 import { DragulaOptions } from '../DragulaOptions';
 
