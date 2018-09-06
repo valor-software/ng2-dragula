@@ -2,23 +2,16 @@
 /// <reference path="./testdouble-jasmine.d.ts" />
 import { } from 'jasmine';
 import * as td from 'testdouble'
-import { TestBed, inject, async, ComponentFixture } from '@angular/core/testing';
-import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { Group } from '../Group';
-import { Component, ElementRef, EventEmitter } from "@angular/core";
-import { TestHostComponent } from './test-host.component';
-import dragula = require('dragula');
-import { Subject, Subscription, Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { MockDrake, MockDrakeFactory } from '../MockDrake';
 import { EventTypes } from '../EventTypes';
 import { DragulaOptions } from '../DragulaOptions';
 
 const GROUP = "GROUP";
-
-type SimpleDrake = Partial<DrakeWithModels>;
 
 describe('DragulaService', () => {
   let service: DragulaService;
@@ -204,8 +197,8 @@ describe('DragulaService', () => {
 
     let ev = subscribeSync(service.dropModel("DROPMODEL"), () => {
       mock.emit(EventTypes.Drag, li, ul);
-      ul.removeChild(li);
-      ul.appendChild(li);
+      ul.removeChild(li); // removes a at index 0
+      ul.appendChild(li); // adds a at index 1
       mock.emit(EventTypes.Drop, li, ul, ul, undefined);
     });
 
@@ -215,6 +208,8 @@ describe('DragulaService', () => {
     expect(ev.sourceModel.length).toBe(model.length);
     expect(ev.targetModel).not.toBe(model, 'targetModel not cloned');
     expect(ev.targetModel).toContain('a');
+    expect(ev.sourceIndex).toBe(0, 'sourceIndex');
+    expect(ev.targetIndex).toBe(1, 'targetIndex');
 
     expect(ev.targetModel[0]).toBe('b');
     expect(ev.targetModel[1]).toBe('a');
@@ -224,14 +219,14 @@ describe('DragulaService', () => {
 
   it('should dropModel correctly in same list (backwards)', () => {
     const ul = buildList('ul', ['li', 'li', 'li']);
-    const li = ul.children[2];
+    const li = ul.children[2]; // c
     let model = ['a', 'b', 'c'];
     let mock = _addMockDrake("DROPMODEL", [ ul ], {}, [ model ]);
 
     let ev = subscribeSync(service.dropModel("DROPMODEL"), () => {
       mock.emit(EventTypes.Drag, li, ul);
-      ul.removeChild(li);
-      ul.insertBefore(li, ul.firstChild);
+      ul.removeChild(li); // remove c from index 2
+      ul.insertBefore(li, ul.firstChild); // add c at index 0
       mock.emit(EventTypes.Drop, li, ul, ul, undefined);
     });
 
@@ -242,6 +237,8 @@ describe('DragulaService', () => {
     expect(ev.sourceModel).toBe(ev.targetModel, 'sourceModel !== targetModel');
     expect(ev.targetModel).not.toBe(model, 'targetModel not cloned');
     expect(ev.targetModel).toContain('a');
+    expect(ev.sourceIndex).toBe(2, 'sourceIndex');
+    expect(ev.targetIndex).toBe(0, 'targetIndex');
 
     expect(ev.targetModel[0]).toBe('c');
     expect(ev.targetModel[1]).toBe('a');
@@ -260,8 +257,8 @@ describe('DragulaService', () => {
 
     let ev = subscribeSync(service.dropModel("DROPMODEL"), () => {
       mock.emit(EventTypes.Drag, li, source);
-      source.removeChild(li);
-      target.appendChild(li);
+      source.removeChild(li); // remove b at index 1
+      target.appendChild(li); // add b at index 2
       mock.emit(EventTypes.Drop, li, target, source, undefined);
     });
 
@@ -275,6 +272,9 @@ describe('DragulaService', () => {
     expect(ev.target).toBe(target, 'target wasn\'t target');
     expect(ev.targetModel).not.toBe(targetModel, 'targetModel not cloned');
     expect(ev.targetModel).toContain('b', 'targetModel should have b in it');
+
+    expect(ev.sourceIndex).toBe(1, 'sourceIndex');
+    expect(ev.targetIndex).toBe(2, 'targetIndex');
 
     expect(ev.targetModel.length).toBe(3);
     expect(ev.targetModel[0]).toBe('x');
@@ -303,6 +303,7 @@ describe('DragulaService', () => {
     expect(ev.sourceModel[0]).toBe('a');
     // no b
     expect(ev.sourceModel[1]).toBe('c');
+    expect(ev.sourceIndex).toBe(1, 'sourceIndex');
 
     service.destroy("REMOVEMODEL");
   });

@@ -1,5 +1,4 @@
-import { Injectable, EventEmitter, Optional } from '@angular/core';
-import { DrakeWithModels } from '../DrakeWithModels';
+import { Injectable, Optional } from '@angular/core';
 import { Group } from '../Group';
 import { DragulaOptions } from '../DragulaOptions';
 import { Subject, Observable } from 'rxjs';
@@ -91,9 +90,9 @@ export class DragulaService {
       EventTypes.DropModel,
       groupName,
       (name, [
-        el, target, source, sibling, item, sourceModel, targetModel
-      ]: [Element, Element, Element, Element, T, T[], T[]]) => {
-        return { name, el, target, source, sibling, item, sourceModel, targetModel }
+        el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex
+      ]: [Element, Element, Element, Element, T, T[], T[], number, number]) => {
+        return { name, el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex }
       })
   );
 
@@ -102,9 +101,9 @@ export class DragulaService {
       EventTypes.RemoveModel,
       groupName,
       (name, [
-        el, container, source, item, sourceModel
-      ]: [Element, Element, Element, T, T[]]) => {
-        return { name, el, container, source, item, sourceModel }
+        el, container, source, item, sourceModel, sourceIndex
+      ]: [Element, Element, Element, T, T[], number]) => {
+        return { name, el, container, source, item, sourceModel, sourceIndex }
       }
     )
   );
@@ -171,7 +170,7 @@ export class DragulaService {
       this.dispatch$.next({
         event: EventTypes.RemoveModel,
         name,
-        args: [ el, container, source, item, sourceModel ]
+        args: [ el, container, source, item, sourceModel, dragIndex ]
       });
     });
     drake.on('drag', (el: any, source: any) => {
@@ -223,7 +222,7 @@ export class DragulaService {
       this.dispatch$.next({
         event: EventTypes.DropModel,
         name,
-        args: [ dropElm, target, source, sibling, item, sourceModel, targetModel ]
+        args: [ dropElm, target, source, sibling, item, sourceModel, targetModel, dragIndex, dropIndex ]
       });
     });
   }

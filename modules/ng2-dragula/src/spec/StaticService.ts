@@ -9,27 +9,27 @@ type Interface<T> = {
 }
 export class StaticService implements Interface<DragulaService> {
   public drag: (groupName?: string) => Observable<{ name: string; el: Element; source: Element; }>
-    = (name) => empty();
+    = () => empty();
   public dragend: (groupName?: string) => Observable<{ name: string; el: Element; }>
-    = (name) => empty();
+    = () => empty();
   public drop: (groupName?: string) => Observable<{ name: string; el: Element; target: Element; source: Element; sibling: Element; }>
-    = (name) => empty();
+    = () => empty();
   public cancel: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = (name) => empty();
+    = () => empty();
   public remove: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = (name) => empty();
+    = () => empty();
   public shadow: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = (name) => empty();
+    = () => empty();
   public over: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = (name) => empty();
+    = () => empty();
   public out: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = (name) => empty();
+    = () => empty();
   public cloned: (groupName?: string) => Observable<{ name: string; clone: Element; original: Element; cloneType: "mirror" | "copy"; }>
-    = (name) => empty();
-  public dropModel: <T = any>(groupName?: string) => Observable<{ name: string; el: Element; target: Element; source: Element; sibling: Element; item: T; sourceModel: T[]; targetModel: T[]; }>
-    = (name) => empty();
-  public removeModel: <T = any>(groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; item: T; sourceModel: T[]; }>
-    = (name) => empty();
+    = () => empty();
+  public dropModel: <T = any>(groupName?: string) => Observable<{ name: string; el: Element; target: Element; source: Element; sibling: Element; item: T; sourceModel: T[]; targetModel: T[]; sourceIndex: number; targetIndex: number; }>
+    = () => empty();
+  public removeModel: <T = any>(groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; item: T; sourceModel: T[]; sourceIndex: number; }>
+    = () => empty();
 
   groups: { [k: string]: Group } = {};
 
