@@ -407,9 +407,9 @@ isDragging$ = merge(dragStart$, dragEnd$).pipe(startWith(false));
 Each of `dropModel(name?: string)` and `removeModel(name?: string)` takes
 
 | Event Name      | Listener Arguments                                           | Event Description                                                                        |
-| :-------------: | :-------------------------:                                  | ---------------------------------------------------------------------------------------- |
-| dropModel       | { type, el, target, source, sourceModel, targetModel, item } | same as normal drop, but with updated models + the item that was dropped                 |
-| removeModel     | { type, el, container, source, sourceModel, item }           | same as normal remove, but with updated model + the item that got removed                |
+| :-------------- | :-------------------------:                                  | :--------------------------------------------------------------------------------------- |
+| dropModel | { type, el, target, source, item, sourceModel, targetModel, sourceIndex, targetIndex } | same as normal drop, but with updated models + the item that was dropped |
+| removeModel | { type, el, container, source, item, sourceModel, sourceIndex } | same as normal remove, but with updated model + the item that got removed |
 
 # Classic Blunders
 
