@@ -404,7 +404,7 @@ isDragging$ = merge(dragStart$, dragEnd$).pipe(startWith(false));
 
 ## Special Events for `ng2-dragula`
 
-Each of `dropModel(name?: string)` and `removeModel(name?: string)` takes
+The `dropModel(name?: string)` and `removeModel(name?: string)` events are only active when you have supplied `[dragulaModel]`.
 
 | Event Name      | Listener Arguments                                           | Event Description                                                                        |
 | :-------------- | :-------------------------:                                  | :--------------------------------------------------------------------------------------- |
