@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/valor-software/ng2-dragula/compare/v2.0.4...v2.1.0) (2018-09-06)
+
+
+### Features
+
+* include sourceIndex and targetIndex in model events ([ea5fb03](https://github.com/valor-software/ng2-dragula/commit/ea5fb03))
+
+
+
+
 <a name="2.0.4"></a>
 ## [2.0.4](https://github.com/valor-software/ng2-dragula/compare/v2.0.3...v2.0.4) (2018-08-31)
 
