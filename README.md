@@ -455,6 +455,12 @@ blunders and it wasn't a bug at all.
 </div>
 ```
 
+# Alternatives
+
+There are hundreds of other libraries that do this. Some notable ones:
+
+- [@angular-skyhook](https://cormacrelf.github.io/angular-skyhook/examples/), specifically with the sortable. Also by me (@cormacrelf).
+- [@angular/cdk/drag-drop](https://material.angular.io/cdk/categories) -- no documentation yet, but will presumably be well-supported.
 
 # Development
 
