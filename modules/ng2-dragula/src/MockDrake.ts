@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { EventTypes } from './EventTypes';
 import { DragulaOptions } from './DragulaOptions';
 import { DrakeFactory } from './DrakeFactory';
+import { Drake } from 'dragula';
 
 export const MockDrakeFactory = new DrakeFactory((containers, options) => {
   return new MockDrake(containers, options);
@@ -65,7 +66,7 @@ export class MockDrake implements DrakeWithModels {
 
   private subs = new Subscription();
 
-  on(event: string, callback: Function): void {
+  on(event: string, callback: Function): Drake {
     this.subs.add(this.emitter$
       .pipe(
         filter(({ eventType }) => eventType === event)
