@@ -42,21 +42,21 @@ export class MockDrake implements DrakeWithModels {
   dragging: boolean = false;
 
   /* Does nothing useful. */
-  start(item: Element): void {
+  start(item: Element): any {
     this.dragging = true;
   }
   /* Does nothing useful. */
-  end(): void {
+  end(): any {
     this.dragging = false;
   }
   /* Does nothing useful. */
-  cancel(revert: boolean): void;
-  cancel(): void;
+  cancel(revert: boolean): any;
+  cancel(): any;
   cancel(revert?: any) {
     this.dragging = false;
   }
   /* Does nothing useful. */
-  remove(): void {
+  remove(): any {
     this.dragging = false;
   }
 
@@ -65,7 +65,7 @@ export class MockDrake implements DrakeWithModels {
 
   private subs = new Subscription();
 
-  on(event: string, callback: Function): void {
+  on(event: string, callback: Function): any {
     this.subs.add(this.emitter$
       .pipe(
         filter(({ eventType }) => eventType === event)
@@ -75,7 +75,7 @@ export class MockDrake implements DrakeWithModels {
       }));
   }
 
-  destroy(): void {
+  destroy(): any {
     this.subs.unsubscribe();
   }
 

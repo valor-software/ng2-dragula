@@ -36,7 +36,7 @@
     "watch": "chokidar 'src/**/*.ts' 'src/**/*.html' 'src/**/*.scss' -c 'yarn build'"
   },
   "dependencies": {
-    "@types/dragula": "^2.1.33",
+    "@types/dragula": "^2.1.34",
     "dragula": "^3.7.2"
   },
   "peerDependencies": {
