@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/valor-software/ng2-dragula/compare/v2.1.0...v2.1.1) (2018-11-01)
+
+
+### Bug Fixes
+
+* [@types](https://github.com/types)/dragula > MockDrake breakage. close [#912](https://github.com/valor-software/ng2-dragula/issues/912) close [#913](https://github.com/valor-software/ng2-dragula/issues/913) ([4897356](https://github.com/valor-software/ng2-dragula/commit/4897356))
+
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/valor-software/ng2-dragula/compare/v2.0.4...v2.1.0) (2018-09-06)
 
