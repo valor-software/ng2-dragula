@@ -1,4 +1,4 @@
-import { Subject, BehaviorSubject, Observable, empty } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { DragulaOptions } from '../DragulaOptions';
 import { DragulaService } from '../components/dragula.service';
 import { Group } from '../Group';
@@ -9,27 +9,27 @@ type Interface<T> = {
 }
 export class StaticService implements Interface<DragulaService> {
   public drag: (groupName?: string) => Observable<{ name: string; el: Element; source: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public dragend: (groupName?: string) => Observable<{ name: string; el: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public drop: (groupName?: string) => Observable<{ name: string; el: Element; target: Element; source: Element; sibling: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public cancel: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public remove: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public shadow: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public over: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public out: (groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; }>
-    = () => empty();
+    = () => EMPTY;
   public cloned: (groupName?: string) => Observable<{ name: string; clone: Element; original: Element; cloneType: "mirror" | "copy"; }>
-    = () => empty();
+    = () => EMPTY;
   public dropModel: <T = any>(groupName?: string) => Observable<{ name: string; el: Element; target: Element; source: Element; sibling: Element; item: T; sourceModel: T[]; targetModel: T[]; sourceIndex: number; targetIndex: number; }>
-    = () => empty();
+    = () => EMPTY;
   public removeModel: <T = any>(groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; item: T; sourceModel: T[]; sourceIndex: number; }>
-    = () => empty();
+    = () => EMPTY;
 
   groups: { [k: string]: Group } = {};
 
