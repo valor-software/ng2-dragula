@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/valor-software/ng2-dragula/compare/v2.1.1...v2.1.2) (2019-04-22)
+
+
+
+
+**Note:** Version bump only for package ng2-dragula
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/valor-software/ng2-dragula/compare/v2.1.0...v2.1.1) (2018-11-01)
 

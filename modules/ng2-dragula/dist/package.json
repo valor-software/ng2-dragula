@@ -23,21 +23,10 @@
     "url": "https://github.com/valor-software/ng2-dragula/issues"
   },
   "homepage": "https://github.com/valor-software/ng2-dragula#readme",
-  "scripts": {
-    "clean": "rimraf dist",
-    "build": "ng-packagr",
-    "lib.build": "yarn clean && yarn build",
-    "lint": "tslint --config tslint.json src/**/*.ts",
-    "docs": "compodoc -p tsconfig.json -c compodoc.json src",
-    "test": "ng test",
-    "test:headless": "ng test --browsers=CustomChromeHeadless",
-    "test-coverage": "yarn test --code-coverage --watch=false --progress=false",
-    "prepare": "yarn clean && yarn build",
-    "watch": "chokidar 'src/**/*.ts' 'src/**/*.html' 'src/**/*.scss' -c 'yarn build'"
-  },
   "dependencies": {
     "@types/dragula": "^2.1.34",
-    "dragula": "git+https://github.com/Belouccio/dragula.git"
+    "dragula": "git+https://github.com/Belouccio/dragula.git",
+    "tslib": "^1.9.0"
   },
   "peerDependencies": {
     "@angular/core": ">=6.0.0",
@@ -79,15 +68,15 @@
     "typescript": "~2.7.2",
     "zone.js": "^0.8.26"
   },
-  "main": "./dist/bundles/ng2-dragula.umd.js",
-  "module": "./dist/fesm5/ng2-dragula.js",
-  "es2015": "./dist/fesm2015/ng2-dragula.js",
-  "esm5": "./dist/esm5/ng2-dragula.js",
-  "esm2015": "./dist/esm2015/ng2-dragula.js",
-  "fesm5": "./dist/fesm5/ng2-dragula.js",
-  "fesm2015": "./dist/fesm2015/ng2-dragula.js",
-  "typings": "./dist/ng2-dragula.d.ts",
-  "metadata": "./dist/ng2-dragula.metadata.json",
+  "main": "bundles/ng2-dragula.umd.js",
+  "module": "fesm5/ng2-dragula.js",
+  "es2015": "fesm2015/ng2-dragula.js",
+  "esm5": "esm5/ng2-dragula.js",
+  "esm2015": "esm2015/ng2-dragula.js",
+  "fesm5": "fesm5/ng2-dragula.js",
+  "fesm2015": "fesm2015/ng2-dragula.js",
+  "typings": "ng2-dragula.d.ts",
+  "metadata": "ng2-dragula.metadata.json",
   "sideEffects": false,
   "files": [
     "dist",

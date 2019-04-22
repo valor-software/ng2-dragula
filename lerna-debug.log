@@ -1,0 +1,87 @@
+0 silly input [ 'lib.build' ]
+1 silly flags { _: [ 'run' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   script: 'lib.build',
+1 silly flags   args: [] }
+2 verbose rootPath /home/developer/projects/web packets/ng2-dragula
+3 info version 2.11.0
+4 silly existsSync /home/developer/projects/web packets/ng2-dragula/VERSION
+5 silly initialize attempt
+6 silly initialize success
+7 silly execute attempt
+8 silly runScriptInDir lib.build [] ng2-dragula
+9 silly getExecOpts { cwd: '/home/developer/projects/web packets/ng2-dragula/modules/ng2-dragula' }
+10 error lib.build Errored while running script in 'ng2-dragula'
+11 error execute callback with error
+12 error Error: Command failed: yarn run lib.build
+12 error error Command failed with exit code 111.
+12 error error Command failed with exit code 1.
+12 error $ yarn clean && yarn build
+12 error $ rimraf dist
+12 error $ ng-packagr
+12 error Building Angular Package
+12 error Building entry point 'ng2-dragula'
+12 error Compiling TypeScript sources through ngc
+12 error
+12 error BUILD ERROR
+12 error node_modules/@types/jasmine/index.d.ts(142,47): error TS1005: ';' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,90): error TS1005: '(' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,104): error TS1005: ']' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,112): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,113): error TS1136: Property assignment expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,121): error TS1005: ')' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,147): error TS1005: '(' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,162): error TS1005: ']' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,163): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,164): error TS1136: Property assignment expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,165): error TS1136: Property assignment expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,179): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,183): error TS1005: ':' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,208): error TS1005: '{' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,217): error TS1005: ':' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,222): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,227): error TS1005: ':' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,228): error TS1109: Expression expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,230): error TS1005: ')' expected.
+12 error node_modules/@types/jasmine/index.d.ts(635,30): error TS1005: ';' expected.
+12 error node_modules/@types/jasmine/index.d.ts(720,1): error TS1128: Declaration or statement expected.
+12 error node_modules/rxjs/internal/types.d.ts(81,44): error TS1005: ';' expected.
+12 error node_modules/rxjs/internal/types.d.ts(81,74): error TS1005: ';' expected.
+12 error node_modules/rxjs/internal/types.d.ts(81,77): error TS1109: Expression expected.
+12 error
+12 error Error: node_modules/@types/jasmine/index.d.ts(142,47): error TS1005: ';' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,90): error TS1005: '(' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,104): error TS1005: ']' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,112): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,113): error TS1136: Property assignment expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,121): error TS1005: ')' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,147): error TS1005: '(' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,162): error TS1005: ']' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,163): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,164): error TS1136: Property assignment expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,165): error TS1136: Property assignment expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,179): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,183): error TS1005: ':' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,208): error TS1005: '{' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,217): error TS1005: ':' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,222): error TS1005: ',' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,227): error TS1005: ':' expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,228): error TS1109: Expression expected.
+12 error node_modules/@types/jasmine/index.d.ts(142,230): error TS1005: ')' expected.
+12 error node_modules/@types/jasmine/index.d.ts(635,30): error TS1005: ';' expected.
+12 error node_modules/@types/jasmine/index.d.ts(720,1): error TS1128: Declaration or statement expected.
+12 error node_modules/rxjs/internal/types.d.ts(81,44): error TS1005: ';' expected.
+12 error node_modules/rxjs/internal/types.d.ts(81,74): error TS1005: ';' expected.
+12 error node_modules/rxjs/internal/types.d.ts(81,77): error TS1109: Expression expected.
+12 error
+12 error     at Object.<anonymous> (/home/developer/projects/web packets/ng2-dragula/modules/ng2-dragula/node_modules/ng-packagr/lib/ngc/compile-source-files.js:65:19)
+12 error     at Generator.next (<anonymous>)
+12 error     at fulfilled (/home/developer/projects/web packets/ng2-dragula/modules/ng2-dragula/node_modules/ng-packagr/lib/ngc/compile-source-files.js:4:58)
+12 error     at <anonymous>
+12 error
+12 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+12 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+12 error
+12 error     at Promise.all.then.arr (/home/developer/projects/web packets/ng2-dragula/node_modules/execa/index.js:236:11)
+12 error     at <anonymous>
