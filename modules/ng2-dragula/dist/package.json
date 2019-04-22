@@ -1,11 +1,11 @@
 {
-  "name": "ng2-dragula",
+  "name": "@belouccio/ng2-dragula",
   "private": false,
-  "version": "2.1.2",
+  "version": "2.1.666",
   "description": "Simple drag and drop with dragula",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valor-software/ng2-dragula.git"
+    "url": "git+https://github.com/Belouccio/ng2-dragula.git"
   },
   "keywords": [
     "angular",
@@ -68,15 +68,15 @@
     "typescript": "~2.7.2",
     "zone.js": "^0.8.26"
   },
-  "main": "bundles/ng2-dragula.umd.js",
-  "module": "fesm5/ng2-dragula.js",
-  "es2015": "fesm2015/ng2-dragula.js",
-  "esm5": "esm5/ng2-dragula.js",
-  "esm2015": "esm2015/ng2-dragula.js",
-  "fesm5": "fesm5/ng2-dragula.js",
-  "fesm2015": "fesm2015/ng2-dragula.js",
-  "typings": "ng2-dragula.d.ts",
-  "metadata": "ng2-dragula.metadata.json",
+  "main": "bundles/belouccio-ng2-dragula.umd.js",
+  "module": "fesm5/belouccio-ng2-dragula.js",
+  "es2015": "fesm2015/belouccio-ng2-dragula.js",
+  "esm5": "esm5/belouccio-ng2-dragula.js",
+  "esm2015": "esm2015/belouccio-ng2-dragula.js",
+  "fesm5": "fesm5/belouccio-ng2-dragula.js",
+  "fesm2015": "fesm2015/belouccio-ng2-dragula.js",
+  "typings": "belouccio-ng2-dragula.d.ts",
+  "metadata": "belouccio-ng2-dragula.metadata.json",
   "sideEffects": false,
   "files": [
     "dist",
