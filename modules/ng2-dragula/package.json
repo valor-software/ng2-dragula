@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@types/dragula": "^2.1.34",
-    "dragula": "Belouccio/dragula#master"
+    "dragula": "git+https://github.com/Belouccio/dragula.git"
   },
   "peerDependencies": {
     "@angular/core": ">=6.0.0",
