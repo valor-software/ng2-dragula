@@ -6,9 +6,10 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "version": "2.1.1",
-  "commands": {
+  "command": {
     "publish": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "contents": "dist"
     }
   }
 }

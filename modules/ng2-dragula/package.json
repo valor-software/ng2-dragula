@@ -88,9 +88,5 @@
   "fesm2015": "./dist/fesm2015/ng2-dragula.js",
   "typings": "./dist/ng2-dragula.d.ts",
   "metadata": "./dist/ng2-dragula.metadata.json",
-  "sideEffects": false,
-  "files": [
-    "dist",
-    "README.md"
-  ]
+  "sideEffects": false
 }
