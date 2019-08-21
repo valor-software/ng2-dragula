@@ -41,8 +41,9 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       // because if you're changing the group name, you'll be doing setup or teardown
       // it also only runs if there is a group name to attach to.
       const { previousValue: prev, currentValue: current, firstChange } = changes.dragulaModel;
-      const { drake } = this.group;
-      if (this.dragula && drake) {
+      if (this.dragula && this.group) {
+        const { drake } = this.group;
+
         drake.models = drake.models || [];
         let prevIndex = drake.models.indexOf(prev);
         if (prevIndex !== -1) {
