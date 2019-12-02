@@ -1,13 +1,13 @@
 {
-  "lerna": "2.11.0",
   "packages": [
     "modules/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "version": "2.1.1",
-  "commands": {
+  "command": {
     "publish": {
+      "contents": "dist",
       "conventionalCommits": true
     }
   }
