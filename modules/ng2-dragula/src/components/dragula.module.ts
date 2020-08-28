@@ -7,7 +7,7 @@ import { DragulaService } from './dragula.service';
   declarations: [DragulaDirective],
 })
 export class DragulaModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<any> {
     return {
       ngModule: DragulaModule,
       providers: [DragulaService]
