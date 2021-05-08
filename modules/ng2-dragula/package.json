@@ -68,7 +68,7 @@
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^1.2.0",
     "karma-sauce-launcher": "1.1.0",
-    "ng-packagr": "^4.0.0",
+    "ng-packagr": "^10.1.1",
     "rimraf": "*",
     "rxjs": "^6.2.0",
     "testdouble": "^3.8.1",
