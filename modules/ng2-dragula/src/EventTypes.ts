@@ -12,6 +12,4 @@ export enum EventTypes {
     RemoveModel = "removeModel",
 }
 
-export const AllEvents: EventTypes[] = Object.keys(EventTypes).map(k => EventTypes[k as any] as EventTypes);
-
-
+export const AllEvents: EventTypes[] = Object.keys(EventTypes).map(k => EventTypes[k as keyof typeof EventTypes] as EventTypes);
