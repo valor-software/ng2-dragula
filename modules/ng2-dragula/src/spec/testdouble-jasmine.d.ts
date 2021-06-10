@@ -3,4 +3,3 @@ declare module 'testdouble-jasmine' {
   export function get(td: any): CustomMatcherFactories;
   export function use(td: any): any;
 }
-

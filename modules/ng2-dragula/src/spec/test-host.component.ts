@@ -9,13 +9,14 @@ import { DragulaDirective } from '../components/dragula.directive';
   </div>
   `
 })
+
 export class TestHostComponent {
   @Input() group = "GROUP";
   // don't give model a default value
   // because the Asynchronous subclass setter would get called
   @Input() model: any[];
-  @ViewChild('host') host: ElementRef<HTMLDivElement>;
-  @ViewChild(DragulaDirective) directive: DragulaDirective;
+  @ViewChild('host', {static: false}) host: ElementRef<HTMLDivElement>;
+  @ViewChild(DragulaDirective, {static: false}) directive: DragulaDirective;
   modelChange(newModel: any[]) {
     this.model = newModel;
   }
@@ -37,6 +38,7 @@ export class TwoWay extends TestHostComponent { }
 })
 export class Asynchronous extends TestHostComponent {
   model$ = new BehaviorSubject<any[]>([]);
+  // @ts-ignore
   @Input() set model(neu: any[]) {
     this.model$.next(neu);
   }
