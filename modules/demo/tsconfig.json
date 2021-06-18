@@ -15,6 +15,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng2-dragula": [
+        "../ng2-dragula/dist"
+      ]
+    }
   }
 }

@@ -1,7 +1,7 @@
 /// <reference path="./jasmine.d.ts" />
 /// <reference path="./testdouble-jasmine.d.ts" />
 import { } from 'jasmine';
-import * as td from 'testdouble'
+import * as td from 'testdouble';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
 import { Group } from '../Group';

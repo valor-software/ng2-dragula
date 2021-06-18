@@ -1,7 +1,8 @@
 /// <reference path="./jasmine.d.ts" />
 /// <reference path="./testdouble-jasmine.d.ts" />
+
 import { } from 'jasmine';
-import * as td from 'testdouble'
+import * as td from 'testdouble';
 import { TestBed, inject, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
