@@ -18,7 +18,7 @@
     ],
     "paths": {
       "ng2-dragula": [
-        "../ng2-dragula/dist"
+        "../ng2-dragula/src/public_api.ts"
       ]
     }
   }
