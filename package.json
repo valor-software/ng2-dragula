@@ -22,7 +22,7 @@
     "google-code-prettify": "1.0.5",
     "lerna": "^3.18.4",
     "markdown-loader": "github:valorkin/markdown-loader",
-    "marked": "0.3.6",
+    "marked": "4.0.10",
     "npm-run-all": "4.0.0",
     "require-dir": "0.3.1",
     "webdriver-manager": "11.1.1"
