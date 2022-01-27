@@ -13,16 +13,20 @@ cache: yarn
 #     - SAUCE_USERNAME=valorkin
 #     - SAUCE_ACCESS_KEY=aeaf806e-ad5c-484b-a8fe-4b4b9f54e99a
 
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.22.4
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
 script:
   - yarn
   - yarn lerna run clean
   - yarn lerna bootstrap
-  - (cd modules/ng2-dragula && yarn test-coverage)
-  - (cd modules/ng2-dragula && yarn build)
-  - (cd modules/demo && yarn build --prod --progress=false)
+  - yarn workspace ng2-dragula test-coverage
+  - yarn workspace ng2-dragula build
+  - yarn workspace demo build --prod --progress=false
 
 after_success:
-  - cd modules/ng2-dragula && yarn codecov
+  - yarn workspace ng2-dragula codecov
 
 deploy:
   provider:     pages

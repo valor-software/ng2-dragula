@@ -1,8 +1,8 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
-    "experimentalDecorators": true,
     "types": [
       "jasmine",
       "node"
@@ -12,8 +12,7 @@
     "src/test.ts"
   ],
   "include": [
-    "**/*.spec.ts",
-    "src/spec/*.ts",
-    "**/*.d.ts"
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
   ]
 }
