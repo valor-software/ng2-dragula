@@ -6,9 +6,6 @@
   ],
   "deleteDestPath": false,
   "lib": {
-    "entryFile": "./src/public_api.ts",
-    "umdModuleIds": {
-      "dragula": "dragula"
-    }
+    "entryFile": "./src/public_api.ts"
   }
 }
