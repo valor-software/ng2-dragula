@@ -3,7 +3,7 @@
 
 import { } from 'jasmine';
 import * as td from 'testdouble';
-import { TestBed, inject, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';

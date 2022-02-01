@@ -27,7 +27,9 @@ const elContainerSourceProjector =
   (name: string, [el, container, source]: [Element, Element, Element]) =>
     ({ name, el, container, source });
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DragulaService {
 
   /* https://github.com/bevacqua/dragula#drakeon-events */
@@ -110,8 +112,8 @@ export class DragulaService {
 
   private groups: { [k: string]: Group } = {};
 
-  constructor (@Optional() private drakeFactory: DrakeFactory = null) {
-    if (this.drakeFactory === null) {
+  constructor (@Optional() private drakeFactory: DrakeFactory = undefined) {
+    if (this.drakeFactory === undefined || this.drakeFactory === null) {
       this.drakeFactory = new DrakeFactory();
     }
   }
