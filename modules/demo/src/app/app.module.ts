@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 // @ts-ignore
-import { DragulaModule } from 'ng2-dragula';
+import {DragulaModule, DragulaService} from 'ng2-dragula';
 
 import { DemoComponent } from './app.component';
 import { BasicComponent } from './examples/01-basic.component';
@@ -37,7 +37,7 @@ import { NestedComponent } from './examples/10-nested.component';
     DragulaModule.forRoot(),
     CommonModule
   ],
-  providers: [],
+  providers: [DragulaService],
   bootstrap: [DemoComponent]
 })
 
