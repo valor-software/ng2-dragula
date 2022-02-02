@@ -4,11 +4,23 @@
   "newProjectRoot": "projects",
   "projects": {
     "ng2-dragula": {
+      "projectType": "library",
       "root": "",
       "sourceRoot": "src",
-      "projectType": "library",
       "prefix": "dragula",
       "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -21,7 +33,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.json",
+              "tsconfig.lib.json",
               "tsconfig.spec.json"
             ],
             "exclude": [
@@ -30,7 +42,6 @@
           }
         }
       }
-    }
-  },
+    }},
   "defaultProject": "ng2-dragula"
 }

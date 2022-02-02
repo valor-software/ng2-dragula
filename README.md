@@ -39,6 +39,15 @@ Or play with [this starter in your browser][stackblitz] on StackBlitz.
 * [Classic Blunders](#classic-blunders)
 * [Development](#development)
 
+# Dependencies
+
+Latest version available for each version of Angular
+
+| ng2-dragula | Angular    |
+| ---------- | ----------- |
+| 2.1.1      | <= 9.x      |
+| current    | >= 10.x     |
+
 # Install
 
 You can get it on npm.
@@ -471,15 +480,15 @@ There are hundreds of other libraries that do this. Some notable ones:
 
 ```sh
 yarn
-(cd modules/ng2-dragula && yarn build)
+yarn workspace ng2-dragula build
 ```
 
 #### run tests
 
 ```sh
-(cd modules/ng2-dragula && yarn test)
+yarn workspace ng2-dragula test
 # or
-(cd modules/ng2-dragula && yarn test:headless)
+yarn workspace ng2-dragula test:headless
 ```
 
 #### run demo server
@@ -488,7 +497,7 @@ yarn
 # listens for changes in the library and rebuilds on save
 yarn watch
 # runs demo server
-(cd modules/demo && yarn start)
+yarn workspace demo start
 ```
 
 #### Publishing a new version
