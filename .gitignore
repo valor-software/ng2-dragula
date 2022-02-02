@@ -1,16 +1,43 @@
-# Dependency directory
-# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
-/node_modules
-npm-debug.log
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# WebStorm
-.idea
-.vscode
-
-# ignore build and dist for now
-/demo/dist
+# compiled output
 /dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.angular
+/.sass-cache
+/connect.lock
 /coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
 
 # ignore inline compiling
 /logs

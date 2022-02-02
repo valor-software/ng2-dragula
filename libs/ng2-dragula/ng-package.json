@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ng2-dragula",
+  "lib": {
+    "entryFile": "src/public_api.ts"
+  }
+}
