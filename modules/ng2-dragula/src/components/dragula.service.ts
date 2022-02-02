@@ -9,7 +9,8 @@ import { DrakeFactory } from '../DrakeFactory';
 type FilterProjector<T extends { name: string; }> = (name: string, args: any[]) => T;
 type Dispatch = { event: EventTypes; name: string; args: any[]; };
 
-const filterEvent = <T extends { name: string; }>(
+// const filterEvent = <T extends { name: string; }>(
+const filterEvent = <T extends { name: string; source?: any; target?: any; sourceModel?: any; targetModel?: any; }>(
   eventType: EventTypes,
   filterDragType: string | undefined,
   projector: FilterProjector<T>
@@ -112,8 +113,8 @@ export class DragulaService {
 
   private groups: { [k: string]: Group } = {};
 
-  constructor (@Optional() private drakeFactory: DrakeFactory = undefined) {
-    if (this.drakeFactory === undefined || this.drakeFactory === null) {
+  constructor (@Optional() private drakeFactory: DrakeFactory) {
+    if (this.drakeFactory === null || this.drakeFactory === undefined) {
       this.drakeFactory = new DrakeFactory();
     }
   }

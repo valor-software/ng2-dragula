@@ -27,7 +27,7 @@
     "clean": "rimraf dist",
     "build": "ng-packagr",
     "lib.build": "yarn clean && yarn build",
-    "lint": "tslint --config tslint.json src/**/*.ts",
+    "lint": "",
     "docs": "compodoc -p tsconfig.json -c compodoc.json src",
     "test": "ng test",
     "test:headless": "ng test --browsers=CustomChromeHeadless",
@@ -79,7 +79,6 @@
     "tsickle": "^0.37.0",
     "rollup": "^2.51.1",
     "tslib": "^2.0.0",
-    "tslint": "~6.1.0",
     "typescript": "~4.5.5",
     "zone.js": "~0.11.4"
   },

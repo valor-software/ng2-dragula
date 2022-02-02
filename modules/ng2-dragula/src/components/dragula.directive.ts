@@ -6,16 +6,16 @@ import { Group } from '../Group';
 
 @Directive({selector: '[dragula]'})
 export class DragulaDirective implements OnChanges, OnDestroy {
-  @Input() public dragula: string;
-  @Input() public dragulaModel: any[];
+  @Input() public dragula?: string;
+  @Input() public dragulaModel?: any[];
   @Output() public dragulaModelChange = new EventEmitter<any[]>();
 
-  private subs: Subscription;
+  private subs?: Subscription;
 
   private get container(): HTMLElement {
     return this.el && this.el.nativeElement;
   }
-  private group: Group;
+  private group?: Group;
 
   public constructor(private el: ElementRef, private dragulaService: DragulaService) {
   }
@@ -41,7 +41,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       // because if you're changing the group name, you'll be doing setup or teardown
       // it also only runs if there is a group name to attach to.
       const { previousValue: prev, currentValue: current, firstChange } = changes.dragulaModel;
-      const { drake } = this.group;
+      const drake = this.group?.drake;
       if (this.dragula && drake) {
         drake.models = drake.models || [];
         let prevIndex = drake.models.indexOf(prev);
@@ -74,6 +74,10 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     };
 
     // find or create a group
+    if (!this.dragula) {
+      return;
+    }
+
     let group = this.dragulaService.find(this.dragula);
     if (!group) {
       let options = {};
@@ -132,6 +136,10 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    if (!this.dragula) {
+      return;
+    }
+
     this.teardown(this.dragula);
   }
 
