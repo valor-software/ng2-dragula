@@ -65,10 +65,12 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   public setup(): void {
     const checkModel = (group: Group) => {
       if (this.dragulaModel) {
-        if (group.drake.models) {
-          group.drake.models.push(this.dragulaModel);
+        if (group.drake?.models) {
+          group.drake?.models?.push(this.dragulaModel);
         } else {
-          group.drake.models = [this.dragulaModel];
+          if (group.drake) {
+            group.drake.models = [this.dragulaModel];
+          }
         }
       }
     };
@@ -86,7 +88,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
 
     // ensure model and container element are pushed
     checkModel(group);
-    group.drake.containers.push(this.container);
+    group.drake?.containers.push(this.container);
     this.subscribe(this.dragula);
 
     this.group = group;
@@ -122,9 +124,9 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     }
     const group = this.dragulaService.find(groupName);
     if (group) {
-      const itemToRemove = group.drake.containers.indexOf(this.el.nativeElement);
+      const itemToRemove = group.drake?.containers.indexOf(this.el.nativeElement);
       if (itemToRemove !== -1) {
-        group.drake.containers.splice(itemToRemove, 1);
+        group.drake?.containers.splice(itemToRemove, 1);
       }
       if (this.dragulaModel && group.drake && group.drake.models) {
         const modelIndex = group.drake.models.indexOf(this.dragulaModel);

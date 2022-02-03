@@ -118,14 +118,6 @@
             }
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "./libs/ng2-dragula/src/test.ts",
-            "tsConfig": "./libs/ng2-dragula/tsconfig.spec.json",
-            "karmaConfig": "./libs/ng2-dragula/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
@@ -133,6 +125,16 @@
               "libs/ng2-dragula/src/**/*.ts",
               "libs/ng2-dragula/src/**/*.html"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/ng2-dragula"
+          ],
+          "options": {
+            "jestConfig": "libs/ng2-dragula/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

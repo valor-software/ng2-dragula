@@ -14,9 +14,9 @@ export class TestHostComponent {
   @Input() group = "GROUP";
   // don't give model a default value
   // because the Asynchronous subclass setter would get called
-  @Input() model: any[];
-  @ViewChild('host', {static: false}) host: ElementRef<HTMLDivElement>;
-  @ViewChild(DragulaDirective, {static: false}) directive: DragulaDirective;
+  @Input() model?: any[];
+  @ViewChild('host', {static: false}) host?: ElementRef<HTMLDivElement>;
+  @ViewChild(DragulaDirective, {static: false}) directive?: DragulaDirective;
   modelChange(newModel: any[]) {
     this.model = newModel;
   }
