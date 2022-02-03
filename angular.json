@@ -1,0 +1,141 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "defaultProject": "demo",
+  "projects": {
+    "demo": {
+      "root": "./apps/demo",
+      "sourceRoot": "./apps/demo/src",
+      "projectType": "application",
+      "prefix": "ex",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "dragula"
+            ],
+            "outputPath": "./dist/demo",
+            "index": "./apps/demo/src/index.html",
+            "main": "./apps/demo/src/main.ts",
+            "polyfills": "./apps/demo/src/polyfills.ts",
+            "tsConfig": "./apps/demo/tsconfig.app.json",
+            "preserveSymlinks": true,
+            "assets": [
+              "apps/demo/src/favicon.ico",
+              "apps/demo/src/assets"
+            ],
+            "styles": [
+              "apps/demo/src/styles.css"
+            ],
+            "scripts": [],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/demo/src/environments/environment.ts",
+                  "with": "apps/demo/src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "preserveSymlinks": true
+            }
+          },
+          "defaultConfiguration": "production",
+          "dependsOn": [
+            {
+              "target": "build",
+              "projects": "dependencies"
+            }
+          ]
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "demo:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/demo/src/**/*.ts",
+              "apps/demo/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "implicitDependencies": [
+        "ng2-dragula"
+      ]
+    },
+    "ng2-dragula": {
+      "projectType": "library",
+      "root": "libs/ng2-dragula",
+      "sourceRoot": "libs/ng2-dragula/src",
+      "prefix": "",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": [
+            "./dist/ng2-dragula"
+          ],
+          "options": {
+            "tsConfig": "libs/ng2-dragula/tsconfig.lib.json",
+            "project": "libs/ng2-dragula/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng2-dragula/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "./libs/ng2-dragula/src/test.ts",
+            "tsConfig": "./libs/ng2-dragula/tsconfig.spec.json",
+            "karmaConfig": "./libs/ng2-dragula/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng2-dragula/src/**/*.ts",
+              "libs/ng2-dragula/src/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
