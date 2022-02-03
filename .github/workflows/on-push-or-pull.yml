@@ -2,7 +2,6 @@ name: on-pull-request-or-push
 
 on:
   pull_request:
-  push:
     branches:
       - master
 
