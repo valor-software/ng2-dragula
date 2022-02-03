@@ -12,6 +12,6 @@ export class DragulaModule {
     return {
       ngModule: DragulaModule,
       providers: [DragulaService]
-    }
+    };
   }
 }

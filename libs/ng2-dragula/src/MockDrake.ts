@@ -26,6 +26,10 @@ export const MockDrakeFactory = new DrakeFactory((containers, options) => {
  *    That's ok, because ng2-dragula doesn't use them.
  */
 export class MockDrake implements DrakeWithModels {
+  // Basic but fully functional event emitter shim
+  private emitter$ = new Subject<{ eventType: EventTypes, args: any[] }>();
+  private subs = new Subscription();
+
   /**
    * @param containers A list of container elements.
    * @param options These will NOT be used. At all.
@@ -39,7 +43,7 @@ export class MockDrake implements DrakeWithModels {
   ) {}
 
   /* Doesn't represent anything meaningful. */
-  dragging: boolean = false;
+  dragging = false;
 
   /* Does nothing useful. */
   start(item: Element): any {
@@ -60,12 +64,7 @@ export class MockDrake implements DrakeWithModels {
     this.dragging = false;
   }
 
-  // Basic but fully functional event emitter shim
-  private emitter$ = new Subject<{ eventType: EventTypes, args: any[] }>();
-
-  private subs = new Subscription();
-
-  on(event: string, callback: Function): any {
+  on(event: string, callback: ()=> any): any {
     this.subs.add(this.emitter$
       .pipe(
         filter(({ eventType }) => eventType === event)
@@ -91,7 +90,7 @@ export class MockDrake implements DrakeWithModels {
    * (Note also, firing dropModel and removeModel won't work. You would have to mock DragulaService for that.)
    */
   emit(eventType: EventTypes, ...args: any[]) {
-    this.emitter$.next({ eventType, args })
+    this.emitter$.next({ eventType, args });
   }
 
 }

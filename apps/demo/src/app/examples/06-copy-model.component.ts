@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
-let copyModelCode = `
+const copyModelCode = `
 <div class='container' dragula="PERSON" id="left" [(dragulaModel)]="left">
   <div *ngFor="let person of left">{{person | json}}</div>
 </div>

@@ -28,6 +28,7 @@ export class TestHostComponent {
   </div>
   `
 })
+// eslint-disable-next-line @angular-eslint/component-class-suffix
 export class TwoWay extends TestHostComponent { }
 
 @Component({
@@ -36,8 +37,10 @@ export class TwoWay extends TestHostComponent { }
   </div>
   `
 })
+// eslint-disable-next-line @angular-eslint/component-class-suffix
 export class Asynchronous extends TestHostComponent {
   model$ = new BehaviorSubject<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   @Input() set model(neu: any[]) {
     this.model$.next(neu);

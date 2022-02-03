@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
-let code = `
+const code = `
 <div class="container" dragula="HANDLES" id="left">
   <div *ngFor="...">
     <span class="handle">...</span>

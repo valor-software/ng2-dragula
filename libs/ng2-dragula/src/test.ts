@@ -11,8 +11,8 @@ import {
 
 declare const require: any;
 
-var td = require('testdouble');
-var tdJasmine = require('testdouble-jasmine');
+const td = require('testdouble');
+const tdJasmine = require('testdouble-jasmine');
 tdJasmine.use(td); // make sure to call tdJasmine.use with td to register the matcher
 
 // First, initialize the Angular testing environment.

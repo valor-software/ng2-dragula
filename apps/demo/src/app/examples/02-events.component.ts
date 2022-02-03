@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from 'rxjs';
 
-let code = `
+const code = `
 <div dragula="DRAGULA_EVENTS"> ... </div>
 <div dragula="DRAGULA_EVENTS"> ... </div>
 

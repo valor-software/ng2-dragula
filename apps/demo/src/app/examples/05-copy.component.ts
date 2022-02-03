@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
-let code = `
+const code = `
 <div class='container' dragula="COPYABLE" id="left">
   <div>...</div>
 </div>

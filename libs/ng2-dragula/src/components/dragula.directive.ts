@@ -23,8 +23,8 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   public ngOnChanges(changes: {dragula?: SimpleChange, dragulaModel?: SimpleChange}): void {
     if (changes && changes.dragula) {
       const { previousValue: prev, currentValue: current, firstChange } = changes.dragula;
-      let hadPreviousValue = !!prev;
-      let hasNewValue = !!current;
+      const hadPreviousValue = !!prev;
+      const hasNewValue = !!current;
       // something -> null       =>  teardown only
       // something -> something  =>  teardown, then setup
       //      null -> something  =>  setup only
@@ -44,15 +44,15 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       const drake = this.group?.drake;
       if (this.dragula && drake) {
         drake.models = drake.models || [];
-        let prevIndex = drake.models.indexOf(prev);
+        const prevIndex = drake.models.indexOf(prev);
         if (prevIndex !== -1) {
           // delete the previous
           drake.models.splice(prevIndex, 1);
           // maybe insert a new one at the same spot
-          if (!!current) {
+          if (current) {
             drake.models.splice(prevIndex, 0, current);
           }
-        } else if (!!current) {
+        } else if (current) {
           // no previous one to remove; just push this one.
           drake.models.push(current);
         }
@@ -63,7 +63,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   // call ngOnInit 'setup' because we want to call it in ngOnChanges
   // and it would otherwise run twice
   public setup(): void {
-    let checkModel = (group: Group) => {
+    const checkModel = (group: Group) => {
       if (this.dragulaModel) {
         if (group.drake.models) {
           group.drake.models.push(this.dragulaModel);
@@ -80,7 +80,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
 
     let group = this.dragulaService.find(this.dragula);
     if (!group) {
-      let options = {};
+      const options = {};
       group = this.dragulaService.createGroup(this.dragula, options);
     }
 
@@ -127,7 +127,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
         group.drake.containers.splice(itemToRemove, 1);
       }
       if (this.dragulaModel && group.drake && group.drake.models) {
-        let modelIndex = group.drake.models.indexOf(this.dragulaModel);
+        const modelIndex = group.drake.models.indexOf(this.dragulaModel);
         if (modelIndex !== -1) {
           group.drake.models.splice(modelIndex, 1);
         }

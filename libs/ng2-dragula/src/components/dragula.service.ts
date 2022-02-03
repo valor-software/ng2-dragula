@@ -22,7 +22,7 @@ const filterEvent = <T extends { name: string; source?: any; target?: any; sourc
     }),
     map(({ name, args }) => projector(name, args))
   );
-}
+};
 
 const elContainerSourceProjector =
   (name: string, [el, container, source]: [Element, Element, Element]) =>
@@ -34,8 +34,21 @@ const elContainerSourceProjector =
 export class DragulaService {
 
   /* https://github.com/bevacqua/dragula#drakeon-events */
+  public cancel = this.elContainerSource(EventTypes.Cancel);
+  public remove = this.elContainerSource(EventTypes.Remove);
+  public shadow = this.elContainerSource(EventTypes.Shadow);
+  public over = this.elContainerSource(EventTypes.Over);
+  public out = this.elContainerSource(EventTypes.Out);
+  private groups: { [k: string]: Group } = {};
 
   private dispatch$ = new Subject<Dispatch>();
+
+  private elContainerSource =
+    (eventType: EventTypes) =>
+      (groupName?: string) =>
+        this.dispatch$.pipe(
+          filterEvent(eventType, groupName, elContainerSourceProjector)
+        );
 
   public drag = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(
@@ -64,19 +77,6 @@ export class DragulaService {
       })
   );
 
-  private elContainerSource =
-    (eventType: EventTypes) =>
-    (groupName?: string) =>
-    this.dispatch$.pipe(
-      filterEvent(eventType, groupName, elContainerSourceProjector)
-    );
-
-  public cancel = this.elContainerSource(EventTypes.Cancel);
-  public remove = this.elContainerSource(EventTypes.Remove);
-  public shadow = this.elContainerSource(EventTypes.Shadow);
-  public over = this.elContainerSource(EventTypes.Over);
-  public out = this.elContainerSource(EventTypes.Out);
-
   public cloned = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(
       EventTypes.Cloned,
@@ -84,7 +84,7 @@ export class DragulaService {
       (name, [
         clone, original, cloneType
       ]: [Element, Element, 'mirror' | 'copy']) => {
-        return { name, clone, original, cloneType }
+        return { name, clone, original, cloneType };
       })
   );
 
@@ -95,7 +95,7 @@ export class DragulaService {
       (name, [
         el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex
       ]: [Element, Element, Element, Element, T, T[], T[], number, number]) => {
-        return { name, el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex }
+        return { name, el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex };
       })
   );
 
@@ -106,12 +106,10 @@ export class DragulaService {
       (name, [
         el, container, source, item, sourceModel, sourceIndex
       ]: [Element, Element, Element, T, T[], number]) => {
-        return { name, el, container, source, item, sourceModel, sourceIndex }
+        return { name, el, container, source, item, sourceModel, sourceIndex };
       }
     )
   );
-
-  private groups: { [k: string]: Group } = {};
 
   constructor (@Optional() private drakeFactory: DrakeFactory) {
     if (this.drakeFactory === null || this.drakeFactory === undefined) {
@@ -121,7 +119,7 @@ export class DragulaService {
 
   /** Public mainly for testing purposes. Prefer `createGroup()`. */
   public add(group: Group): Group {
-    let existingGroup = this.find(group.name);
+    const existingGroup = this.find(group.name);
     if (existingGroup) {
       throw new Error('Group named: "' + group.name + '" already exists.');
     }
@@ -136,7 +134,7 @@ export class DragulaService {
   }
 
   public destroy(name: string): void {
-    let group = this.find(name);
+    const group = this.find(name);
     if (!group) {
       return;
     }
@@ -194,31 +192,32 @@ export class DragulaService {
       // console.log(sourceModel);
       let item: any;
       if (target === source) {
-        sourceModel = sourceModel.slice(0)
+        sourceModel = sourceModel.slice(0);
         item = sourceModel.splice(dragIndex, 1)[0];
         sourceModel.splice(dropIndex, 0, item);
         // this was true before we cloned and updated sourceModel,
         // but targetModel still has the old value
         targetModel = sourceModel;
       } else {
-        let isCopying = dragElm !== dropElm;
+        const isCopying = dragElm !== dropElm;
         item = sourceModel[dragIndex];
         if (isCopying) {
           if (!options.copyItem) {
-            throw new Error("If you have enabled `copy` on a group, you must provide a `copyItem` function.")
-          }
+            throw new Error("If you have enabled `copy` on a group, you must provide a `copyItem` function.");
+          };
           item = options.copyItem(item);
         }
 
         if (!isCopying) {
-          sourceModel = sourceModel.slice(0)
+          sourceModel = sourceModel.slice(0);
           sourceModel.splice(dragIndex, 1);
         }
-        targetModel = targetModel.slice(0)
+        targetModel = targetModel.slice(0);
         targetModel.splice(dropIndex, 0, item);
         if (isCopying) {
           try {
             target.removeChild(dropElm);
+            // eslint-disable-next-line no-empty
           } catch (e) {}
         }
       }
@@ -236,8 +235,9 @@ export class DragulaService {
     }
     group.initEvents = true;
     const name = group.name;
-    let that: any = this;
-    let emitter = (event: EventTypes) => {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const that: any = this;
+    const emitter = (event: EventTypes) => {
       group.drake.on(event, (...args: any[]) => {
         this.dispatch$.next({ event, name, args });
       });

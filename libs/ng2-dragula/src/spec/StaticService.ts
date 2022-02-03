@@ -6,8 +6,9 @@ import { MockDrake } from '../MockDrake';
 
 type Interface<T> = {
     [P in keyof T]: T[P]
-}
+};
 export class StaticService implements Interface<DragulaService> {
+  groups: { [k: string]: Group } = {};
   public drag: (groupName?: string) => Observable<{ name: string; el: Element; source: Element; }>
     = () => EMPTY;
   public dragend: (groupName?: string) => Observable<{ name: string; el: Element; }>
@@ -31,21 +32,19 @@ export class StaticService implements Interface<DragulaService> {
   public removeModel: <T = any>(groupName?: string) => Observable<{ name: string; el: Element; container: Element; source: Element; item: T; sourceModel: T[]; sourceIndex: number; }>
     = () => EMPTY;
 
-  groups: { [k: string]: Group } = {};
-
   add(group: Group): Group {
     this.groups[group.name] = group;
     return group;
   }
   createGroup<T = any>(name: string, options: DragulaOptions<T>): Group {
-    let group = new Group(name, new MockDrake([], options), options);
+    const group = new Group(name, new MockDrake([], options), options);
     return this.add(group);
   }
   find(name: string): Group {
     return this.groups[name];
   }
   destroy(name: string): void {
-    let g = this.groups[name];
+    const g = this.groups[name];
     g.drake.destroy();
     delete this.groups[name];
   }
