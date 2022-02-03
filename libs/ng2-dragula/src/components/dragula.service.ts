@@ -32,24 +32,25 @@ const elContainerSourceProjector =
   providedIn: 'root'
 })
 export class DragulaService {
+  private groups: { [k: string]: Group } = {};
+  private dispatch$ = new Subject<Dispatch>();
   private elContainerSource =
     (eventType: EventTypes) =>
       (groupName?: string) =>
         this.dispatch$.pipe(
           filterEvent(eventType, groupName, elContainerSourceProjector)
         );
-
   /* https://github.com/bevacqua/dragula#drakeon-events */
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   public cancel = this.elContainerSource(EventTypes.Cancel);
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   public remove = this.elContainerSource(EventTypes.Remove);
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   public shadow = this.elContainerSource(EventTypes.Shadow);
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   public over = this.elContainerSource(EventTypes.Over);
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   public out = this.elContainerSource(EventTypes.Out);
-  private groups: { [k: string]: Group } = {};
-
-  private dispatch$ = new Subject<Dispatch>();
-
-
 
   public drag = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(
