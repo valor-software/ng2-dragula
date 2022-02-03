@@ -32,6 +32,12 @@ const elContainerSourceProjector =
   providedIn: 'root'
 })
 export class DragulaService {
+  private elContainerSource =
+    (eventType: EventTypes) =>
+      (groupName?: string) =>
+        this.dispatch$.pipe(
+          filterEvent(eventType, groupName, elContainerSourceProjector)
+        );
 
   /* https://github.com/bevacqua/dragula#drakeon-events */
   public cancel = this.elContainerSource(EventTypes.Cancel);
@@ -43,12 +49,7 @@ export class DragulaService {
 
   private dispatch$ = new Subject<Dispatch>();
 
-  private elContainerSource =
-    (eventType: EventTypes) =>
-      (groupName?: string) =>
-        this.dispatch$.pipe(
-          filterEvent(eventType, groupName, elContainerSourceProjector)
-        );
+
 
   public drag = (groupName?: string) => this.dispatch$.pipe(
     filterEvent(

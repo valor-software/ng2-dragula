@@ -64,12 +64,12 @@ export class MockDrake implements DrakeWithModels {
     this.dragging = false;
   }
 
-  on(event: string, callback: ()=> any): any {
+  on(event: string, callback: (args:any)=> any): any {
     this.subs.add(this.emitter$
       .pipe(
         filter(({ eventType }) => eventType === event)
       )
-      .subscribe(({ args }) => {
+      .subscribe((...args) => {
         callback(...args);
       }));
   }
