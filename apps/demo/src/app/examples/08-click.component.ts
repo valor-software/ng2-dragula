@@ -57,7 +57,7 @@ export class ClickComponent {
       'five': boolean,
       'six': boolean,
       'seven': boolean
-    }
+    };
     this.clicked[key as keyof Key] = true;
     setTimeout(() => {
       this.clicked[key as keyof Key] = false;
