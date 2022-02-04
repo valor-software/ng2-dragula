@@ -69,7 +69,7 @@ jobs:
         with:
           path: ${{ env.CACHE_DIST_PATH }}
           key: dist-${{ github.run_id }}
-      - run: npm run test --runner cloud --code-coverage
+      - run: npm test --runner cloud --code-coverage
         continue-on-error: true
 
   # run linting
