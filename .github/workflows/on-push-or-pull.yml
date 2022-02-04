@@ -7,6 +7,8 @@ on:
 
 env:
   FIREBASE_CHANNEL: ${{ fromJSON('["", "live"]')[!github.base_ref] }}
+  NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
+
   CACHE_NODE_MODULES_PATH: |
     ~/.npm
     node_modules
