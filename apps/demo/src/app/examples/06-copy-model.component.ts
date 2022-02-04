@@ -33,14 +33,14 @@ export class CopyModelComponent {
   constructor(private dragulaService: DragulaService) {
     dragulaService.createGroup('PERSON', {
       copy: (el, source) => {
-        return source.id === 'left';
+        return source?.id === 'left';
       },
       copyItem: (person: Person) => {
         return new Person(person.name);
       },
       accepts: (el, target, source, sibling) => {
         // To avoid dragging from right to left container
-        return target.id !== 'left';
+        return target?.id !== 'left';
       }
     });
   }
@@ -85,7 +85,7 @@ export class CopyModelComponent {
       },
       accepts: (el, target, source, sibling) => {
         // To avoid dragging from right to left container
-        return target.id !== 'left';
+        return target?.id !== 'left';
       }
     });
   }

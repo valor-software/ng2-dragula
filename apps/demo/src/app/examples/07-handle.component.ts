@@ -13,7 +13,7 @@ export class HandleComponent {
   public constructor(private dragulaService: DragulaService) {
     dragulaService.createGroup("HANDLES", {
       moves: (el, container, handle) => {
-        return handle.className === 'handle';
+        return handle?.className === 'handle';
       }
     });
   }
@@ -34,7 +34,7 @@ export class HandleComponent {
   public constructor(private dragulaService: DragulaService) {
     dragulaService.createGroup("HANDLES", {
       moves: (el, container, handle) => {
-        return handle.className === 'handle';
+        return handle?.className === 'handle';
       }
     });
   }

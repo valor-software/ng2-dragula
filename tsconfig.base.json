@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": false,
     "noImplicitOverride": true,

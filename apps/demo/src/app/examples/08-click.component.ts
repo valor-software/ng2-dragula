@@ -49,9 +49,18 @@ export class ClickComponent {
   };
 
   public onclick(key: any) {
-    this.clicked[key] = true;
+    type Key = {
+      'one': boolean,
+      'two': boolean,
+      'three': boolean,
+      'four': boolean,
+      'five': boolean,
+      'six': boolean,
+      'seven': boolean
+    }
+    this.clicked[key as keyof Key] = true;
     setTimeout(() => {
-      this.clicked[key] = false;
+      this.clicked[key as keyof Key] = false;
     }, 2000);
   }
 }

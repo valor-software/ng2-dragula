@@ -17,7 +17,7 @@ export class NestedComponent {
   constructor(private dragulaService: DragulaService) {
     this.dragulaService.createGroup("COLUMNS", {
       direction: 'horizontal',
-      moves: (el, source, handle) => handle.className === "group-handle"
+      moves: (el, source, handle) => handle?.className === "group-handle"
     });
   }
 
@@ -50,7 +50,7 @@ export class NestedComponent {
   constructor(private dragulaService: DragulaService) {
     this.dragulaService.createGroup("COLUMNS", {
       direction: 'horizontal',
-      moves: (el, source, handle) => handle.className === "group-handle"
+      moves: (el, source, handle) => handle?.className === "group-handle"
     });
   }
 
