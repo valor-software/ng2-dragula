@@ -64,13 +64,42 @@ export class MockDrake implements DrakeWithModels {
     this.dragging = false;
   }
 
-  on(event: string, callback: (args:any)=> any): any {
+  on(event: string, callback: (...args: any)=> any): any {
     this.subs.add(this.emitter$
       .pipe(
         filter(({ eventType }) => eventType === event)
       )
-      .subscribe((...args) => {
-        callback(...args);
+      .subscribe(({eventType, args} ) => {
+        if (eventType === EventTypes.Drag) {
+          const argument = Array.from(args);
+          const el = argument[0];
+          const source = argument[1];
+          //@ts-ignore
+          callback(el, source);
+          return;
+        }
+
+        if (eventType === EventTypes.Drop) {
+          const argument = Array.from(args);
+          const el = argument[0];
+          const target = argument[1];
+          const source = argument[2];
+          const sibling = argument[3];
+          //@ts-ignore
+          callback(el, target, source, sibling);
+          return;
+        }
+
+        if (eventType === EventTypes.Remove) {
+          const argument = Array.from(args);
+          const el = argument[0];
+          const container = argument[1];
+          const source = argument[2];
+          //@ts-ignore
+          callback(el, container, source);
+          return;
+        }
+        callback(args);
       }));
   }
 

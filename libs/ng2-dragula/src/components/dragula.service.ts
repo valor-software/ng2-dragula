@@ -9,7 +9,6 @@ import { DrakeFactory } from '../DrakeFactory';
 type FilterProjector<T extends { name: string; }> = (name: string, args: any) => T;
 type Dispatch = { event: EventTypes; name: string; args: any[]; };
 
-// const filterEvent = <T extends { name: string; }>(
 const filterEvent = <T extends { name: string; source?: any; target?: any; sourceModel?: any; targetModel?: any; }>(
   eventType: EventTypes,
   filterDragType: string | undefined,
@@ -190,8 +189,6 @@ export class DragulaService {
       dropIndex = this.domIndexOf(dropElm, target);
       let sourceModel = drake.models[drake.containers.indexOf(source)];
       let targetModel = drake.models[drake.containers.indexOf(target)];
-      // console.log('DROP');
-      // console.log(sourceModel);
       let item: any;
       if (target === source) {
         sourceModel = sourceModel.slice(0);
@@ -248,6 +245,8 @@ export class DragulaService {
   }
 
   private domIndexOf(child: any, parent: any): any {
-    return Array.prototype.indexOf.call(parent.children, child);
+    if (parent) {
+      return Array.prototype.indexOf.call(parent.children, child);
+    }
   }
 }

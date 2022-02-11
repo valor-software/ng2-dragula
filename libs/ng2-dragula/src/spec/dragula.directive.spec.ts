@@ -9,18 +9,14 @@ import { DrakeWithModels } from '../DrakeWithModels';
 import { Group } from '../Group';
 import { DrakeFactory } from '../DrakeFactory';
 import { EventTypes } from '../EventTypes';
-import { MockDrake, MockDrakeFactory } from '../MockDrake';
-import { Component, ElementRef } from "@angular/core";
+import { MockDrakeFactory } from '../MockDrake';
 import { TestHostComponent, TwoWay, Asynchronous } from './test-host.component';
-import { Subject, BehaviorSubject, Observable, empty } from 'rxjs';
-import { DragulaOptions } from '../DragulaOptions';
+import { Subject } from 'rxjs';
 import { StaticService } from './StaticService';
-import isMockFunction = jest.isMockFunction;
+
 const GROUP = "GROUP";
 
 type SimpleDrake = Partial<DrakeWithModels>;
-
-
 
 describe('DragulaDirective', () => {
   let fixture: ComponentFixture<TestHostComponent>;
