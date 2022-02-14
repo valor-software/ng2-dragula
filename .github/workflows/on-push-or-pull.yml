@@ -8,6 +8,8 @@ on:
 env:
   FIREBASE_CHANNEL: ${{ fromJSON('["", "live"]')[!github.base_ref] }}
   NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
+  SAUCE_USERNAME_PR: valorkinpr
+  SAUCE_ACCESS_KEY_PR: e0a97bd3-4b74-4408-89bf-cce1b44a8bf1
 
   CACHE_NODE_MODULES_PATH: |
     ~/.npm
@@ -71,7 +73,7 @@ jobs:
         with:
           path: ${{ env.CACHE_DIST_PATH }}
           key: dist-${{ github.run_id }}
-      - run: npm test --runner cloud --codecoverage
+      - run: npm test -- --runner cloud --codeCoverage
         continue-on-error: true
 
   # run linting

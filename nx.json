@@ -1,7 +1,7 @@
 {
   "npmScope": "demo",
   "affected": {
-    "defaultBase": "undefined"
+    "defaultBase": "development"
   },
   "implicitDependencies": {
     "angular.json": "*",
