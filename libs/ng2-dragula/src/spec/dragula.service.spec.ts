@@ -60,7 +60,7 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li']);
     const li = ul.children[0] as Element;
     const mock = _addMockDrake(GROUP, [ul]);
-    let fn = jest.fn();
+    const fn = jest.fn();
     service.drag().pipe(take(1)).subscribe(ev => {
       fn(ev as any);
       expect(ev).toBeTruthy();
@@ -71,19 +71,20 @@ describe('DragulaService', () => {
     mock.emit(EventTypes.Drag, li, ul);
   }, 1000);
 
-  // it('should not fire drag for an irrelevant drag type', done => { //how it should be test if
-  //   const ul = buildList('ul', ['li']);
-  //   const li = ul.children[0];
-  //   let mock = _addMockDrake("MY_COOL_TYPE", []);
-  //   let fn = jest.fn();
-  //   service.drag("IRRELEVANT").pipe(take(1)).subscribe(ev => {
-  //     fn(ev as any);
-  //     expect(ev).not.toBeTruthy();
-  //     service.destroy("MY_COOL_TYPE");
-  //     done();
-  //   });
-  //   mock.emit(EventTypes.Drag, li, ul);
-  // }, 1000);
+//how it should be test if logic doesn't pass empty values, object will be always truthy
+  xit('should not fire drag for an irrelevant drag type', done => {
+    const ul = buildList('ul', ['li']);
+    const li = ul.children[0];
+    const mock = _addMockDrake("MY_COOL_TYPE", []);
+    const fn = jest.fn();
+    service.drag("IRRELEVANT").pipe(take(1)).subscribe(ev => {
+      fn(ev as any);
+      expect(ev).not.toBeTruthy();
+      service.destroy("MY_COOL_TYPE");
+      done();
+    });
+    mock.emit(EventTypes.Drag, li, ul);
+  }, 1000);
 
   it('should not throw when destroying a non-existent bag', () => {
     expect(() => {
@@ -108,7 +109,7 @@ describe('DragulaService', () => {
 
   it('should destroy a drake when destroying a bag', () => {
     const mock = _addMockDrake("_", []);
-    const mockFunc = jest.fn()
+    const mockFunc = jest.fn();
     const destroyDrake = td.replace(mock, 'destroy', mockFunc);
     service.destroy("_");
     expect(destroyDrake).toBeDefined();
@@ -123,7 +124,7 @@ describe('DragulaService', () => {
     const ul = buildList('ul', ['li']);
     const li = ul.children[0];
     const mock = _addMockDrake("NOMODELS", [], {}, undefined);
-    let fn = jest.fn();
+    const fn = jest.fn();
     service.drag("NOMODELS").pipe(take(1)).subscribe(ev => {
       fn(ev as any);
       expect(ev).not.toBeTruthy();
@@ -143,9 +144,9 @@ describe('DragulaService', () => {
       [ul],
       {},
       [ [myItem, { my: 'cat' }] ]
-    )
+    );
     service.dropModel<Item>("MODELS").pipe(take(1)).subscribe(ev => {
-      let fn = jest.fn();
+      const fn = jest.fn();
       fn(ev as any);
       expect(ev).toBeTruthy();
       expect(ev?.item).toStrictEqual(myItem);
@@ -156,44 +157,35 @@ describe('DragulaService', () => {
     mock.emit(EventTypes.Drop, li, ul, ul, ul.children[1], { my: 'li item' });
   }, 1000);
 
-  // it('should not act on to dropModel events until drake.models has a value', done => {
-  //   const ul = buildList('ul', ['li', 'li']);
-  //   const li = ul.children[0];
-  //   const mock = _addMockDrake("NOMODELS", [ul], {}, undefined);
-  //
-  //   service.dropModel("NOMODELS").pipe(take(0)).subscribe(ev => {
-  //     let fn = jest.fn();
-  //     fn(ev as any);
-  //     expect(ev).not.toBeTruthy();
-  //     mock.models = [['b', 'a']];
-  //     service.dropModel("NOMODELS").pipe(take(1)).subscribe(ev => {
-  //       fn(ev as any);
-  //       expect(ev).toBeTruthy();
-  //       const finalFunc = (name: string, [el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex]: [Element, Element, Element, Element, any, any[], any[], number, number]) =>{ return {name, el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex}};
-  //       //@ts-ignore
-  //       const result = finalFunc("NOMODELS", ev.el);
-  //       //@ts-ignore
-  //       expect(result.item).toBe('a');
-  //       service.destroy("NOMODELS");
-  //       done();
-  //     })
-  //     mock.emit(EventTypes.Drag, li, ul);
-  //     // put it back
-  //     ul.removeChild(li);
-  //     ul.insertBefore(li, ul.firstChild);
-  //     mock.emit(EventTypes.DropModel, li, ul, ul, undefined);
-  //     // const finalFunc = (name: string, [el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex]: [Element, Element, Element, Element, any, any[], any[], number, number]) =>{ return {name, el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex}};
-  //     //@ts-ignore
-  //     // const result = finalFunc("MODELS", ev.el);
-  //     //@ts-ignore
-  //     // expect(result?.item).toStrictEqual(myItem);
-  //     // service.destroy("MODELS");
-  //   });
-  //   mock.emit(EventTypes.Drag, li, ul);
-  //   ul.removeChild(li);
-  //   ul.appendChild(li);
-  //   mock.emit(EventTypes.DropModel, li, ul, ul, undefined);
-  // }, 7000);
+  it('should not act on to dropModel events until drake.models has a value', done => {
+    const ul = buildList('ul', ['li', 'li']);
+    const li = ul.children[0];
+    const mock = _addMockDrake("NOMODELS", [ul], {}, undefined);
+
+    service.dropModel("NOMODELS").pipe(take(0)).subscribe(ev => {
+      const fn = jest.fn();
+      fn(ev as any);
+      // expect(ev).not.toBeTruthy(); //can't see logic with passing null value
+    });
+    mock.emit(EventTypes.Drag, li, ul);
+    ul.removeChild(li);
+    ul.appendChild(li);
+    mock.emit(EventTypes.Drop, li, ul, ul, undefined);
+    service.dropModel("NOMODELS").pipe(take(1)).subscribe(ev => {
+      const fn = jest.fn();
+      fn(ev as any);
+      expect(ev).toBeTruthy();
+      expect(ev.item).toBe('a');
+      service.destroy("NOMODELS");
+      done();
+    });
+    mock.models = [['b', 'a']];
+    mock.emit(EventTypes.Drag, li, ul);
+    // put it back
+    ul.removeChild(li);
+    ul.insertBefore(li, ul.firstChild);
+    mock.emit(EventTypes.Drop, li, ul, ul, undefined);
+  }, 1000);
   //
   it('should dropModel correctly in same list (forwards)', done => {
     const ul = buildList('ul', ['li', 'li']);
@@ -202,7 +194,7 @@ describe('DragulaService', () => {
     const mock = _addMockDrake("DROPMODEL", [ ul ], {}, [ model ]);
 
     service.dropModel("DROPMODEL").pipe(take(1)).subscribe(ev => {
-      let fn = jest.fn();
+      const fn = jest.fn();
       fn(ev as any);
       expect(ev).toBeTruthy();
       expect(ev.source).toBe(ul);
@@ -231,7 +223,7 @@ describe('DragulaService', () => {
     const mock = _addMockDrake("DROPMODEL", [ ul ], {}, [ model ]);
 
     service.dropModel("DROPMODEL").pipe(take(1)).subscribe(ev => {
-      let fn = jest.fn();
+      const fn = jest.fn();
       fn(ev as any);
       expect(ev).toBeTruthy();
       expect(ev.source).toBe(ul);
@@ -267,7 +259,7 @@ describe('DragulaService', () => {
     const mock = _addMockDrake("DROPMODEL", [ source, target ], options, [ sourceModel, targetModel ]);
 
     service.dropModel("DROPMODEL").pipe(take(1)).subscribe(ev => {
-      let fn = jest.fn();
+      const fn = jest.fn();
       fn(ev as any);
       expect(ev).toBeTruthy();
       expect(ev.source).toBe(source);
@@ -289,7 +281,7 @@ describe('DragulaService', () => {
       expect(ev.targetModel[2]).toBe('b');
 
       service.destroy("DROPMODEL");
-      done()
+      done();
     });
     mock.emit(EventTypes.Drag, li, source);
     source.removeChild(li); // remove b at index 1
@@ -305,7 +297,7 @@ describe('DragulaService', () => {
     const mock = _addMockDrake("REMOVEMODEL", [ ul ], {}, [ model ]);
 
     service.removeModel("REMOVEMODEL").pipe(take(1)).subscribe(ev => {
-      let fn = jest.fn();
+      const fn = jest.fn();
       fn(ev as any);
       expect(ev).toBeTruthy();
       expect(ev.source).toBe(ul);
@@ -316,7 +308,7 @@ describe('DragulaService', () => {
       expect(ev.sourceModel[1]).toBe('c');
       expect(ev.sourceIndex).toBe(1);
       service.destroy("REMOVEMODEL");
-      done()
+      done();
     });
     mock.emit(EventTypes.Drag, li, ul);
     ul.removeChild(li);

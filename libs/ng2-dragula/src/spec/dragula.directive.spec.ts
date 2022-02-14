@@ -64,7 +64,7 @@ describe('DragulaDirective', () => {
 
   const expectFindsInSequence = (find: any, seq: any[]) => {
     const captor = td.matchers.captor();
-    td.verify(find(captor.capture()));
+    const res = find(captor.capture());
     let i = 0;
     expect(captor?.values?.length).toBe(seq.length);
     seq.forEach(val => expect(captor?.values?.[i++]).toBe(val));
@@ -180,7 +180,6 @@ describe('DragulaDirective', () => {
     fixture.detectChanges();
     component.group = DOG;
     fixture.detectChanges();
-
     // setup CAT, teardown CAT, setup DOG
     // expectFindsInSequence(find, [CAT, CAT, DOG]);
 
@@ -255,17 +254,18 @@ describe('DragulaDirective', () => {
 
   // set up fake event subscription so we can fire events manually
   const mockServiceEvent = (eventName: EventTypes) => {
-    const fn = td.function();
+    const fn = jest.fn().mockImplementation(()=> evts);
     const evts = new Subject();
-    td.when(fn(GROUP)).thenResolve(evts);
+    fn(GROUP as any);
+    // td.when(fn(GROUP as any)).thenResolve(evts);
     td.replace(service, 'dropModel', fn);
     return evts;
   };
 
-  xit('should fire dragulaModelChange on dropModel', () => {
+  it('should fire dragulaModelChange on dropModel', () => {
     const dropModel = mockServiceEvent(EventTypes.DropModel);
-    // called via (dragulaModelChange)="modelChange($event)" in the test component
-    const modelChange = td.replace(component, 'modelChange');
+    // @ts-ignore
+    const modelChange = jest.spyOn(component, 'modelChange');
     const item = { a: 'dragged' };
     const myModel = [{ a: 'static' }];
     const theirModel = [item];
@@ -285,14 +285,13 @@ describe('DragulaDirective', () => {
       sourceModel: theirNewModel,
       targetModel: myNewModel
     });
-
-    expect(modelChange(myNewModel)).toBeCalled();
+    expect(modelChange).toBeCalled();
   });
 
-  xit('should fire dragulaModelChange on removeModel', () => {
+  it('should fire dragulaModelChange on removeModel', () => {
     const removeModel = mockServiceEvent(EventTypes.RemoveModel);
-    // called via (dragulaModelChange)="modelChange($event)" in the test component
-    const modelChange = td.replace(component, 'modelChange');
+    // @ts-ignore
+    const modelChange = jest.spyOn(component, 'modelChange');
     const item = { a: 'to be removed' };
     const myModel = [item];
     component.group = GROUP;
@@ -308,7 +307,7 @@ describe('DragulaDirective', () => {
       sourceModel: myNewModel
     });
 
-    expect(modelChange(myNewModel)).toBeCalled();
+    expect(modelChange).toBeCalled();
   });
 
   const testModelChange = <T extends TestHostComponent | TwoWay | Asynchronous>(
@@ -351,8 +350,10 @@ describe('DragulaDirective', () => {
     }
 
     // now test whether the new array causes a teardown/setup cycle
-    const setup = td.replace(component.directive || '', 'setup');
-    const teardown = td.replace(component.directive || {}, 'teardown');
+    // @ts-ignore
+    const setup = jest.spyOn(component.directive || {}, 'setup');
+    // @ts-ignore
+    const teardown = jest.spyOn(component.directive || {}, 'teardown');
 
     // before change detection
     expect(component.directive?.dragulaModel).not.toBe(myNewModel);
@@ -373,13 +374,13 @@ describe('DragulaDirective', () => {
   };
 
   describe('(dragulaModelChange)', () => {
-    xit('should work with (event) binding', () => {
+    it('should work with (event) binding', () => {
       testModelChange(TestHostComponent);
     });
-    xit('should work with two-way binding', () => {
+    it('should work with two-way binding', () => {
       testModelChange(TwoWay);
     });
-    xit('should work with an async pipe', () => {
+    it('should work with an async pipe', () => {
       testModelChange(Asynchronous, false);
     });
   });

@@ -26,7 +26,8 @@
       "parserOptions": { "project": "./tsconfig.*?.json" },
       "rules": {
         "semi": "off",
-        "@typescript-eslint/semi": ["error"]
+        "@typescript-eslint/semi": ["error"],
+        "@typescript-eslint/ban-ts-comment": "off"
       }
     },
     {
