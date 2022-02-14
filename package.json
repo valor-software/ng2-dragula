@@ -6,7 +6,7 @@
     "ng": "nx",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "nx run-many --all --target=test",
     "e2e": "ng e2e",
     "nx": "nx",
     "lint": "nx run-many --all --target=lint",
