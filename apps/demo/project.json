@@ -1,0 +1,81 @@
+{
+  "root": "./apps/demo",
+  "sourceRoot": "./apps/demo/src",
+  "projectType": "application",
+  "prefix": "ex",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "allowedCommonJsDependencies": ["dragula"],
+        "outputPath": "./dist/demo",
+        "index": "./apps/demo/src/index.html",
+        "main": "./apps/demo/src/main.ts",
+        "polyfills": "./apps/demo/src/polyfills.ts",
+        "tsConfig": "./apps/demo/tsconfig.app.json",
+        "preserveSymlinks": true,
+        "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
+        "styles": ["apps/demo/src/styles.css"],
+        "scripts": [],
+        "aot": false,
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/demo/src/environments/environment.ts",
+              "with": "apps/demo/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "preserveSymlinks": true
+        }
+      },
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "demo:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "demo:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "demo:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
+      }
+    }
+  },
+  "implicitDependencies": ["ng2-dragula"]
+}

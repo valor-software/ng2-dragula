@@ -1,0 +1,39 @@
+{
+  "name": "ng2-dragula",
+  "private": false,
+  "version": "2.1.1",
+  "description": "Simple drag and drop with dragula",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valor-software/ng2-dragula.git"
+  },
+  "keywords": [
+    "angular",
+    "dragula",
+    "ng-dragula",
+    "angular2",
+    "ng2",
+    "angular2-dragula",
+    "ng2-dragula",
+    "ngx-dragula"
+  ],
+  "author": "Dmitriy Shekhovtsov <valorkin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valor-software/ng2-dragula/issues"
+  },
+  "homepage": "https://github.com/valor-software/ng2-dragula#readme",
+  "scripts": {
+    "docs": "compodoc -p tsconfig.json -c compodoc.json src",
+    "test:headless": "ng test --browsers=CustomChromeHeadless"
+  },
+  "peerDependencies": {
+    "rxjs": ">=6.0.0",
+    "@types/dragula": "^2.1.34",
+    "dragula": "^3.7.2"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}

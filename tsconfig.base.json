@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "ng2-dragula": [
+        "libs/ng2-dragula/src/public_api.ts"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
+}
