@@ -1,0 +1,38 @@
+{
+  "projectType": "library",
+  "root": "libs/ng2-dragula",
+  "sourceRoot": "libs/ng2-dragula/src",
+  "prefix": "",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["./dist/ng2-dragula"],
+      "options": {
+        "tsConfig": "libs/ng2-dragula/tsconfig.lib.json",
+        "project": "libs/ng2-dragula/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ng2-dragula/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ng2-dragula/src/**/*.ts",
+          "libs/ng2-dragula/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/ng2-dragula"],
+      "options": {
+        "jestConfig": "libs/ng2-dragula/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
