@@ -66,7 +66,7 @@ describe('DragulaDirective', () => {
     const calls = find.mock.calls;
     expect(find).toHaveBeenCalledTimes(seq.length);
     seq.forEach((val, index) => {
-      expect(calls[index][0]).toBe(val)
+      expect(calls[index][0]).toBe(val);
     });
   };
 
