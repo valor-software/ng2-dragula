@@ -24,8 +24,17 @@ export class ClickComponent {
     }, 2000);
   }
 }
-
 `;
+
+type Key = {
+  'one': boolean,
+  'two': boolean,
+  'three': boolean,
+  'four': boolean,
+  'five': boolean,
+  'six': boolean,
+  'seven': boolean
+};
 
 @Component({
   selector: 'ex-08-click',
@@ -49,15 +58,6 @@ export class ClickComponent {
   };
 
   public onclick(key: any) {
-    type Key = {
-      'one': boolean,
-      'two': boolean,
-      'three': boolean,
-      'four': boolean,
-      'five': boolean,
-      'six': boolean,
-      'seven': boolean
-    };
     this.clicked[key as keyof Key] = true;
     setTimeout(() => {
       this.clicked[key as keyof Key] = false;

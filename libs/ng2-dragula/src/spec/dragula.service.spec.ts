@@ -234,10 +234,8 @@ describe('DragulaService', () => {
       expect(ev.targetModel).toContain('a');
       expect(ev.sourceIndex).toBe(2);
       expect(ev.targetIndex).toBe(0);
-
       expect(ev.targetModel[0]).toBe('c');
       expect(ev.targetModel[1]).toBe('a');
-
       service.destroy("DROPMODEL");
       done();
     });
@@ -266,20 +264,16 @@ describe('DragulaService', () => {
       expect(ev.sourceModel).not.toBe(sourceModel);
       expect(ev.sourceModel.length).toBe(2);
       expect(ev.sourceModel).not.toContain('b');
-
       expect(ev.sourceModel).not.toBe(ev.targetModel);
       expect(ev.target).toBe(target);
       expect(ev.targetModel).not.toBe(targetModel);
       expect(ev.targetModel).toContain('b');
-
       expect(ev.sourceIndex).toBe(1);
       expect(ev.targetIndex).toBe(2);
-
       expect(ev.targetModel.length).toBe(3);
       expect(ev.targetModel[0]).toBe('x');
       expect(ev.targetModel[1]).toBe('y');
       expect(ev.targetModel[2]).toBe('b');
-
       service.destroy("DROPMODEL");
       done();
     });
@@ -287,7 +281,6 @@ describe('DragulaService', () => {
     source.removeChild(li); // remove b at index 1
     target.appendChild(li); // add b at index 2
     mock.emit(EventTypes.Drop, li, target, source, undefined);
-
   }, 1000);
 
   it('should removeModel', done => {

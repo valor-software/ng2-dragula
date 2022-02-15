@@ -63,11 +63,11 @@ describe('DragulaDirective', () => {
   };
 
   const expectFindsInSequence = (find: any, seq: any[]) => {
-    const captor = td.matchers.captor();
-    const res = find(captor.capture());
-    let i = 0;
-    expect(captor?.values?.length).toBe(seq.length);
-    seq.forEach(val => expect(captor?.values?.[i++]).toBe(val));
+    const calls = find.mock.calls;
+    expect(find).toHaveBeenCalledTimes(seq.length);
+    seq.forEach((val, index) => {
+      expect(calls[index][0]).toBe(val)
+    });
   };
 
   // ngOnInit AND checkModel
@@ -129,7 +129,6 @@ describe('DragulaDirective', () => {
   // ngOnChanges
   it('should update the model value on an existing drake, with no models', () => {
     const drake = simpleDrake();
-    // const mockedDrake = jest.fn().mockImplementation((drake) => GROUP);
     const find = mockDrake(drake);
     fixture.detectChanges();
     const myModel = ["something"];
@@ -160,7 +159,6 @@ describe('DragulaDirective', () => {
   // ngOnChanges
   it('should do nothing if there is no bag name', () => {
     // if DragulaDirective is initialized, it tries to find the bag
-    const drake = simpleDrake();
     const find = jest.fn(()=> GROUP);
     component.group = '';
     component.model = [];
@@ -181,7 +179,7 @@ describe('DragulaDirective', () => {
     component.group = DOG;
     fixture.detectChanges();
     // setup CAT, teardown CAT, setup DOG
-    // expectFindsInSequence(find, [CAT, CAT, DOG]);
+    expectFindsInSequence(find, [CAT, CAT, DOG]);
 
     // clean move to another drake
     expect(catDrake.models?.length).toBe(0);
@@ -203,7 +201,7 @@ describe('DragulaDirective', () => {
     fixture.detectChanges();
 
     // setup, then teardown
-    // expectFindsInSequence(find, [ GROUP, GROUP ]);
+    expectFindsInSequence(find, [ GROUP, GROUP ]);
 
     expect(drake.models?.length).toBe(0);
     expect(drake.containers?.length).toBe(0);
@@ -211,8 +209,6 @@ describe('DragulaDirective', () => {
 
   const testUnsettingModel = (drake: SimpleDrake) => {
     const find = mockDrake(drake);
-    const initialContainers = drake.containers?.length;
-    const initialModels = drake.models?.length;
     const firstModel = [{ first: 'model' }];
     const nextModel = [{ next: 'model' }];
 
@@ -223,7 +219,7 @@ describe('DragulaDirective', () => {
     fixture.detectChanges();
 
     // setup, then teardown
-    // expectFindsInSequence(find, [ GROUP ]);
+    expectFindsInSequence(find, [ GROUP ]);
 
     expect(drake.models).not.toContain(firstModel);
     expect(drake.containers).toContain(component.host?.nativeElement);
@@ -257,7 +253,6 @@ describe('DragulaDirective', () => {
     const fn = jest.fn().mockImplementation(()=> evts);
     const evts = new Subject();
     fn(GROUP as any);
-    // td.when(fn(GROUP as any)).thenResolve(evts);
     td.replace(service, 'dropModel', fn);
     return evts;
   };
@@ -326,7 +321,6 @@ describe('DragulaDirective', () => {
     fixture.detectChanges();
 
     const bag = service.find(GROUP);
-    // if(componentClass === Asynchronous) console.log( bag.drake )
     expect(bag).toBeTruthy();
     expect(bag.drake.models).toBeTruthy();
     expect(bag.drake.models && bag.drake.models[0]).toBe(myModel);
@@ -384,5 +378,4 @@ describe('DragulaDirective', () => {
       testModelChange(Asynchronous, false);
     });
   });
-
 });

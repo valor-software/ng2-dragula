@@ -167,8 +167,6 @@ export class DragulaService {
       let sourceModel = drake.models[drake.containers.indexOf(source)];
       sourceModel = sourceModel.slice(0); // clone it
       const item = sourceModel.splice(dragIndex, 1)[0];
-      // console.log('REMOVE');
-      // console.log(sourceModel);
       this.dispatch$.next({
         event: EventTypes.RemoveModel,
         name,
