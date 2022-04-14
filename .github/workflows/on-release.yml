@@ -85,10 +85,7 @@ jobs:
           path: dist
           key: dist-${{ github.run_id }}
 
-      #      - run: npm run scully
-      - run: npx ts-node ./scripts/gh-pages-predeploy.ts
       - run: |
-          cd gh-pages
           git config user.email gh-actions-${GITHUB_ACTOR}@github.com
           git config user.name $GITHUB_ACTOR
           git add -A
