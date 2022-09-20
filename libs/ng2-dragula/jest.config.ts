@@ -1,14 +1,14 @@
-module.exports = {
+/* eslint-disable */
+export default {
   displayName: 'ng2-dragula',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/spec/test-setup.ts'],
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$'
-    },
+    }
   },
-  coverageDirectory: '../../coverage/ng2-dragula',
+  coverageDirectory: '../../coverage/libs/ng2-dragula',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
