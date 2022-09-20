@@ -72,7 +72,7 @@ jobs:
         with:
           path: ${{ env.CACHE_DIST_PATH }}
           key: dist-${{ github.run_id }}
-      - run: npm run test --code-coverage
+      - run: npx nx run-many --target=test --all --code-coverage
         continue-on-error: true
 
   # run linting
