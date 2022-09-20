@@ -56,8 +56,7 @@ jobs:
           path: ${{ env.CACHE_DIST_PATH }}
           key: dist-${{ github.run_id }}
       - run: |
-          npx nx build demo --runner cloud --configuration production
-          npx nx build --runner cloud --configuration production
+          npx nx build demo --configuration production
 
   # run unit tests
   unit_tests_with_coverage:
@@ -73,7 +72,7 @@ jobs:
         with:
           path: ${{ env.CACHE_DIST_PATH }}
           key: dist-${{ github.run_id }}
-      - run: npm run test -- --runner cloud --code-coverage
+      - run: npm run test --code-coverage
         continue-on-error: true
 
   # run linting
@@ -86,7 +85,7 @@ jobs:
         with:
           path: ${{ env.CACHE_NODE_MODULES_PATH }}
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - run: npm run lint -- --runner cloud
+      - run: npm run lint
 
   # firebase deploy preview
   firebase_preview:
