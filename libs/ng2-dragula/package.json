@@ -30,7 +30,10 @@
   "peerDependencies": {
     "rxjs": ">=6.0.0",
     "@types/dragula": "^2.1.34",
-    "dragula": "^3.7.2"
+    "dragula": "^3.7.2",
+    "@angular/animations": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@angular/common": "^14.0.0"
   },
   "files": [
     "dist",
