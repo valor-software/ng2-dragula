@@ -8,7 +8,6 @@
     "demo.build": "ng build",
     "demo.build-prod": "ng build",
     "build": "nx run ng2-dragula:build",
-    "build.watch": "nx run ng2-dragula:build --watch",
     "lint": "nx run-many --target=lint --all",
     "test": "nx run-many --target=test --all",
     "version": "nx run ng2-dragula:version",
