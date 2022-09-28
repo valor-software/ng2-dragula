@@ -2,11 +2,30 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "es2015",
-    "types": []
+    "types": ["node"],
+    "forceConsistentCasingInFileNames": true,
+    "target": "es2020"
   },
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
+  ],
+  "files": [
+    "./src/main.ts",
+    "./src/polyfills.ts"
+  ],
+  "include": [
+    "./src/typings.d.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.editor.json"
+    }
   ]
 }

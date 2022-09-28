@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import {DragulaModule, DragulaService} from 'ng2-dragula';
+import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { DemoComponent } from './app.component';
 import { BasicComponent } from './examples/01-basic.component';
 import { EventsComponent } from './examples/02-events.component';

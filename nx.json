@@ -1,44 +1,40 @@
 {
   "npmScope": "demo",
-  "affected": {
-    "defaultBase": "development"
-  },
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
+    "tsconfig.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
-    "nx.json": "*",
-    "tsconfig.base.json": "*"
+    "nx.json": "*"
   },
   "tasksRunnerOptions": {
-    "cloud": {
-      "runner": "@nrwl/nx-cloud",
+    "default": {
+      "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": [
           "build",
-          "test",
           "lint",
+          "test",
           "e2e"
         ],
-        "canTrackAnalytics": false,
-        "showUsageWarnings": true
-      }
-    },
-    "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "parallel": 1
       }
     }
   },
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
+  "affected": {
+    "defaultBase": "development"
   },
-  "defaultProject": "demo"
+  "defaultProject": "demo",
+  "generators": {
+    "@schematics/angular:component": {
+      "prefix": "",
+      "styleext": "css"
+    },
+    "@schematics/angular:directive": {
+      "prefix": ""
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }
+

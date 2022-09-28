@@ -50,8 +50,7 @@ jobs:
           path: dist
           key: dist-${{ github.run_id }}
       - run: |
-          npx nx build demo --runner cloud --configuration production
-          npx nx build --runner cloud --configuration production
+          npx nx build demo --configuration production
 
   # update release notes in github
   update_release_draft:

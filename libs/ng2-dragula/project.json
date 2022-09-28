@@ -30,7 +30,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/ng2-dragula"],
       "options": {
-        "jestConfig": "libs/ng2-dragula/jest.config.js",
+        "jestConfig": "libs/ng2-dragula/jest.config.ts",
         "passWithNoTests": true
       }
     }
