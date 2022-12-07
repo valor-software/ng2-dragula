@@ -1,3 +1,18 @@
+# [3.0.0](https://github.com/valor-software/ng2-dragula/compare/v2.1.1...v3.0.0) (2022-12-07)
+
+
+### Bug Fixes
+
+* **chore:** fixed release files ([f6798c9](https://github.com/valor-software/ng2-dragula/commit/f6798c90d34db1c2e7c13b35f5dd69e800651b23))
+
+
+### Features
+
+* Angular 10 Compatibility ([#1008](https://github.com/valor-software/ng2-dragula/issues/1008)) ([ad945e0](https://github.com/valor-software/ng2-dragula/commit/ad945e0d5e709216e2bb551927a1dd3713589bf3))
+* **dragula:** updated angular 14 ([#1065](https://github.com/valor-software/ng2-dragula/issues/1065)) ([2d2388d](https://github.com/valor-software/ng2-dragula/commit/2d2388dc6138e2ee0ca2093a58c8227c420104cc))
+
+
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
