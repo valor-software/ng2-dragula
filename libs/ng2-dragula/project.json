@@ -39,6 +39,7 @@
       "outputs": [],
       "options": {
         "commands": [
+          "ts-node ./scripts/set-version.ts",
           "conventional-changelog --preset angular --infile CHANGELOG.md --same-file --release-count 1",
           "git add -A"
         ],
