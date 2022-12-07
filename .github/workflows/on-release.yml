@@ -50,6 +50,7 @@ jobs:
           path: dist
           key: dist-${{ github.run_id }}
       - run: |
+          npx nx build ng2-dragula --configuration productionn
           npx nx build demo --configuration production
   # update release notes in github
   update_release_draft:
@@ -115,5 +116,5 @@ jobs:
           key: dist-${{ github.run_id }}
       - uses: JS-DevTools/npm-publish@v1
         with:
-          package: "dist/ng2-dragula/package.json"
+          package: "./dist/ng2-dragula/package.json"
           token: ${{ secrets.NPM_TOKEN }}
