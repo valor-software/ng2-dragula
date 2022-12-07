@@ -30,7 +30,6 @@ jobs:
       - uses: actions/cache@v3
         id: cache
         with:
-          node-version: '16'
           path: node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
@@ -85,7 +84,6 @@ jobs:
           key: dist-${{ github.run_id }}
 
       #      - run: npm run scully
-      - run: npx ts-node ./scripts/gh-pages-predeploy.ts
       - run: |
           cd gh-pages
           git config user.email gh-actions-${GITHUB_ACTOR}@github.com
