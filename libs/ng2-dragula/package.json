@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git+https://github.com/valor-software/ng2-dragula.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "next"
+  },
   "keywords": [
     "angular",
     "dragula",
