@@ -33,6 +33,20 @@
         "jestConfig": "libs/ng2-dragula/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "version": {
+      "builder": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "commands": [
+          "conventional-changelog --preset angular --infile CHANGELOG.md --same-file --release-count 1",
+          "git add -A"
+        ],
+        "parallel": false
+      },
+      "configurations": {
+        "production": {}
+      }
     }
   }
 }
