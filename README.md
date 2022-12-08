@@ -7,6 +7,7 @@
 > Drag and drop so simple it hurts
 
 Official **Angular** wrapper for [`dragula`](https://github.com/bevacqua/dragula).
+# Notice: v3 has been released
 
 # Notice: v2 has been released
 
@@ -43,10 +44,10 @@ Or play with [this starter in your browser][stackblitz] on StackBlitz.
 
 Latest version available for each version of Angular
 
-| ng2-dragula | Angular    |
-| ---------- | ----------- |
-| 2.1.1      | <= 9.x      |
-| current    | >= 10.x     |
+| ng2-dragula | Angular |
+| ---------- |---------|
+| 2.1.1      | <= 9.x  |
+| current    | ^14.x.x |
 
 # Install
 
@@ -473,37 +474,24 @@ There are hundreds of other libraries that do this. Some notable ones:
 
 # Development
 
-- You must use Yarn >= 1.3. It includes the 'workspaces' feature.
 - Please use [Conventional Commits](https://conventionalcommits.org/) in your commit messages.
 
 #### setup
 
 ```sh
-yarn
-yarn workspace ng2-dragula build
+npm i ng2-dragula
 ```
 
 #### run tests
 
 ```sh
-yarn workspace ng2-dragula test
-# or
-yarn workspace ng2-dragula test:headless
+npm run test
 ```
 
 #### run demo server
 
 ```sh
-# listens for changes in the library and rebuilds on save
-yarn watch
-# runs demo server
-yarn workspace demo start
-```
-
-#### Publishing a new version
-
-```
-yarn lerna publish
+npm run start
 ```
 
 ## Credits
