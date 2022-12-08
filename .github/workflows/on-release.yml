@@ -50,7 +50,7 @@ jobs:
           path: dist
           key: dist-${{ github.run_id }}
       - run: |
-          npx nx build ng2-dragula --configuration productionn
+          npx nx build ng2-dragula --configuration production
           npx nx build demo --configuration production
   # update release notes in github
   update_release_draft:
