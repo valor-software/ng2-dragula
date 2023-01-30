@@ -1,12 +1,12 @@
 {
+  "name": "ng2-dragula",
   "projectType": "library",
-  "root": "libs/ng2-dragula",
   "sourceRoot": "libs/ng2-dragula/src",
   "prefix": "",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["./dist/ng2-dragula"],
+      "outputs": ["{projectRoot}/dist/ng2-dragula"],
       "options": {
         "tsConfig": "libs/ng2-dragula/tsconfig.lib.json",
         "project": "libs/ng2-dragula/ng-package.json"
@@ -28,14 +28,14 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/ng2-dragula"],
+      "outputs": ["{workspaceRoot}/coverage/ng2-dragula"],
       "options": {
         "jestConfig": "libs/ng2-dragula/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "version": {
-      "builder": "@nrwl/workspace:run-commands",
+      "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
         "commands": [

@@ -1,5 +1,5 @@
 {
-  "root": "./apps/demo",
+  "name": "demo",
   "sourceRoot": "./apps/demo/src",
   "projectType": "application",
   "prefix": "ex",
