@@ -31,8 +31,61 @@
     "rxjs": ">=6.0.0",
     "@types/dragula": "^2.1.34",
     "dragula": "^3.7.2",
-    "@angular/animations": "^14.0.0",
-    "@angular/core": "^14.0.0",
-    "@angular/common": "^14.0.0"
+    "@angular/animations": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "@angular/common": "^15.0.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nrwl/angular:package",
+        "outputs": [
+          "{projectRoot}/dist/ng2-dragula"
+        ],
+        "options": {
+          "tsConfig": "libs/ng2-dragula/tsconfig.lib.json",
+          "project": "libs/ng2-dragula/ng-package.json"
+        },
+        "configurations": {
+          "production": {
+            "tsConfig": "libs/ng2-dragula/tsconfig.lib.prod.json"
+          }
+        }
+      },
+      "lint": {
+        "executor": "@nrwl/linter:eslint",
+        "options": {
+          "lintFilePatterns": [
+            "libs/ng2-dragula/src/**/*.ts",
+            "libs/ng2-dragula/src/**/*.html"
+          ]
+        }
+      },
+      "test": {
+        "executor": "@nrwl/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/ng2-dragula"
+        ],
+        "options": {
+          "jestConfig": "libs/ng2-dragula/jest.config.ts",
+          "passWithNoTests": true
+        }
+      },
+      "version": {
+        "executor": "@nrwl/workspace:run-commands",
+        "outputs": [],
+        "options": {
+          "commands": [
+            "ts-node ./scripts/set-version.ts",
+            "conventional-changelog --preset angular --infile CHANGELOG.md --same-file --release-count 1",
+            "git add -A"
+          ],
+          "parallel": false
+        },
+        "configurations": {
+          "production": {}
+        }
+      }
+    }
   }
 }

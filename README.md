@@ -43,10 +43,10 @@ Or play with [this starter in your browser][stackblitz] on StackBlitz.
 
 Latest version available for each version of Angular
 
-| ng2-dragula | Angular    |
-| ---------- | ----------- |
-| 2.1.1      | <= 9.x      |
-| current    | >= 10.x     |
+| ng2-dragula | Angular |
+| ---------- |---------|
+| 2.1.1      | <= 9.x  |
+| current    | 15.x.x  |
 
 # Install
 
