@@ -1,7 +1,7 @@
 {
   "name": "ng2-dragula",
   "private": false,
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "Simple drag and drop with dragula",
   "repository": {
     "type": "git",
