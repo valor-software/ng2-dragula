@@ -3,7 +3,7 @@ import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 
 const repeatCode = `
-<div class='container'0 [dragula]="MANY_ITEMS" [(dragulaModel)]='many'>
+<div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many'>
     <div *ngFor='let text of many' [innerHtml]='text'></div>
 </div>
 <div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many2'>
