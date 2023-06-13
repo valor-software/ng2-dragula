@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { EventTypes } from './EventTypes';
 import { DragulaOptions } from './DragulaOptions';
 import { DrakeFactory } from './DrakeFactory';
+import { Drake } from 'dragula';
 
 export const MockDrakeFactory = new DrakeFactory((containers, options) => {
   return new MockDrake(containers, options);
@@ -41,29 +42,14 @@ export class MockDrake implements DrakeWithModels {
     public options: DragulaOptions = {},
     public models?: any[][]
   ) {}
-
-  /* Doesn't represent anything meaningful. */
-  dragging = false;
-
-  /* Does nothing useful. */
-  start(item: Element): any {
-    this.dragging = true;
-  }
-  /* Does nothing useful. */
-  end(): any {
-    this.dragging = false;
-  }
-  /* Does nothing useful. */
-  cancel(revert: boolean): any;
-  cancel(): any;
-  cancel(revert?: any) {
-    this.dragging = false;
-  }
-  /* Does nothing useful. */
-  remove(): any {
-    this.dragging = false;
-  }
-
+  on(event: 'drag', listener: (el: Element, source: Element) => void): Drake;
+  on(event: 'dragend', listener: (el: Element) => void): Drake;
+  on(event: 'drop', listener: (el: Element, target: Element, source: Element, sibling: Element) => void): Drake;
+  on(event: 'cancel' | 'remove' | 'shadow' | 'over' | 'out', listener: (el: Element, container: Element, source: Element) => void): Drake;
+  on(event: 'cloned', listener: (clone: Element, original: Element, type: 'copy' | 'mirror') => void): Drake;
+  on(event: 'dropModel', listener: ([el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex,]: [Element, Element, Element, Element, any, any[], any[], number, number]) => void): Drake;
+  on(event: 'removeModel', listener: ([el, container, source, item, sourceModel, sourceIndex]: [Element, Element, Element, any, any[], number]) => void): Drake;
+  
   on(event: string, callback: (...args: any)=> any): any {
     this.subs.add(this.emitter$
       .pipe(
@@ -101,6 +87,34 @@ export class MockDrake implements DrakeWithModels {
         }
         callback(args);
       }));
+  }
+
+  /* Doesn't represent anything meaningful. */
+  dragging = false;
+
+  /* Does nothing useful. */
+  start(item: Element): any {
+    this.dragging = true;
+  }
+  /* Does nothing useful. */
+  end(): any {
+    this.dragging = false;
+  }
+  /* Does nothing useful. */
+  cancel(revert: boolean): any;
+  cancel(): any;
+  cancel(revert?: any) {
+    this.dragging = false;
+  }
+
+  /* Does nothing useful. */
+  canMove(item: Element) {
+    return this.options.accepts ? this.options.accepts(item) : false;
+  }
+
+  /* Does nothing useful. */
+  remove(): any {
+    this.dragging = false;
   }
 
   destroy(): any {
