@@ -46,7 +46,7 @@ Latest version available for each version of Angular
 | ng2-dragula | Angular |
 | ---------- |---------|
 | 2.1.1      | <= 9.x  |
-| current    | 15.x.x  |
+| current    | 16.x.x  |
 
 # Install
 

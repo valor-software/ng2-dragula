@@ -1,7 +1,7 @@
 import { DragulaOptions as OriginalOptions } from 'dragula';
 
 /* Use this instead of the DragulaOptions from '@types/dragula'. */
-export interface DragulaOptions<T = any> extends OriginalOptions {
+export interface DragulaOptions<T = any> extends Omit<OriginalOptions, 'copySortSource'> {
 
   copySortSource?: boolean | ((el: Element, source: Element) => boolean);
 
