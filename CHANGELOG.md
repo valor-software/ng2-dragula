@@ -1,3 +1,7 @@
+## [5.0.1](https://github.com/valor-software/ng2-dragula/compare/v5.0.0...v5.0.1) (2023-07-21)
+
+
+
 # [5.0.0](https://github.com/valor-software/ng2-dragula/compare/v2.1.1...v5.0.0) (2023-07-21)
 
 
