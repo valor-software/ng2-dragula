@@ -1,11 +1,12 @@
 {
   "name": "ng2-dragula",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ng2-dragula/src",
   "prefix": "",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{projectRoot}/dist/ng2-dragula"],
       "options": {
         "tsConfig": "libs/ng2-dragula/tsconfig.lib.json",
@@ -18,7 +19,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/ng2-dragula/src/**/*.ts",
@@ -27,7 +28,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/ng2-dragula"],
       "options": {
         "jestConfig": "libs/ng2-dragula/jest.config.ts",
@@ -35,7 +36,7 @@
       }
     },
     "version": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "@nx/workspace:run-commands",
       "outputs": [],
       "options": {
         "commands": [

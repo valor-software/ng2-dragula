@@ -2,7 +2,7 @@
 // <reference path="./testdouble-jasmine.d.ts" />
 
 import * as td from 'testdouble';
-import { TestBed, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { DragulaDirective } from '../components/dragula.directive';
 import { DragulaService } from '../components/dragula.service';
 import { DrakeWithModels } from '../DrakeWithModels';
@@ -17,6 +17,12 @@ import { StaticService } from './StaticService';
 const GROUP = "GROUP";
 
 type SimpleDrake = Partial<DrakeWithModels>;
+
+function setTimeoutPromise(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => { 
+    setTimeout(resolve, milliseconds);
+  });
+}
 
 describe('DragulaDirective', () => {
   let fixture: ComponentFixture<TestHostComponent>;
@@ -305,7 +311,7 @@ describe('DragulaDirective', () => {
     expect(modelChange).toBeCalled();
   });
 
-  const testModelChange = <T extends TestHostComponent | TwoWay | Asynchronous>(
+  const testModelChange = async <T extends TestHostComponent | TwoWay | Asynchronous>(
     componentClass: { new(...args: any[]): T},
     saveToComponent = true,
   ) => {
@@ -318,6 +324,7 @@ describe('DragulaDirective', () => {
     const myModel = [same, item, same2];
     component.group = GROUP;
     component.model = myModel;
+    await setTimeoutPromise(1000);
     fixture.detectChanges();
 
     const bag = service.find(GROUP);
@@ -374,8 +381,8 @@ describe('DragulaDirective', () => {
     it('should work with two-way binding', () => {
       testModelChange(TwoWay);
     });
-    it('should work with an async pipe', () => {
-      testModelChange(Asynchronous, false);
-    });
+    it('should work with an async pipe', waitForAsync(async () => {
+      await testModelChange(Asynchronous, false);
+    }));
   });
 });

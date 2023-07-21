@@ -1,5 +1,6 @@
 {
   "name": "demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./apps/demo/src",
   "projectType": "application",
   "prefix": "ex",
@@ -49,7 +50,7 @@
       "dependsOn": [
         {
           "target": "build",
-          "projects": "dependencies"
+          "dependencies": true
         }
       ]
     },
@@ -71,7 +72,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
       }
