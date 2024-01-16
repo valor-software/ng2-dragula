@@ -307,8 +307,6 @@ export class DragulaService {
     }
     group.initEvents = true;
     const name = group.name;
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const that: any = this;
     const emitter = (event: EventTypes) => {
       switch (event) {
         case EventTypes.Drag:
@@ -327,7 +325,7 @@ export class DragulaService {
             this.dispatch$.next({ event, name, args });
           });
           break;
-        
+
         case EventTypes.Cancel:
         case EventTypes.Remove:
         case EventTypes.Shadow:
@@ -350,10 +348,10 @@ export class DragulaService {
           break;
 
         case EventTypes.RemoveModel:
-            group.drake.on(event, (...args: any[]) => {
-              this.dispatch$.next({ event, name, args });
-            });
-            break;
+          group.drake.on(event, (...args: any[]) => {
+            this.dispatch$.next({ event, name, args });
+          });
+          break;
         default:
           break;
       }

@@ -14,12 +14,12 @@ import { TestHostComponent, TwoWay, Asynchronous } from './test-host.component';
 import { Subject } from 'rxjs';
 import { StaticService } from './StaticService';
 
-const GROUP = "GROUP";
+const GROUP = 'GROUP';
 
 type SimpleDrake = Partial<DrakeWithModels>;
 
 function setTimeoutPromise(milliseconds: number): Promise<void> {
-  return new Promise((resolve) => { 
+  return new Promise((resolve) => {
     setTimeout(resolve, milliseconds);
   });
 }
@@ -32,13 +32,12 @@ describe('DragulaDirective', () => {
   beforeEach(() => {
     service = new StaticService();
     TestBed.configureTestingModule({
-      declarations: [ DragulaDirective, TestHostComponent, TwoWay, Asynchronous ],
+      declarations: [DragulaDirective, TestHostComponent, TwoWay, Asynchronous],
       providers: [
         { provide: DrakeFactory, useValue: MockDrakeFactory },
-        { provide: DragulaService, useValue: service }
-      ]
-    })
-    .compileComponents();
+        { provide: DragulaService, useValue: service },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);
     component = fixture.componentInstance;
@@ -51,11 +50,13 @@ describe('DragulaDirective', () => {
     service.clear();
   });
 
-  const mockMultipleDrakes = (...pairs: [Partial<DrakeWithModels>, string][]) => {
+  const mockMultipleDrakes = (
+    ...pairs: [Partial<DrakeWithModels>, string][]
+  ) => {
     let find = jest.fn();
     pairs.forEach(([drake, name]) => {
       const group = new Group(name, drake as any as DrakeWithModels, {});
-      find = find.mockImplementation((name) => group);
+      find = find.mockImplementation(() => group);
     });
     td.replace(service, 'find', find);
     return find;
@@ -99,8 +100,8 @@ describe('DragulaDirective', () => {
   // ngOnInit
   // checkModel: dragulaModel, drake, push to drake.models
   it('should initialize and add to existing drake', () => {
-    const theirs = [ { someVar: 'theirs' } ];
-    const mine = [ { someVar: 'mine' } ];
+    const theirs = [{ someVar: 'theirs' }];
+    const mine = [{ someVar: 'mine' }];
     const drake = simpleDrake([document.createElement('div')], theirs);
     mockDrake(drake);
 
@@ -117,8 +118,8 @@ describe('DragulaDirective', () => {
 
   // ngOnChanges
   it('should update the model value on existing drake.models', () => {
-    const myModel = [ 'something' ];
-    const newModel = [ 'something new' ];
+    const myModel = ['something'];
+    const newModel = ['something new'];
     let drake = simpleDrake([document.createElement('div')], [myModel]);
     mockDrake(drake);
 
@@ -135,9 +136,8 @@ describe('DragulaDirective', () => {
   // ngOnChanges
   it('should update the model value on an existing drake, with no models', () => {
     const drake = simpleDrake();
-    const find = mockDrake(drake);
     fixture.detectChanges();
-    const myModel = ["something"];
+    const myModel = ['something'];
     const newModel = ['something new'];
 
     component.model = myModel;
@@ -149,8 +149,8 @@ describe('DragulaDirective', () => {
 
   // ngOnChanges
   it('should add a container and a model on init, take 2', () => {
-    const theirModel = [ "someone else's model" ];
-    const myModel = [ "something" ];
+    const theirModel = ["someone else's model"];
+    const myModel = ['something'];
     // create an existing drake with models
     const drake = simpleDrake([document.createElement('div')], theirModel);
     mockDrake(drake);
@@ -165,7 +165,7 @@ describe('DragulaDirective', () => {
   // ngOnChanges
   it('should do nothing if there is no bag name', () => {
     // if DragulaDirective is initialized, it tries to find the bag
-    const find = jest.fn(()=> GROUP);
+    const find = jest.fn(() => GROUP);
     component.group = '';
     component.model = [];
     fixture.detectChanges();
@@ -174,13 +174,14 @@ describe('DragulaDirective', () => {
 
   // ngOnChanges
   it('should cleanly move to another drake when bag name changes', () => {
-    const CAT = "CAT", DOG = "DOG";
+    const CAT = 'CAT',
+      DOG = 'DOG';
     const catDrake = simpleDrake();
     const dogDrake = simpleDrake();
     const find = mockMultipleDrakes([catDrake, CAT], [dogDrake, DOG]);
 
     component.group = CAT;
-    component.model = [ { animal: 'generic four-legged creature' } ];
+    component.model = [{ animal: 'generic four-legged creature' }];
     fixture.detectChanges();
     component.group = DOG;
     fixture.detectChanges();
@@ -207,7 +208,7 @@ describe('DragulaDirective', () => {
     fixture.detectChanges();
 
     // setup, then teardown
-    expectFindsInSequence(find, [ GROUP, GROUP ]);
+    expectFindsInSequence(find, [GROUP, GROUP]);
 
     expect(drake.models?.length).toBe(0);
     expect(drake.containers?.length).toBe(0);
@@ -225,7 +226,7 @@ describe('DragulaDirective', () => {
     fixture.detectChanges();
 
     // setup, then teardown
-    expectFindsInSequence(find, [ GROUP ]);
+    expectFindsInSequence(find, [GROUP]);
 
     expect(drake.models).not.toContain(firstModel);
     expect(drake.containers).toContain(component.host?.nativeElement);
@@ -235,7 +236,6 @@ describe('DragulaDirective', () => {
 
     expect(drake.models).not.toContain(firstModel);
     expect(drake.models).toContain(nextModel);
-
   };
 
   // ngOnChanges
@@ -255,8 +255,9 @@ describe('DragulaDirective', () => {
   });
 
   // set up fake event subscription so we can fire events manually
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mockServiceEvent = (eventName: EventTypes) => {
-    const fn = jest.fn().mockImplementation(()=> evts);
+    const fn = jest.fn().mockImplementation(() => evts);
     const evts = new Subject();
     fn(GROUP as any);
     td.replace(service, 'dropModel', fn);
@@ -269,7 +270,7 @@ describe('DragulaDirective', () => {
     const modelChange = jest.spyOn(component, 'modelChange');
     const item = { a: 'dragged' };
     const myModel = [{ a: 'static' }];
-    const theirModel = [item];
+
     component.group = GROUP;
     component.model = myModel;
     fixture.detectChanges();
@@ -284,7 +285,7 @@ describe('DragulaDirective', () => {
       source,
       target,
       sourceModel: theirNewModel,
-      targetModel: myNewModel
+      targetModel: myNewModel,
     });
     expect(modelChange).toBeCalled();
   });
@@ -305,15 +306,17 @@ describe('DragulaDirective', () => {
       name: GROUP,
       item,
       source,
-      sourceModel: myNewModel
+      sourceModel: myNewModel,
     });
 
     expect(modelChange).toBeCalled();
   });
 
-  const testModelChange = async <T extends TestHostComponent | TwoWay | Asynchronous>(
-    componentClass: { new(...args: any[]): T},
-    saveToComponent = true,
+  const testModelChange = async <
+    T extends TestHostComponent | TwoWay | Asynchronous
+  >(
+    componentClass: { new (...args: any[]): T },
+    saveToComponent = true
   ) => {
     const fixture = TestBed.createComponent(componentClass);
     const component = fixture.componentInstance;
@@ -341,13 +344,11 @@ describe('DragulaDirective', () => {
       name: GROUP,
       item,
       source,
-      sourceModel: myNewModel
+      sourceModel: myNewModel,
     });
 
     if (saveToComponent) {
-      expect(component.model).toBe(
-        myNewModel
-      );
+      expect(component.model).toBe(myNewModel);
     }
 
     // now test whether the new array causes a teardown/setup cycle
@@ -371,7 +372,6 @@ describe('DragulaDirective', () => {
     expect(teardown).toHaveBeenCalledTimes(0);
     expect(setup).toHaveBeenCalledTimes(0);
     expect(bag.drake.models?.[0]).toBe(myNewModel);
-
   };
 
   describe('(dragulaModelChange)', () => {

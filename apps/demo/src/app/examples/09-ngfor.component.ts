@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
-import { Subscription } from "rxjs";
+import { Component, OnDestroy } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
 
 const repeatCode = `
 <div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many'>
@@ -50,11 +50,15 @@ export class NgForComponent {
 @Component({
   selector: 'ex-09-ngfor',
   templateUrl: './09-ngfor.component.html',
-  styles: [`
-  .container { min-width: 200px; }
-  `]
+  styles: [
+    `
+      .container {
+        min-width: 200px;
+      }
+    `,
+  ],
 })
-export class NgForComponent {
+export class NgForComponent implements OnDestroy {
   code = repeatCode;
   MANY_ITEMS = 'MANY_ITEMS';
   public many = ['The', 'possibilities', 'are', 'endless!'];
@@ -62,31 +66,34 @@ export class NgForComponent {
 
   subs = new Subscription();
 
-  public constructor(private dragulaService:DragulaService) {
-    this.subs.add(dragulaService.dropModel(this.MANY_ITEMS)
-      .subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
-        console.log('dropModel:');
-        console.log(el);
-        console.log(source);
-        console.log(target);
-        console.log(sourceModel);
-        console.log(targetModel);
-        console.log(item);
-      })
+  public constructor(private dragulaService: DragulaService) {
+    this.subs.add(
+      dragulaService
+        .dropModel(this.MANY_ITEMS)
+        .subscribe(({ el, target, source, sourceModel, targetModel, item }) => {
+          console.log('dropModel:');
+          console.log(el);
+          console.log(source);
+          console.log(target);
+          console.log(sourceModel);
+          console.log(targetModel);
+          console.log(item);
+        })
     );
-    this.subs.add(dragulaService.removeModel(this.MANY_ITEMS)
-      .subscribe(({ el, source, item, sourceModel }) => {
-        console.log('removeModel:');
-        console.log(el);
-        console.log(source);
-        console.log(sourceModel);
-        console.log(item);
-      })
+    this.subs.add(
+      dragulaService
+        .removeModel(this.MANY_ITEMS)
+        .subscribe(({ el, source, item, sourceModel }) => {
+          console.log('removeModel:');
+          console.log(el);
+          console.log(source);
+          console.log(sourceModel);
+          console.log(item);
+        })
     );
   }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
-
 }

@@ -28,7 +28,7 @@ export const MockDrakeFactory = new DrakeFactory((containers, options) => {
  */
 export class MockDrake implements DrakeWithModels {
   // Basic but fully functional event emitter shim
-  private emitter$ = new Subject<{ eventType: EventTypes, args: any[] }>();
+  private emitter$ = new Subject<{ eventType: EventTypes; args: any[] }>();
   private subs = new Subscription();
 
   /**
@@ -44,55 +44,107 @@ export class MockDrake implements DrakeWithModels {
   ) {}
   on(event: 'drag', listener: (el: Element, source: Element) => void): Drake;
   on(event: 'dragend', listener: (el: Element) => void): Drake;
-  on(event: 'drop', listener: (el: Element, target: Element, source: Element, sibling: Element) => void): Drake;
-  on(event: 'cancel' | 'remove' | 'shadow' | 'over' | 'out', listener: (el: Element, container: Element, source: Element) => void): Drake;
-  on(event: 'cloned', listener: (clone: Element, original: Element, type: 'copy' | 'mirror') => void): Drake;
-  on(event: 'dropModel', listener: ([el, target, source, sibling, item, sourceModel, targetModel, sourceIndex, targetIndex,]: [Element, Element, Element, Element, any, any[], any[], number, number]) => void): Drake;
-  on(event: 'removeModel', listener: ([el, container, source, item, sourceModel, sourceIndex]: [Element, Element, Element, any, any[], number]) => void): Drake;
-  
-  on(event: string, callback: (...args: any)=> any): any {
-    this.subs.add(this.emitter$
-      .pipe(
-        filter(({ eventType }) => eventType === event)
-      )
-      .subscribe(({eventType, args} ) => {
-        if (eventType === EventTypes.Drag) {
-          const argument = Array.from(args);
-          const el = argument[0];
-          const source = argument[1];
-          //@ts-ignore
-          callback(el, source);
-          return;
-        }
+  on(
+    event: 'drop',
+    listener: (
+      el: Element,
+      target: Element,
+      source: Element,
+      sibling: Element
+    ) => void
+  ): Drake;
+  on(
+    event: 'cancel' | 'remove' | 'shadow' | 'over' | 'out',
+    listener: (el: Element, container: Element, source: Element) => void
+  ): Drake;
+  on(
+    event: 'cloned',
+    listener: (
+      clone: Element,
+      original: Element,
+      type: 'copy' | 'mirror'
+    ) => void
+  ): Drake;
+  on(
+    event: 'dropModel',
+    listener: ([
+      el,
+      target,
+      source,
+      sibling,
+      item,
+      sourceModel,
+      targetModel,
+      sourceIndex,
+      targetIndex,
+    ]: [
+      Element,
+      Element,
+      Element,
+      Element,
+      any,
+      any[],
+      any[],
+      number,
+      number
+    ]) => void
+  ): Drake;
+  on(
+    event: 'removeModel',
+    listener: ([el, container, source, item, sourceModel, sourceIndex]: [
+      Element,
+      Element,
+      Element,
+      any,
+      any[],
+      number
+    ]) => void
+  ): Drake;
 
-        if (eventType === EventTypes.Drop) {
-          const argument = Array.from(args);
-          const el = argument[0];
-          const target = argument[1];
-          const source = argument[2];
-          const sibling = argument[3];
-          //@ts-ignore
-          callback(el, target, source, sibling);
-          return;
-        }
+  on(event: string, callback: (...args: any) => any): any {
+    this.subs.add(
+      this.emitter$
+        .pipe(filter(({ eventType }) => eventType === event))
+        .subscribe(({ eventType, args }) => {
+          if (eventType === EventTypes.Drag) {
+            const argument = Array.from(args);
+            const el = argument[0];
+            const source = argument[1];
+            //@ts-ignore
+            callback(el, source);
+            return;
+          }
 
-        if (eventType === EventTypes.Remove) {
-          const argument = Array.from(args);
-          const el = argument[0];
-          const container = argument[1];
-          const source = argument[2];
-          //@ts-ignore
-          callback(el, container, source);
-          return;
-        }
-        callback(args);
-      }));
+          if (eventType === EventTypes.Drop) {
+            const argument = Array.from(args);
+            const el = argument[0];
+            const target = argument[1];
+            const source = argument[2];
+            const sibling = argument[3];
+            //@ts-ignore
+            callback(el, target, source, sibling);
+            return;
+          }
+
+          if (eventType === EventTypes.Remove) {
+            const argument = Array.from(args);
+            const el = argument[0];
+            const container = argument[1];
+            const source = argument[2];
+            //@ts-ignore
+            callback(el, container, source);
+            return;
+          }
+          callback(args);
+        })
+    );
   }
 
   /* Doesn't represent anything meaningful. */
   dragging = false;
 
   /* Does nothing useful. */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   start(item: Element): any {
     this.dragging = true;
   }
@@ -103,6 +155,7 @@ export class MockDrake implements DrakeWithModels {
   /* Does nothing useful. */
   cancel(revert: boolean): any;
   cancel(): any;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   cancel(revert?: any) {
     this.dragging = false;
   }
@@ -135,5 +188,4 @@ export class MockDrake implements DrakeWithModels {
   emit(eventType: EventTypes, ...args: any[]) {
     this.emitter$.next({ eventType, args });
   }
-
 }

@@ -1,5 +1,4 @@
-import { Component } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
+import { Component } from '@angular/core';
 
 const code = `
 <div class="container" dragula="CLICKS">
@@ -27,41 +26,42 @@ export class ClickComponent {
 `;
 
 type Key = {
-  'one': boolean,
-  'two': boolean,
-  'three': boolean,
-  'four': boolean,
-  'five': boolean,
-  'six': boolean,
-  'seven': boolean
+  one: boolean;
+  two: boolean;
+  three: boolean;
+  four: boolean;
+  five: boolean;
+  six: boolean;
+  seven: boolean;
 };
 
 @Component({
   selector: 'ex-08-click',
   templateUrl: './08-click.component.html',
-  styles: [`
-  .container div {
-    cursor: initial !important;
-  }
-  `]
+  styles: [
+    `
+      .container div {
+        cursor: initial !important;
+      }
+    `,
+  ],
 })
 export class ClickComponent {
   code = code;
   public clicked = {
-    'one': false,
-    'two': false,
-    'three': false,
-    'four': false,
-    'five': false,
-    'six': false,
-    'seven': false
+    one: false,
+    two: false,
+    three: false,
+    four: false,
+    five: false,
+    six: false,
+    seven: false,
   };
 
-  public onclick(key: any) {
-    this.clicked[key as keyof Key] = true;
+  public onclick(key: keyof Key) {
+    this.clicked[key] = true;
     setTimeout(() => {
-      this.clicked[key as keyof Key] = false;
+      this.clicked[key] = false;
     }, 2000);
   }
 }
-

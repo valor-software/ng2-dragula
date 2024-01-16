@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
+import { Component } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
 
 const code = `
 <div dragula="SPILL"></div>
@@ -15,13 +15,13 @@ export class SpillComponent {
 
 @Component({
   selector: 'ex-03-spill',
-  templateUrl: './03-spill.component.html'
+  templateUrl: './03-spill.component.html',
 })
 export class SpillComponent {
   code = code;
   public constructor(private dragulaService: DragulaService) {
-    dragulaService.createGroup("SPILL", {
-      removeOnSpill: true
+    dragulaService.createGroup('SPILL', {
+      removeOnSpill: true,
     });
   }
 }

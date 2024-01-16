@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
+import { Component, OnDestroy } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
 const code = `
@@ -45,30 +45,30 @@ export class EventsComponent {
 
 @Component({
   selector: 'ex-02-events',
-  templateUrl: './02-events.component.html'
+  templateUrl: './02-events.component.html',
 })
-export class EventsComponent {
+export class EventsComponent implements OnDestroy {
   code = code;
-  BAG = "DRAGULA_EVENTS";
+  BAG = 'DRAGULA_EVENTS';
   subs = new Subscription();
   public constructor(private dragulaService: DragulaService) {
-    this.subs.add(dragulaService.drag(this.BAG)
-      .subscribe(({ el }) => {
+    this.subs.add(
+      dragulaService.drag(this.BAG).subscribe(({ el }) => {
         this.removeClass(el, 'ex-moved');
       })
     );
-    this.subs.add(dragulaService.drop(this.BAG)
-      .subscribe(({ el }) => {
+    this.subs.add(
+      dragulaService.drop(this.BAG).subscribe(({ el }) => {
         this.addClass(el, 'ex-moved');
       })
     );
-    this.subs.add(dragulaService.over(this.BAG)
-      .subscribe(({ el, container }) => {
+    this.subs.add(
+      dragulaService.over(this.BAG).subscribe(({ container }) => {
         this.addClass(container, 'ex-over');
       })
     );
-    this.subs.add(dragulaService.out(this.BAG)
-      .subscribe(({ el, container }) => {
+    this.subs.add(
+      dragulaService.out(this.BAG).subscribe(({ container }) => {
         this.removeClass(container, 'ex-over');
       })
     );
@@ -78,21 +78,22 @@ export class EventsComponent {
     this.subs.unsubscribe();
   }
 
-  private hasClass(el: Element, name: string):any {
+  private hasClass(el: Element, name: string): boolean {
     return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
   }
 
-  private addClass(el: Element, name: string):void {
+  private addClass(el: Element, name: string): void {
     if (!this.hasClass(el, name)) {
       el.className = el.className ? [el.className, name].join(' ') : name;
     }
   }
 
-  private removeClass(el: Element, name: string):void {
+  private removeClass(el: Element, name: string): void {
     if (this.hasClass(el, name)) {
-      el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
+      el.className = el.className.replace(
+        new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'),
+        ''
+      );
     }
   }
-
 }
-

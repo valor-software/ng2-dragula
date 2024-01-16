@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
+import { Component } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
 
 const code = `
 <div class='container' dragula="COPYABLE" id="left">
@@ -26,21 +26,22 @@ export class CopyComponent {
 
 @Component({
   selector: 'ex-05-copy',
-  templateUrl: './05-copy.component.html'
+  templateUrl: './05-copy.component.html',
 })
 export class CopyComponent {
   code = code;
 
   constructor(private dragulaService: DragulaService) {
     dragulaService.createGroup('COPYABLE', {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       copy: (el, source) => {
         return source.id === 'left';
       },
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       accepts: (el, target, source, sibling) => {
         // To avoid dragging from right to left container
         return target?.id !== 'left';
-      }
+      },
     });
   }
 }
-

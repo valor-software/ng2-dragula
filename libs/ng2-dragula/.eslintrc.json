@@ -11,7 +11,9 @@
       "parserOptions": {
         "project": ["libs/ng2-dragula/tsconfig.*?.json"]
       },
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
     },
     {
       "files": ["*.html"],

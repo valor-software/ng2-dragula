@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { DragulaService } from "ng2-dragula";
+import { Component } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
 
 const code = `
 <div class="container" dragula="HANDLES" id="left">
@@ -23,19 +23,21 @@ export class HandleComponent {
 @Component({
   selector: 'ex-07-handle',
   templateUrl: './07-handle.component.html',
-  styles: [`
-  .container div {
-    cursor: initial !important;
-  }
-  `]
+  styles: [
+    `
+      .container div {
+        cursor: initial !important;
+      }
+    `,
+  ],
 })
 export class HandleComponent {
   code = code;
   public constructor(private dragulaService: DragulaService) {
-    dragulaService.createGroup("HANDLES", {
+    dragulaService.createGroup('HANDLES', {
       moves: (el, container, handle) => {
         return handle?.className === 'handle';
-      }
+      },
     });
   }
 }
