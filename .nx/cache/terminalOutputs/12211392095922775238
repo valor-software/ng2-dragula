@@ -1,0 +1,158 @@
+[1m[2mDetermining test suites to run...[22m[22m[999D[K
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        0 s[K[1A[K[1A[K[1A[K[1A[K[1A[999D[K
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        0 s[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        0 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        1 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        2 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        4 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        5 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        6 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        7 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        8 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        9 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        10 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        11 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        12 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        13 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        14 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        15 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        16 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        17 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        18 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        19 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.directive.spec.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [0m[7m[37m ng2-dragula [39m[27m[0m [2mlibs/ng2-dragula/src/spec/[22m[1mdragula.service.spec.ts[22m
+
+[1mTest Suites: [22m0 of 2 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        20 s

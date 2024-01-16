@@ -8,38 +8,36 @@ Official **Angular** wrapper for [`dragula`](https://github.com/bevacqua/dragula
 
 > Drag and drop so simple it hurts
 
-
 # Demo
 
 Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
 
-[//]: # (Or play with [this starter in your browser][stackblitz] on StackBlitz.)
-
+[//]: # 'Or play with [this starter in your browser][stackblitz] on StackBlitz.'
 [stackblitz]: https://stackblitz.com/edit/ng2-dragula-base?file=src/app/app.component.html
 
 ![Demo](https://raw.githubusercontent.com/bevacqua/dragula/master/resources/demo.png)
 
-* [Install](#install)
-* [Setup](#setup)
-* [Usage](#usage)
-  * [Directive](#directive)
-  * [Grouping containers](#grouping-containers)
-  * [Saving changes to arrays with dragulaModel](#saving-changes-to-arrays-with-dragulamodel)
-  * [DragulaService](#dragulaservice)
-  * [Drake options](#drake-options)
-  * [Events](#events)
-  * [Special events for ng2-dragula](#special-events-for-ng2-dragula)
-* [Classic Blunders](#classic-blunders)
-* [Development](#development)
+- [Install](#install)
+- [Setup](#setup)
+- [Usage](#usage)
+  - [Directive](#directive)
+  - [Grouping containers](#grouping-containers)
+  - [Saving changes to arrays with dragulaModel](#saving-changes-to-arrays-with-dragulamodel)
+  - [DragulaService](#dragulaservice)
+  - [Drake options](#drake-options)
+  - [Events](#events)
+  - [Special events for ng2-dragula](#special-events-for-ng2-dragula)
+- [Classic Blunders](#classic-blunders)
+- [Development](#development)
 
 # Dependencies
 
 Latest version available for each version of Angular
 
 | ng2-dragula | Angular |
-| ---------- |---------|
-| 2.1.1      | <= 9.x  |
-| current    | 16.x.x  |
+| ----------- | ------- |
+| 2.1.1       | <= 9.x  |
+| current     | 17.x.x  |
 
 # Install
 
@@ -94,7 +92,7 @@ but you may wish to make your own modifications.
   margin: 0 !important;
   z-index: 9999 !important;
   opacity: 0.8;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
   filter: alpha(opacity=80);
   pointer-events: none;
 }
@@ -112,7 +110,7 @@ but you may wish to make your own modifications.
 /* added to the source element while its mirror is dragged */
 .gu-transit {
   opacity: 0.2;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=20)';
   filter: alpha(opacity=20);
 }
 ```
@@ -123,23 +121,23 @@ Here's a super quick sample to get you started:
 
 ```typescript
 @Component({
-  selector: "sample",
-  template:`
-  <div>
-    <div class="wrapper">
-      <div class="container" dragula="DRAGULA_FACTS">
-        <div>You can move these elements between these two containers</div>
-        <div>Moving them anywhere else isn't quite possible</div>
-        <div>There's also the possibility of moving elements around in the same container, changing their position</div>
-      </div>
-      <div class="container" dragula="DRAGULA_FACTS">
-        <div>This is the default use case. You only need to specify the containers you want to use</div>
-        <div>More interactive use cases lie ahead</div>
-        <div>Make sure to check out the <a href="https://github.com/bevacqua/dragula#readme">documentation on GitHub!</a></div>
+  selector: 'sample',
+  template: `
+    <div>
+      <div class="wrapper">
+        <div class="container" dragula="DRAGULA_FACTS">
+          <div>You can move these elements between these two containers</div>
+          <div>Moving them anywhere else isn't quite possible</div>
+          <div>There's also the possibility of moving elements around in the same container, changing their position</div>
+        </div>
+        <div class="container" dragula="DRAGULA_FACTS">
+          <div>This is the default use case. You only need to specify the containers you want to use</div>
+          <div>More interactive use cases lie ahead</div>
+          <div>Make sure to check out the <a href="https://github.com/bevacqua/dragula#readme">documentation on GitHub!</a></div>
+        </div>
       </div>
     </div>
-  </div>
-  `
+  `,
 })
 class Sample {}
 ```
@@ -192,9 +190,10 @@ use the `[dragula]` syntax to pass a string variable from your component:
 <div [dragula]="Vampires"></div>
 <div [dragula]="Vampires"></div>
 ```
+
 ```ts
 class MyComponent {
-  Vampires = "VAMPIRES";
+  Vampires = 'VAMPIRES';
 }
 ```
 
@@ -206,13 +205,11 @@ If your container's children are rendered using `ngFor`, you may wish to read wh
 
 ```html
 <ul dragula="VAMPIRES" [(dragulaModel)]="vampires">
-  <li *ngFor="let vamp of vampires">
-    {{ vamp.name }} likes {{ vamp.favouriteColor }}
-  </li>
+  <li *ngFor="let vamp of vampires">{{ vamp.name }} likes {{ vamp.favouriteColor }}</li>
 </ul>
 ```
 
-You do not, of course, *have* to sync the changes back. The `[(dragulaModel)]` syntax is equivalent to:
+You do not, of course, _have_ to sync the changes back. The `[(dragulaModel)]` syntax is equivalent to:
 
 ```html
 <ul dragula="VAMPIRES" [dragulaModel]="vampires" (dragulaModelChange)="vampires = $event">
@@ -236,8 +233,8 @@ import { DragulaService } from 'ng2-dragula';
 
 class ConfigExample {
   constructor(private dragulaService: DragulaService) {
-    dragulaService.createGroup("VAMPIRES", {
-      removeOnSpill: true
+    dragulaService.createGroup('VAMPIRES', {
+      removeOnSpill: true,
     });
   }
 }
@@ -283,8 +280,8 @@ All of the native options work with ng2-dragula. However, there is one addition:
 
 When you have:
 
-* `[(dragulaModel)]`
-* `copy` is `true` or a *function that returns true*
+- `[(dragulaModel)]`
+- `copy` is `true` or a _function that returns true_
 
 ... ng2-dragula will have to create a clone of the JS object you picked up. In
 previous versions of `ng2-dragula`, there was a terribly buggy,
@@ -346,31 +343,32 @@ export class MyComponent {
   subs = new Subscription();
 
   constructor(private dragulaService: DragulaService) {
-
     // These will get events limited to the VAMPIRES group.
 
-    this.subs.add(this.dragulaService.drag("VAMPIRES")
-      .subscribe(({ name, el, source }) => {
+    this.subs.add(
+      this.dragulaService.drag('VAMPIRES').subscribe(({ name, el, source }) => {
         // ...
       })
     );
-    this.subs.add(this.dragulaService.drop("VAMPIRES")
-      .subscribe(({ name, el, target, source, sibling }) => {
+    this.subs.add(
+      this.dragulaService.drop('VAMPIRES').subscribe(({ name, el, target, source, sibling }) => {
         // ...
       })
     );
     // some events have lots of properties, just pick the ones you need
-    this.subs.add(this.dragulaService.dropModel("VAMPIRES")
-      // WHOA
-      // .subscribe(({ name, el, target, source, sibling, sourceModel, targetModel, item }) => {
-      .subscribe(({ sourceModel, targetModel, item }) => {
-        // ...
-      })
+    this.subs.add(
+      this.dragulaService
+        .dropModel('VAMPIRES')
+        // WHOA
+        // .subscribe(({ name, el, target, source, sibling, sourceModel, targetModel, item }) => {
+        .subscribe(({ sourceModel, targetModel, item }) => {
+          // ...
+        })
     );
 
     // You can also get all events, not limited to a particular group
-    this.subs.add(this.dragulaService.drop()
-      .subscribe(({ name, el, target, source, sibling }) => {
+    this.subs.add(
+      this.dragulaService.drop().subscribe(({ name, el, target, source, sibling }) => {
         // ...
       })
     );
@@ -381,7 +379,6 @@ export class MyComponent {
     this.subs.unsubscribe();
   }
 }
-
 ```
 
 **NOTE: You should always unsubscribe each time you listen to an event.** This
@@ -397,8 +394,8 @@ place:
 import { merge } from 'rxjs';
 import { mapTo, startWith } from 'rxjs/operators';
 
-dragStart$ = this.dragulaService.drag("VAMPIRES").pipe(mapTo(true));
-dragEnd$ = this.dragulaService.dragend("VAMPIRES").pipe(mapTo(false));
+dragStart$ = this.dragulaService.drag('VAMPIRES').pipe(mapTo(true));
+dragEnd$ = this.dragulaService.dragend('VAMPIRES').pipe(mapTo(false));
 isDragging$ = merge(dragStart$, dragEnd$).pipe(startWith(false));
 
 // html: [class.dragging]="isDragging$ | async"
@@ -408,10 +405,10 @@ isDragging$ = merge(dragStart$, dragEnd$).pipe(startWith(false));
 
 The `dropModel(name?: string)` and `removeModel(name?: string)` events are only active when you have supplied `[dragulaModel]`.
 
-| Event Name      | Listener Arguments                                           | Event Description                                                                        |
-| :-------------- | :-------------------------:                                  | :--------------------------------------------------------------------------------------- |
-| dropModel | { type, el, target, source, item, sourceModel, targetModel, sourceIndex, targetIndex } | same as normal drop, but with updated models + the item that was dropped |
-| removeModel | { type, el, container, source, item, sourceModel, sourceIndex } | same as normal remove, but with updated model + the item that got removed |
+| Event Name  |                                   Listener Arguments                                   | Event Description                                                         |
+| :---------- | :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------ |
+| dropModel   | { type, el, target, source, item, sourceModel, targetModel, sourceIndex, targetIndex } | same as normal drop, but with updated models + the item that was dropped  |
+| removeModel |            { type, el, container, source, item, sourceModel, sourceIndex }             | same as normal remove, but with updated model + the item that got removed |
 
 # Classic Blunders
 
@@ -425,8 +422,7 @@ blunders and it wasn't a bug at all.
 
 ```html
 <div class="container">
-  <div *ngFor="let x of list"
-       dragula="WRONG" [(dragulaModel)]="list">...</div>
+  <div *ngFor="let x of list" dragula="WRONG" [(dragulaModel)]="list">...</div>
 </div>
 ```
 
@@ -441,15 +437,16 @@ blunders and it wasn't a bug at all.
 ### 2. Do not add any child elements that aren't meant to be draggable
 
 **WRONG:**
+
 ```html
 <div class="container" dragula="WRONG" [(dragulaModel)]="list">
-  <h2>WRONG: This header will mess up everything, and you will
-      get really weird bugs on drop</h2>
+  <h2>WRONG: This header will mess up everything, and you will get really weird bugs on drop</h2>
   <div *ngFor="let x of list">...</div>
 </div>
 ```
 
 **RIGHT:**
+
 ```html
 <h2>This header will not be draggable or affect drags at all.</h2>
 <div class="container" dragula="RIGHT" [(dragulaModel)]="list">
@@ -504,4 +501,3 @@ yarn lerna publish
 - `v1`: Nathan Walker (@NathanWalker)
 - `v1.x`: Dmitriy Shekhovtsov (@valorkin)
 - `v2`: Cormac Relf (@cormacrelf)
-
