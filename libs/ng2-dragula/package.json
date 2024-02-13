@@ -31,9 +31,9 @@
     "rxjs": ">=6.0.0",
     "@types/dragula": "^2.1.34",
     "dragula": "^3.7.2",
-    "@angular/animations": ">=^16.0.0 <=^17.0.0",
-    "@angular/core": ">=^16.0.0 <=^17.0.0",
-    "@angular/common": ">=^16.0.0 <=^17.0.0"
+    "@angular/animations": ">=16.0.0 <18.0.0",
+    "@angular/core": ">=16.0.0 <18.0.0",
+    "@angular/common": ">=16.0.0 <18.0.0"
   },
   "nx": {
     "targets": {
