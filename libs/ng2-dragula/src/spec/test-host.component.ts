@@ -4,10 +4,11 @@ import { BehaviorSubject } from 'rxjs';
 import { DragulaDirective } from '../components/dragula.directive';
 
 @Component({
-  template: `
+    template: `
   <div #host [dragula]="group" [dragulaModel]="model" (dragulaModelChange)="modelChange($event)">
   </div>
-  `
+  `,
+    standalone: false
 })
 
 export class TestHostComponent {
@@ -23,19 +24,21 @@ export class TestHostComponent {
 }
 
 @Component({
-  template: `
+    template: `
   <div #host [dragula]="group" [(dragulaModel)]="model">
   </div>
-  `
+  `,
+    standalone: false
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class TwoWay extends TestHostComponent { }
 
 @Component({
-  template: `
+    template: `
   <div #host [dragula]="group" [dragulaModel]="model$|async" (dragulaModelChange)="model$.next($event)" >
   </div>
-  `
+  `,
+    standalone: false
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class Asynchronous extends TestHostComponent {

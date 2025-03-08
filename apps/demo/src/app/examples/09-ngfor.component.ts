@@ -48,11 +48,12 @@ export class NgForComponent {
 `;
 
 @Component({
-  selector: 'ex-09-ngfor',
-  templateUrl: './09-ngfor.component.html',
-  styles: [`
+    selector: 'ex-09-ngfor',
+    templateUrl: './09-ngfor.component.html',
+    styles: [`
   .container { min-width: 200px; }
-  `]
+  `],
+    standalone: false
 })
 export class NgForComponent {
   code = repeatCode;

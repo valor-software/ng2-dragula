@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'ex-app',
-  template: `
+    selector: 'ex-app',
+    template: `
     <div class="examples">
       <ex-01-basic></ex-01-basic>
       <ex-02-events></ex-02-events>
@@ -16,7 +16,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
       <ex-10-nested></ex-10-nested>
     </div>
   `,
-  encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DemoComponent {
 }

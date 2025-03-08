@@ -35,14 +35,15 @@ export class NestedComponent {
 `;
 
 @Component({
-  selector: 'ex-10-nested',
-  templateUrl: './10-nested.component.html',
-  styles: [`
+    selector: 'ex-10-nested',
+    templateUrl: './10-nested.component.html',
+    styles: [`
   .container span {
     display: block;
     padding: 8px;
   }
-  `]
+  `],
+    standalone: false
 })
 export class NestedComponent {
   code = nestedExampleCode;
