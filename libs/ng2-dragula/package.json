@@ -53,7 +53,7 @@
         }
       },
       "lint": {
-        "executor": "@nx/linter:eslint",
+        "executor": "@nx/eslint:eslint",
         "options": {
           "lintFilePatterns": [
             "libs/ng2-dragula/src/**/*.ts",
