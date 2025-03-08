@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "development"
-  },
   "defaultProject": "demo",
   "generators": {
     "@schematics/angular:component": {
@@ -53,5 +50,7 @@
       "cache": true
     }
   },
-  "nxCloudAccessToken": "NWVjMDFjN2MtNzdmYS00NDFjLWE0YjUtNjA5YTdmYzdmNWU4fHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "NWVjMDFjN2MtNzdmYS00NDFjLWE0YjUtNjA5YTdmYzdmNWU4fHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false,
+  "defaultBase": "development"
 }
