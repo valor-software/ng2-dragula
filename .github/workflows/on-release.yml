@@ -114,8 +114,8 @@ jobs:
         with:
           path: dist
           key: dist-${{ github.run_id }}
-      - run: cd dist && ls
+      - run: npx nx build ng2-dragula --configuration production
       - uses: JS-DevTools/npm-publish@v3
         with:
-          package: "./ng2-dragula/package.json"
+          package: "./dist/ng2-dragula/package.json"
           token: ${{ secrets.NPM_TOKEN }}
