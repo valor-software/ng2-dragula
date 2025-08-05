@@ -10,7 +10,7 @@ type FilterProjector<T extends { name: string }> = (
   name: string,
   args: any
 ) => T;
-type Dispatch = { event: EventTypes; name: string; args: any[] };
+type Dispatch = { event: EventTypes; name: string; args: unknown[] };
 
 const filterEvent =
   <
