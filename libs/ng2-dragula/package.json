@@ -1,7 +1,7 @@
 {
   "name": "ng2-dragula",
   "private": false,
-  "version": "5.1.1",
+  "version": "6.0.0",
   "description": "Fork of ng2-dragula updated to angular version 19",
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/valor-software/ng2-dragula#readme",
   "peerDependencies": {
-    "rxjs": ">=6.0.0",
+    "rxjs": ">=6.0.0 <8.0.0",
     "@types/dragula": "^2.1.34",
     "dragula": "^3.7.2",
     "@angular/animations": ">=16.0.0 <20.0.0",
