@@ -1,0 +1,74 @@
+name: on-gh-release
+on:
+  release:
+    types: [released]
+    branches:
+      - master
+
+env:
+  NX_BRANCH: ${{ github.event.number }}
+  NX_RUN_GROUP: ${{ github.run_id }}
+  NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
+  MOZ_HEADLESS: 1
+  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  # one run
+  one_run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
+  # install dependencies
+  install:
+    runs-on: ubuntu-latest
+    needs: one_run
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+
+  # build ng2-dragula
+  build:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
+      - uses: actions/cache@v3
+        with:
+          path: dist
+          key: dist-${{ github.run_id }}
+      - run: |
+          npx nx build ng2-dragula --configuration production
+  # update npm tags
+  npm_publish:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/package-lock.json') }}
+      - uses: actions/cache@v3
+        with:
+          path: dist
+          key: dist-${{ github.run_id }}
+      - uses: JS-DevTools/npm-publish@v3
+        with:
+          package: "./dist/ng2-dragula/package.json"
+          token: ${{ secrets.NPM_TOKEN }}
+          tag: latest
+
