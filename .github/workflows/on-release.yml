@@ -114,8 +114,8 @@ jobs:
         with:
           path: dist
           key: dist-${{ github.run_id }}
-      - run: cd dist/ng2-dragula && ls
+      - run: cd dist && ls
       - uses: JS-DevTools/npm-publish@v3
         with:
-          package: "./package.json"
+          package: "./ng2-dragula/package.json"
           token: ${{ secrets.NPM_TOKEN }}
