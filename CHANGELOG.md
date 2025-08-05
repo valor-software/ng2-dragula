@@ -1,4 +1,4 @@
-# [6.0.0](https://github.com/valor-software/ng2-dragula/compare/v5.0.2...v6.0.0) (2024-04-15)
+# [6.0.0](https://github.com/valor-software/ng2-dragula/compare/v5.0.2...v6.0.0) (2025-08-05)
 * **dragula:** updated angular 19 ([#1113](https://github.com/valor-software/ng2-dragula/issues/1113)) ([9544031](https://github.com/valor-software/ng2-dragula/commit/9544031c37a685f552ad44b3c277053045914147))
 
 
