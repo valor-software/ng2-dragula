@@ -14,8 +14,9 @@ export class SpillComponent {
 `;
 
 @Component({
-  selector: 'ex-03-spill',
-  templateUrl: './03-spill.component.html'
+    selector: 'ex-03-spill',
+    templateUrl: './03-spill.component.html',
+    standalone: false
 })
 export class SpillComponent {
   code = code;

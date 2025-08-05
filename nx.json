@@ -1,22 +1,4 @@
 {
-  "npmScope": "demo",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "NWVjMDFjN2MtNzdmYS00NDFjLWE0YjUtNjA5YTdmYzdmNWU4fHJlYWQtd3JpdGU="
-      }
-    }
-  },
-  "affected": {
-    "defaultBase": "development"
-  },
   "defaultProject": "demo",
   "generators": {
     "@schematics/angular:component": {
@@ -29,10 +11,7 @@
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [
       "{workspaceRoot}/angular.json",
       "{workspaceRoot}/tsconfig.json",
@@ -50,23 +29,29 @@
   },
   "targetDefaults": {
     "build": {
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
-    "test": {
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ]
+    "@nx/jest:jest": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true,
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     },
-    "lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json"
-      ]
+    "@nx/eslint:lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     }
-  }
+  },
+  "nxCloudAccessToken": "NWVjMDFjN2MtNzdmYS00NDFjLWE0YjUtNjA5YTdmYzdmNWU4fHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false,
+  "defaultBase": "development",
+  "useLegacyCache": true
 }

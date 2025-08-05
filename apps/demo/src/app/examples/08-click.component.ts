@@ -37,13 +37,14 @@ type Key = {
 };
 
 @Component({
-  selector: 'ex-08-click',
-  templateUrl: './08-click.component.html',
-  styles: [`
+    selector: 'ex-08-click',
+    templateUrl: './08-click.component.html',
+    styles: [`
   .container div {
     cursor: initial !important;
   }
-  `]
+  `],
+    standalone: false
 })
 export class ClickComponent {
   code = code;

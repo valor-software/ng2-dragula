@@ -19,20 +19,15 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "libs/ng2-dragula/src/**/*.ts",
-          "libs/ng2-dragula/src/**/*.html"
-        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/ng2-dragula"],
       "options": {
-        "jestConfig": "libs/ng2-dragula/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ng2-dragula/jest.config.ts"
       }
     },
     "version": {

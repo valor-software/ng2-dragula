@@ -57,25 +57,22 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "demo:build"
+        "buildTarget": "demo:build"
       },
       "configurations": {
         "production": {
-          "browserTarget": "demo:build:production"
+          "buildTarget": "demo:build:production"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "demo:build"
+        "buildTarget": "demo:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/src/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "implicitDependencies": ["ng2-dragula"]

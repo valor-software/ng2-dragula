@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
 @Component({
-  selector: 'ex-01-basic',
-  template: `
+    selector: 'ex-01-basic',
+    template: `
 <div class='parent'>
   <label for='hy'>Move stuff between these two containers. Note how the stuff gets inserted near the mouse pointer?
       Great stuff.</label>
@@ -23,7 +23,8 @@ import { DragulaService } from "ng2-dragula";
   </div>
   <pre><code>{{ code }}</code></pre>
 </div>
-  `
+  `,
+    standalone: false
 })
 export class BasicComponent {
   code = `
