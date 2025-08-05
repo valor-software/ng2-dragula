@@ -1,7 +1,7 @@
 name: on-gh-release
 on:
   release:
-    types: [released]
+    types: [published]
 
 env:
   NX_BRANCH: ${{ github.event.number }}
