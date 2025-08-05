@@ -2,8 +2,6 @@ name: on-gh-release
 on:
   release:
     types: [released]
-    branches:
-      - master
 
 env:
   NX_BRANCH: ${{ github.event.number }}
