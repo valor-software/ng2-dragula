@@ -20,53 +20,19 @@ jobs:
         with:
           access_token: ${{ secrets.GITHUB_TOKEN }}
 
-  # install dependencies
-  install:
+  # update npm tags
+  npm_publish:
     runs-on: ubuntu-latest
     needs: one_run
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
-        id: cache
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - run: npm ci
-        if: steps.cache.outputs.cache-hit != 'true'
-
-  # build ng2-dragula
-  build:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - uses: actions/cache@v3
-        with:
-          path: dist
-          key: dist-${{ github.run_id }}
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
       - run: |
-          npx nx build ng2-dragula --configuration production
-  # update npm tags
-  npm_publish:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - uses: actions/cache@v3
-        with:
-          path: dist
-          key: dist-${{ github.run_id }}
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          package: "./dist/ng2-dragula/package.json"
-          token: ${{ secrets.NPM_TOKEN }}
-          tag: latest
+          npm config set registry https://registry.npmjs.org/
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+          npm dist-tag add ng2-dragula@${{ steps.package-version.outputs.current-version}} latest
+
 
