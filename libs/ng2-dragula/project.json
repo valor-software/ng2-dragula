@@ -7,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
-      "outputs": ["{projectRoot}/dist/ng2-dragula"],
+      "outputs": ["{workspaceRoot}/dist/ng2-dragula"],
       "options": {
         "tsConfig": "libs/ng2-dragula/tsconfig.lib.json",
         "project": "libs/ng2-dragula/ng-package.json"
