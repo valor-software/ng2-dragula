@@ -4,10 +4,18 @@
   "sourceRoot": "./apps/demo/src",
   "projectType": "application",
   "prefix": "ex",
+  "implicitDependencies": ["ng2-dragula"],
   "generators": {},
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        {
+          "target": "build",
+          "dependencies": true
+        }
+      ],
       "options": {
         "allowedCommonJsDependencies": ["dragula"],
         "outputPath": "./dist/demo",
@@ -45,14 +53,7 @@
           "namedChunks": true,
           "preserveSymlinks": true
         }
-      },
-      "defaultConfiguration": "production",
-      "dependsOn": [
-        {
-          "target": "build",
-          "dependencies": true
-        }
-      ]
+      }
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -74,6 +75,5 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  },
-  "implicitDependencies": ["ng2-dragula"]
+  }
 }

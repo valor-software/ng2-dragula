@@ -9,7 +9,17 @@
   },
   "exclude": ["src/test.ts", "**/*.spec.ts"],
   "files": ["./src/main.ts", "./src/polyfills.ts"],
-  "include": ["./src/typings.d.ts"],
+  "include": [
+    "./src/typings.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  },
   "references": [
     {
       "path": "./tsconfig.app.json"

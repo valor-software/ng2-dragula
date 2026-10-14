@@ -9,7 +9,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -21,10 +21,9 @@
     ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "ng2-dragula": [
-        "libs/ng2-dragula/src/public_api.ts"
+        "./libs/ng2-dragula/src/public_api.ts"
       ]
     }
   },

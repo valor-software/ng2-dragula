@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'ex-app',
@@ -17,6 +17,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
     </div>
   `,
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DemoComponent {

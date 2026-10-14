@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
 @Component({
@@ -24,6 +24,7 @@ import { DragulaService } from "ng2-dragula";
   <pre><code>{{ code }}</code></pre>
 </div>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class BasicComponent {

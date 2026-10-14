@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from "rxjs";
 
@@ -45,6 +45,7 @@ export class NestedComponent {
     padding: 8px;
   }
   `],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NestedComponent {
