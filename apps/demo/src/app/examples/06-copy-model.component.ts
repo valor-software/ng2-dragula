@@ -3,10 +3,10 @@ import { DragulaService } from "ng2-dragula";
 
 const copyModelCode = `
 <div class='container' dragula="PERSON" id="left" [(dragulaModel)]="left">
-  <div *ngFor="let person of left">{{person | json}}</div>
+  @for (person of left; track person) {<div>{{person | json}}</div>}
 </div>
 <div class='container' dragula="PERSON" id="right" [(dragulaModel)]="right">
-  <div *ngFor="let person of right">{{person | json}}</div>
+  @for (person of right; track person) {<div>{{person | json}}</div>}
 </div>
 
 let personId = 0;

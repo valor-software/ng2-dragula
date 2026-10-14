@@ -113,7 +113,7 @@ describe('DragulaService', () => {
     const destroyDrake = td.replace(mock, 'destroy', mockFunc);
     service.destroy("_");
     expect(destroyDrake).toBeDefined();
-    expect(destroyDrake).toBeCalled();
+    expect(destroyDrake).toHaveBeenCalled();
     const drake = service.find("_");
     expect(drake).toBeFalsy();
     mock.destroy();

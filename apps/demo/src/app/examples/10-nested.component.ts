@@ -4,12 +4,14 @@ import { Subscription } from "rxjs";
 
 const nestedExampleCode = `
 <div class="wrapper" dragula="COLUMNS" [(dragulaModel)]="groups">
-    <div class="container" *ngFor="let group of groups">
+    @for (group of groups; track group) {
+    <div class="container">
       <span class="group-handle">{{group.name}}</span>
       <div class="container" dragula="ITEMS" [(dragulaModel)]="group.items">
-        <div *ngFor="let item of group.items" [innerHtml]="item.name"></div>
+        @for (item of group.items; track item) {<div [innerHtml]="item.name"></div>}
       </div>
     </div>
+    }
 </div>
 
 export class NestedComponent {

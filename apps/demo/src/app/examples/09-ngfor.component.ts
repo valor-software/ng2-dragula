@@ -4,10 +4,10 @@ import { Subscription } from "rxjs";
 
 const repeatCode = `
 <div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many'>
-    <div *ngFor='let text of many' [innerHtml]='text'></div>
+    @for (text of many; track text) {<div [innerHtml]='text'></div>}
 </div>
 <div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many2'>
-    <div *ngFor='let text of many2' [innerHtml]='text'></div>
+    @for (text of many2; track text) {<div [innerHtml]='text'></div>}
 </div>
 
 export class NgForComponent {
