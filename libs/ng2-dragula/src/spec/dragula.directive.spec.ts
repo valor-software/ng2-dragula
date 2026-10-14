@@ -286,7 +286,7 @@ describe('DragulaDirective', () => {
       sourceModel: theirNewModel,
       targetModel: myNewModel
     });
-    expect(modelChange).toBeCalled();
+    expect(modelChange).toHaveBeenCalled();
   });
 
   it('should fire dragulaModelChange on removeModel', () => {
@@ -308,7 +308,7 @@ describe('DragulaDirective', () => {
       sourceModel: myNewModel
     });
 
-    expect(modelChange).toBeCalled();
+    expect(modelChange).toHaveBeenCalled();
   });
 
   const testModelChange = async <T extends TestHostComponent | TwoWay | Asynchronous>(
