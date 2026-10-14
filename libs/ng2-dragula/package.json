@@ -1,7 +1,7 @@
 {
   "name": "ng2-dragula",
   "private": false,
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Fork of ng2-dragula updated to angular version 21",
   "repository": {
     "type": "git",
