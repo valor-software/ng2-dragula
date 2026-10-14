@@ -254,6 +254,84 @@ describe('DragulaDirective', () => {
     expect(drake.models).toContain(existingModel);
   });
 
+  // https://github.com/valor-software/ng2-dragula/issues/1110
+  // drake.models[i] must always belong to drake.containers[i]
+  describe('model/container pairing (#1110)', () => {
+    const pairs = (drake: SimpleDrake) => drake.containers?.map((c, i) => [c, drake.models?.[i]]);
+
+    it('should keep drake.models undefined for a group without any model', () => {
+      const drake = { containers: [] as Element[], models: undefined } as SimpleDrake;
+      mockDrake(drake);
+      component.model = undefined as any;
+      fixture.detectChanges();
+      expect(drake.containers).toContain(component.host?.nativeElement);
+      expect(drake.models).toBeUndefined();
+    });
+
+    it('should reserve the slot of a container whose model is not set yet', () => {
+      const other = document.createElement('div');
+      const otherModel = [{ other: 'model' }];
+      const drake = simpleDrake([other], [otherModel]);
+      mockDrake(drake);
+      component.model = undefined as any;
+      fixture.detectChanges();
+      expect(pairs(drake)).toEqual([[other, otherModel], [component.host?.nativeElement, undefined]]);
+
+      const loaded = [{ loaded: 'later' }];
+      component.model = loaded;
+      fixture.detectChanges();
+      expect(pairs(drake)).toEqual([[other, otherModel], [component.host?.nativeElement, loaded]]);
+    });
+
+    it('should create aligned models when the first model belongs to a later container', () => {
+      const first = document.createElement('div');
+      const drake = { containers: [first], models: undefined } as SimpleDrake;
+      mockDrake(drake);
+      const mine = [{ mine: 1 }];
+      component.model = mine;
+      fixture.detectChanges();
+      expect(pairs(drake)).toEqual([[first, undefined], [component.host?.nativeElement, mine]]);
+    });
+
+    it('should keep the pairing when the model is unset and set again (reload)', () => {
+      const before = document.createElement('div');
+      const beforeModel = [{ before: 1 }];
+      const drake = simpleDrake([before], [beforeModel]);
+      mockDrake(drake);
+      component.model = [{ mine: 1 }];
+      fixture.detectChanges();
+      const after = document.createElement('div');
+      const afterModel = [{ after: 1 }];
+      drake.containers?.push(after);
+      drake.models?.push(afterModel);
+
+      component.model = undefined as any;
+      fixture.detectChanges();
+      expect(pairs(drake)).toEqual([[before, beforeModel], [component.host?.nativeElement, undefined], [after, afterModel]]);
+
+      const reloaded = [{ mine: 2 }];
+      component.model = reloaded;
+      fixture.detectChanges();
+      expect(pairs(drake)).toEqual([[before, beforeModel], [component.host?.nativeElement, reloaded], [after, afterModel]]);
+    });
+
+    it('should remove the container and its own model on teardown', () => {
+      const before = document.createElement('div');
+      const beforeModel = [{ before: 1 }];
+      const drake = simpleDrake([before], [beforeModel]);
+      mockDrake(drake);
+      component.model = undefined as any;
+      fixture.detectChanges();
+      const after = document.createElement('div');
+      const afterModel = [{ after: 1 }];
+      drake.containers?.push(after);
+      drake.models?.push(afterModel);
+
+      fixture.destroy();
+      expect(pairs(drake)).toEqual([[before, beforeModel], [after, afterModel]]);
+    });
+  });
+
   // set up fake event subscription so we can fire events manually
   const mockServiceEvent = (eventName: EventTypes) => {
     const fn = jest.fn().mockImplementation(()=> evts);

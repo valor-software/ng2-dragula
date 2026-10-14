@@ -225,6 +225,10 @@ export class DragulaService {
         return;
       }
       let sourceModel = drake.models[drake.containers.indexOf(source)];
+      if (!sourceModel) {
+        // this container has no model (yet), so there is no model to update
+        return;
+      }
       sourceModel = sourceModel.slice(0); // clone it
       const item = sourceModel.splice(dragIndex, 1)[0];
       this.dispatch$.next({
@@ -249,6 +253,10 @@ export class DragulaService {
         dropIndex = this.domIndexOf(dropElm, target);
         let sourceModel = drake.models[drake.containers.indexOf(source)];
         let targetModel = drake.models[drake.containers.indexOf(target)];
+        if (!sourceModel || !targetModel) {
+          // one of the containers has no model (yet), so there is no model to update
+          return;
+        }
         let item: any;
         if (target === source) {
           sourceModel = sourceModel.slice(0);
