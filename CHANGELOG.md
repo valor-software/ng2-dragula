@@ -1,3 +1,22 @@
+# [8.0.0](https://github.com/valor-software/ng2-dragula/compare/v7.0.0...v8.0.0) (2026-10-14)
+
+### Features
+
+* **angular:** updated library to angular 21 ([#1122](https://github.com/valor-software/ng2-dragula/issues/1122)) ([00425f7](https://github.com/valor-software/ng2-dragula/commit/00425f7bd3a85bac7405a9ca5305f3a75906865c))
+
+
+### Bug Fixes
+
+* make Angular 21 migration installable and testable ([#1122](https://github.com/valor-software/ng2-dragula/issues/1122)) ([f2ed78f](https://github.com/valor-software/ng2-dragula/commit/f2ed78f119e9d9da33fc922979a16ceb7bee96d2))
+* regenerate package-lock.json with npm 10 for CI ([#1122](https://github.com/valor-software/ng2-dragula/issues/1122)) ([48e2239](https://github.com/valor-software/ng2-dragula/commit/48e2239f0373ee77b4ee453f687595921ed8cf89))
+* **scripts:** make set-version work when loaded as an ES module ([#1122](https://github.com/valor-software/ng2-dragula/issues/1122)) ([b1fff27](https://github.com/valor-software/ng2-dragula/commit/b1fff27941d7b1035ecc44f0b8a3d72db1490f8f))
+
+
+### BREAKING CHANGES
+
+* **angular:** the package is built with Angular 21 and published as an ES module package (`"type": "module"`); typings moved from `index.d.ts` to `types/ng2-dragula.d.ts` (the `typings`/`exports` fields point to the new path).
+
+
 # [7.0.0](https://github.com/valor-software/ng2-dragula/compare/v6.0.0...v7.0.0) (2026-03-06)
 
 ### Features
