@@ -1,3 +1,20 @@
+# [9.0.0](https://github.com/valor-software/ng2-dragula/compare/v8.0.0...v9.0.0) (2026-10-16)
+
+### Features
+
+* **angular:** updated library to angular 22 ([#1123](https://github.com/valor-software/ng2-dragula/issues/1123)) ([b4f11df](https://github.com/valor-software/ng2-dragula/commit/b4f11df229783b4dfd9545646c162493a8188d66))
+
+
+### Bug Fixes
+
+* **directive:** keep drake models paired with their containers, which threw `Cannot read properties of undefined (reading '0')` or moved the wrong items when a container's `[dragulaModel]` was undefined ([#1110](https://github.com/valor-software/ng2-dragula/issues/1110)) ([c93fa54](https://github.com/valor-software/ng2-dragula/commit/c93fa54e1525b3d346524b4cf2a6474aea942340))
+
+
+### BREAKING CHANGES
+
+* **angular:** the package is built with Angular 22; the peer range is now `>=16.0.0 <23.0.0`. Building the workspace requires Node `^22.22.3` or `^24.15.0`.
+
+
 # [8.0.0](https://github.com/valor-software/ng2-dragula/compare/v7.0.0...v8.0.0) (2026-10-14)
 
 ### Features
