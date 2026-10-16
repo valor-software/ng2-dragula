@@ -519,5 +519,4 @@ yarn lerna publish
 - `v1`: Nathan Walker (@NathanWalker)
 - `v1.x`: Dmitriy Shekhovtsov (@valorkin)
 - `v2`: Cormac Relf (@cormacrelf)
-- `[dragulaContainer]`: based on the original proposal by D. Turco (@d1820) in [#647](https://github.com/valor-software/ng2-dragula/pull/647)
 
