@@ -45,6 +45,7 @@ Latest version available for each version of Angular
 | 6.0.0       | 19.x      |
 | 7.0.0       | 20.x      |
 | 8.0.0       | 21.x      |
+| 9.0.0       | 22.x      |
 
 # Install
 
