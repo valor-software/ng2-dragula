@@ -1,0 +1,64 @@
+name: promote-npm-latest
+
+# Manually points the npm `latest` dist-tag at an already published ng2-dragula version.
+# Run it from Actions -> promote-npm-latest -> Run workflow. Only repository members with
+# write, maintain or admin access can run it (checked again in the first step, including re-runs).
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to promote, e.g. 8.0.0 (empty = most recently published stable version)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run: only show what would change'
+        type: boolean
+        default: false
+      allow_downgrade:
+        description: 'Allow moving latest to a lower version than the current one'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: promote-npm-latest
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    if: github.repository == 'valor-software/ng2-dragula'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check that the user is a repository member
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          ACTOR: ${{ github.triggering_actor }}
+        run: |
+          permission=$(gh api "repos/$REPOSITORY/collaborators/$ACTOR/permission" --jq .permission) || permission=none
+          case "$permission" in
+            admin|maintain|write) echo "$ACTOR has $permission access" ;;
+            *) echo "::error::$ACTOR has '$permission' access to $REPOSITORY; promoting npm releases needs write, maintain or admin"; exit 1 ;;
+          esac
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
+
+      - name: Promote
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          VERSION: ${{ inputs.version }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          ALLOW_DOWNGRADE: ${{ inputs.allow_downgrade }}
+        run: |
+          args=()
+          [ -n "$VERSION" ] && args+=("--version=$VERSION")
+          [ "$DRY_RUN" = "true" ] && args+=(--dry-run)
+          [ "$ALLOW_DOWNGRADE" = "true" ] && args+=(--allow-downgrade)
+          node scripts/npm-promote-latest.mjs "${args[@]}"
