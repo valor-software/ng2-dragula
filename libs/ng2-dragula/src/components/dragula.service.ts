@@ -219,6 +219,7 @@ export class DragulaService {
 
   private handleModels({ name, drake, options }: Group): void {
     let dragElm: any;
+    let dragNextSibling: Node | null;
     let dragIndex: number;
     let dragDomIndex: number;
     let dropIndex: number;
@@ -244,6 +245,7 @@ export class DragulaService {
         return;
       }
       dragElm = el;
+      dragNextSibling = el.nextSibling;
       dragIndex = dragDomIndex = this.domIndexOf(el, source);
       const filter = drake.modelFilters?.get(source);
       const sourceModel = drake.models[drake.containers.indexOf(source)];
@@ -309,6 +311,12 @@ export class DragulaService {
               // eslint-disable-next-line no-empty
             } catch (e) {}
           }
+        }
+        if (dragElm === dropElm && (targetFilter || drake.modelFilters?.has(source))) {
+          // Filtered lists render items with `@if`, whose comment anchors dragula doesn't move along
+          // with the element, so Angular would place items out of order. Put the element back and
+          // let the new model alone decide where it goes.
+          source.insertBefore(dropElm, dragNextSibling?.parentNode === source ? dragNextSibling : null);
         }
         this.dispatch$.next({
           event: EventTypes.DropModel,

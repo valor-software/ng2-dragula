@@ -260,6 +260,8 @@ For example, with `['A', 'B', 'C', 'D', 'E']` showing only `B` and `D`, dragging
 
 The filter must match what is rendered at the moment the user drags, so use the same function in the template. `sourceIndex` and `targetIndex` in `dropModel` and `removeModel` are indexes in the full array.
 
+Filtered items are usually rendered with `@if`, and Angular keeps a marker next to each one that dragula does not move. So for a filtered container, the dropped element is put back where it started and Angular moves it from the new array. Keep the array updated, with `[(dragulaModel)]` or from `dropModel`, or the item snaps back.
+
 ## Drake options
 
 If you need to configure the `drake` _(there's exactly one `drake` per `group`)_, you can use the `DragulaService`.
