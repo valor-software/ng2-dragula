@@ -14,6 +14,7 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
       <ex-08-click></ex-08-click>
       <ex-09-ngfor></ex-09-ngfor>
       <ex-10-nested></ex-10-nested>
+      <ex-11-child-container></ex-11-child-container>
       <ex-12-filter></ex-12-filter>
     </div>
   `,
