@@ -10,7 +10,7 @@ import { Group } from '../Group';
 import { DrakeFactory } from '../DrakeFactory';
 import { EventTypes } from '../EventTypes';
 import { MockDrakeFactory } from '../MockDrake';
-import { TestHostComponent, TwoWay, Asynchronous } from './test-host.component';
+import { TestHostComponent, TwoWay, Asynchronous, ChildContainer, InnerList } from './test-host.component';
 import { Subject } from 'rxjs';
 import { StaticService } from './StaticService';
 
@@ -32,7 +32,7 @@ describe('DragulaDirective', () => {
   beforeEach(() => {
     service = new StaticService();
     TestBed.configureTestingModule({
-      declarations: [ DragulaDirective, TestHostComponent, TwoWay, Asynchronous ],
+      declarations: [ DragulaDirective, TestHostComponent, TwoWay, Asynchronous, ChildContainer, InnerList ],
       providers: [
         { provide: DrakeFactory, useValue: MockDrakeFactory },
         { provide: DragulaService, useValue: service }
@@ -462,5 +462,92 @@ describe('DragulaDirective', () => {
     it('should work with an async pipe', waitForAsync(async () => {
       await testModelChange(Asynchronous, false);
     }));
+  });
+
+  describe('[dragulaContainer]', () => {
+    let childFixture: ComponentFixture<ChildContainer>;
+    let child: ChildContainer;
+    const host = () => childFixture.nativeElement as HTMLElement;
+    const inner = () => host().querySelector('.inner');
+    const other = () => host().querySelector('.other');
+
+    beforeEach(() => {
+      childFixture = TestBed.createComponent(ChildContainer);
+      child = childFixture.componentInstance;
+      child.group = GROUP;
+    });
+
+    afterEach(() => {
+      childFixture.destroy();
+    });
+
+    it('should add the matching descendant rendered by a child component, not the host', () => {
+      const model = [{ a: 1 }];
+      child.model = model;
+      childFixture.detectChanges();
+
+      const drake = service.find(GROUP).drake;
+      expect(inner()).toBeTruthy();
+      expect(drake.containers).toEqual([inner()]);
+      expect(drake.models).toEqual([model]);
+    });
+
+    it('should remove the descendant and its model on destroy', () => {
+      child.model = [];
+      childFixture.detectChanges();
+      const drake = service.find(GROUP).drake;
+
+      childFixture.destroy();
+
+      expect(drake.containers).toEqual([]);
+      expect(drake.models).toEqual([]);
+    });
+
+    it('should move to the new descendant when the selector changes', () => {
+      const model = [{ a: 1 }];
+      child.model = model;
+      childFixture.detectChanges();
+
+      child.container = '.other';
+      childFixture.detectChanges();
+
+      const drake = service.find(GROUP).drake;
+      expect(drake.containers).toEqual([other()]);
+      expect(drake.models).toEqual([model]);
+    });
+
+    it('should fall back to the host when the selector is removed', () => {
+      childFixture.detectChanges();
+
+      child.container = undefined;
+      childFixture.detectChanges();
+
+      expect(service.find(GROUP).drake.containers).toEqual([child.host?.nativeElement]);
+    });
+
+    it('should warn and add nothing when no descendant matches', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+      child.showInner = false;
+      childFixture.detectChanges();
+
+      expect(service.find(GROUP)).toBeUndefined();
+      expect(warn).toHaveBeenCalledTimes(1);
+      expect(warn.mock.calls[0][0]).toContain('.inner');
+    });
+
+    it('should fire dragulaModelChange for events on the descendant', () => {
+      const evts = new Subject<any>();
+      td.replace(service, 'dropModel', () => evts);
+      const modelChange = jest.spyOn(child, 'modelChange');
+      child.model = [];
+      childFixture.detectChanges();
+
+      const targetModel = [{ a: 'dropped' }];
+      evts.next({ name: GROUP, source: document.createElement('ul'), target: child.host?.nativeElement, sourceModel: [], targetModel });
+      expect(modelChange).not.toHaveBeenCalled();
+
+      evts.next({ name: GROUP, source: document.createElement('ul'), target: inner(), sourceModel: [], targetModel });
+      expect(modelChange).toHaveBeenCalledWith(targetModel);
+    });
   });
 });

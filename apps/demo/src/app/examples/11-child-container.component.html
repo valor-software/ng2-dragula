@@ -1,0 +1,13 @@
+<div class='parent'>
+    <label for='hy'><strong>Angular-specific example.</strong> Need to drag rows rendered inside another component, like a table? Put <code>dragula</code> on the component and point <code>dragulaContainer</code> at the element that holds the rows.</label>
+    <div class='wrapper'>
+        <div class='container'>
+            <ex-people-table dragula="PEOPLE" dragulaContainer="tbody" [(dragulaModel)]="people"
+                             [people]="people"></ex-people-table>
+        </div>
+        <div class='container'>
+            <pre>{{people | json}}</pre>
+        </div>
+    </div>
+    <pre><code>{{ code }}</code></pre>
+</div>

@@ -14,6 +14,7 @@ import { HandleComponent } from './examples/07-handle.component';
 import { ClickComponent } from './examples/08-click.component';
 import { NgForComponent } from './examples/09-ngfor.component';
 import { NestedComponent } from './examples/10-nested.component';
+import { ChildContainerComponent, PeopleTableComponent } from './examples/11-child-container.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,8 @@ import { NestedComponent } from './examples/10-nested.component';
     ClickComponent,
     NgForComponent,
     NestedComponent,
+    ChildContainerComponent,
+    PeopleTableComponent,
   ],
   imports: [
     BrowserModule,
