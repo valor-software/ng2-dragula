@@ -233,6 +233,33 @@ this.
 
 On top of the normal Dragula events, when `[(dragulaModel)]` is provided, there are two extra events: `dropModel` and `removeModel`. Further details are available under `Events`
 
+### Filtered lists
+
+If the container renders only some of the array (for example, the items matching a search box), bind the **full** array to `[(dragulaModel)]` and pass the test that decides which items are rendered to `[dragulaModelFilter]`:
+
+```html
+<input [(ngModel)]="search">
+<ul dragula="FRUIT" [(dragulaModel)]="fruit" [dragulaModelFilter]="matches">
+  @for (item of fruit; track item) {
+    @if (matches(item)) {<li>{{ item }}</li>}
+  }
+</ul>
+```
+
+```ts
+matches = (item: string) => item.includes(this.search);
+```
+
+Drag and drop then update the full array. The user only sees part of the list, so the dropped item is placed by its visible neighbours:
+
+* It goes right before the shown item it was dropped above, or right after the last shown item when it was dropped at the end.
+* Items that are hidden keep their order, and so do the shown items that were not dragged.
+* An item dropped back where it was keeps its place.
+
+For example, with `['A', 'B', 'C', 'D', 'E']` showing only `B` and `D`, dragging `D` above `B` gives `['A', 'D', 'B', 'C', 'E']`.
+
+The filter must match what is rendered at the moment the user drags, so use the same function in the template. `sourceIndex` and `targetIndex` in `dropModel` and `removeModel` are indexes in the full array.
+
 ## Drake options
 
 If you need to configure the `drake` _(there's exactly one `drake` per `group`)_, you can use the `DragulaService`.

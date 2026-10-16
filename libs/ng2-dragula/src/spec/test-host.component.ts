@@ -5,7 +5,7 @@ import { DragulaDirective } from '../components/dragula.directive';
 
 @Component({
     template: `
-  <div #host [dragula]="group" [dragulaModel]="model" (dragulaModelChange)="modelChange($event)">
+  <div #host [dragula]="group" [dragulaModel]="model" [dragulaModelFilter]="filter" (dragulaModelChange)="modelChange($event)">
   </div>
   `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -17,6 +17,7 @@ export class TestHostComponent {
   // don't give model a default value
   // because the Asynchronous subclass setter would get called
   @Input() model?: any[];
+  @Input() filter?: (item: any) => boolean;
   @ViewChild('host', {static: false}) host?: ElementRef<HTMLDivElement>;
   @ViewChild(DragulaDirective, {static: false}) directive?: DragulaDirective;
   modelChange(newModel: any[]) {

@@ -381,4 +381,174 @@ describe('DragulaService', () => {
     ul.removeChild(li);
     mock.emit(EventTypes.Remove, li, /*container*/ul, /*source*/ul);
   });
+
+  describe('[dragulaModelFilter]', () => {
+    const shows = (...items: string[]) => (item: string) => items.includes(item);
+
+    // a container rendering only the items of its model that pass the filter, in model order
+    const filteredList = (model: string[], filter: (item: string) => boolean) => {
+      const ul = document.createElement('ul');
+      model.filter(filter).forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        ul.appendChild(li);
+      });
+      return ul;
+    };
+    const liOf = (ul: Element, text: string) => Array.from(ul.children).find(li => li.textContent === text) as Element;
+
+    const addFilteredDrake = (containers: Element[], models: any[][], filters: [Element, (item: any) => boolean][]) => {
+      const mock = _addMockDrake(GROUP, containers, {}, models);
+      mock.modelFilters = new Map(filters);
+      return mock;
+    };
+
+    const dropModelEvents = () => {
+      const events: any[] = [];
+      service.dropModel(GROUP).subscribe(ev => events.push(ev));
+      return events;
+    };
+
+    it('should move the dragged item before the shown item it was dropped above', () => {
+      const model = ['A', 'B', 'C', 'D', 'E'];
+      const filter = shows('B', 'D');
+      const ul = filteredList(model, filter);
+      const mock = addFilteredDrake([ul], [model], [[ul, filter]]);
+      const events = dropModelEvents();
+
+      const d = liOf(ul, 'D');
+      mock.emit(EventTypes.Drag, d, ul);
+      ul.insertBefore(d, liOf(ul, 'B')); // the user sees [D, B]
+      mock.emit(EventTypes.Drop, d, ul, ul, liOf(ul, 'B'));
+
+      expect(events.length).toBe(1);
+      expect(events[0].item).toBe('D');
+      expect(events[0].sourceIndex).toBe(3);
+      expect(events[0].targetIndex).toBe(1);
+      // A, C and E keep their order; B and C move down by one
+      expect(events[0].targetModel).toEqual(['A', 'D', 'B', 'C', 'E']);
+      expect(model).toEqual(['A', 'B', 'C', 'D', 'E']);
+    });
+
+    it('should move the dragged item after the last shown item when dropped at the end', () => {
+      const model = ['A', 'B', 'C', 'D', 'E'];
+      const filter = shows('B', 'D');
+      const ul = filteredList(model, filter);
+      const mock = addFilteredDrake([ul], [model], [[ul, filter]]);
+      const events = dropModelEvents();
+
+      const b = liOf(ul, 'B');
+      mock.emit(EventTypes.Drag, b, ul);
+      ul.appendChild(b); // the user sees [D, B]
+      mock.emit(EventTypes.Drop, b, ul, ul, undefined);
+
+      expect(events[0].sourceIndex).toBe(1);
+      expect(events[0].targetIndex).toBe(3);
+      expect(events[0].targetModel).toEqual(['A', 'C', 'D', 'B', 'E']);
+    });
+
+    it('should leave the model unchanged when the item is dropped where it was', () => {
+      const model = ['A', 'B', 'C', 'D', 'E'];
+      const filter = shows('B', 'D');
+      const ul = filteredList(model, filter);
+      const mock = addFilteredDrake([ul], [model], [[ul, filter]]);
+      const events = dropModelEvents();
+
+      const d = liOf(ul, 'D');
+      mock.emit(EventTypes.Drag, d, ul);
+      mock.emit(EventTypes.Drop, d, ul, ul, undefined);
+
+      expect(events[0].targetModel).toEqual(model);
+    });
+
+    it('should map indexes in both models when moving between filtered lists', () => {
+      const sourceModel = ['a', 'b', 'c'];
+      const targetModel = ['x', 'y', 'z'];
+      const sourceFilter = shows('b', 'c');
+      const targetFilter = shows('y');
+      const source = filteredList(sourceModel, sourceFilter);
+      const target = filteredList(targetModel, targetFilter);
+      const mock = addFilteredDrake([source, target], [sourceModel, targetModel], [[source, sourceFilter], [target, targetFilter]]);
+      const events = dropModelEvents();
+
+      const c = liOf(source, 'c');
+      mock.emit(EventTypes.Drag, c, source);
+      target.insertBefore(c, liOf(target, 'y')); // dropped above y
+      mock.emit(EventTypes.Drop, c, target, source, liOf(target, 'y'));
+
+      expect(events[0].sourceIndex).toBe(2);
+      expect(events[0].targetIndex).toBe(1);
+      expect(events[0].sourceModel).toEqual(['a', 'b']);
+      expect(events[0].targetModel).toEqual(['x', 'c', 'y', 'z']);
+    });
+
+    it('should append to a filtered target that shows nothing', () => {
+      const sourceModel = ['a'];
+      const targetModel = ['x', 'y'];
+      const source = filteredList(sourceModel, () => true);
+      const target = filteredList(targetModel, shows());
+      const mock = addFilteredDrake([source, target], [sourceModel, targetModel], [[target, shows()]]);
+      const events = dropModelEvents();
+
+      const a = liOf(source, 'a');
+      mock.emit(EventTypes.Drag, a, source);
+      target.appendChild(a);
+      mock.emit(EventTypes.Drop, a, target, source, undefined);
+
+      expect(events[0].targetModel).toEqual(['x', 'y', 'a']);
+    });
+
+    it('should drop into an unfiltered target by DOM index', () => {
+      const sourceModel = ['a', 'b', 'c'];
+      const targetModel = ['x', 'y'];
+      const sourceFilter = shows('c');
+      const source = filteredList(sourceModel, sourceFilter);
+      const target = filteredList(targetModel, () => true);
+      const mock = addFilteredDrake([source, target], [sourceModel, targetModel], [[source, sourceFilter]]);
+      const events = dropModelEvents();
+
+      const c = liOf(source, 'c');
+      mock.emit(EventTypes.Drag, c, source);
+      target.insertBefore(c, liOf(target, 'y'));
+      mock.emit(EventTypes.Drop, c, target, source, liOf(target, 'y'));
+
+      expect(events[0].sourceModel).toEqual(['a', 'b']);
+      expect(events[0].targetModel).toEqual(['x', 'c', 'y']);
+    });
+
+    it('should removeModel the dragged item, not the one at its DOM index', () => {
+      const model = ['A', 'B', 'C', 'D', 'E'];
+      const filter = shows('B', 'D');
+      const ul = filteredList(model, filter);
+      const mock = addFilteredDrake([ul], [model], [[ul, filter]]);
+      const events: any[] = [];
+      service.removeModel(GROUP).subscribe(ev => events.push(ev));
+
+      const d = liOf(ul, 'D');
+      mock.emit(EventTypes.Drag, d, ul);
+      ul.removeChild(d);
+      mock.emit(EventTypes.Remove, d, ul, ul);
+
+      expect(events[0].item).toBe('D');
+      expect(events[0].sourceIndex).toBe(3);
+      expect(events[0].sourceModel).toEqual(['A', 'B', 'C', 'E']);
+    });
+
+    it('should pick the right one of repeated values', () => {
+      const model = ['x', 'hidden', 'x', 'x'];
+      const filter = (item: string) => item !== 'hidden';
+      const ul = filteredList(model, filter);
+      const mock = addFilteredDrake([ul], [model], [[ul, filter]]);
+      const events = dropModelEvents();
+
+      const second = ul.children[1]; // model index 2
+      mock.emit(EventTypes.Drag, second, ul);
+      ul.insertBefore(second, ul.children[0]);
+      mock.emit(EventTypes.Drop, second, ul, ul, ul.children[1]);
+
+      expect(events[0].sourceIndex).toBe(2);
+      expect(events[0].targetIndex).toBe(0);
+      expect(events[0].targetModel).toEqual(['x', 'x', 'hidden', 'x']);
+    });
+  });
 });

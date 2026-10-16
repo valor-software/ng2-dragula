@@ -4,7 +4,7 @@ export { DragulaModule } from './components/dragula.module';
 
 export { dragula, DrakeFactory } from './DrakeFactory';
 export { Group } from './Group';
-export { DrakeWithModels } from './DrakeWithModels';
+export { DrakeWithModels, ModelFilter } from './DrakeWithModels';
 export { DragulaOptions } from './DragulaOptions';
 
 export { EventTypes } from './EventTypes';

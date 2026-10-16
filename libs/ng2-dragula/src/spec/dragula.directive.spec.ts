@@ -463,4 +463,60 @@ describe('DragulaDirective', () => {
       await testModelChange(Asynchronous, false);
     }));
   });
+
+  describe('[dragulaModelFilter]', () => {
+    const isEven = (n: number) => n % 2 === 0;
+    const isOdd = (n: number) => n % 2 === 1;
+    const filters = (name = GROUP) => service.find(name).drake.modelFilters;
+    const hostEl = () => component.host?.nativeElement as HTMLElement;
+
+    it('should not register anything without a filter', () => {
+      component.model = [1, 2];
+      fixture.detectChanges();
+      expect(filters()?.size ?? 0).toBe(0);
+    });
+
+    it('should register the filter for its container on setup', () => {
+      component.model = [1, 2];
+      component.filter = isEven;
+      fixture.detectChanges();
+      expect(filters()?.get(hostEl())).toBe(isEven);
+    });
+
+    it('should replace and remove the filter when it changes', () => {
+      component.model = [1, 2];
+      component.filter = isEven;
+      fixture.detectChanges();
+
+      component.filter = isOdd;
+      fixture.detectChanges();
+      expect(filters()?.get(hostEl())).toBe(isOdd);
+
+      component.filter = undefined;
+      fixture.detectChanges();
+      expect(filters()?.has(hostEl())).toBe(false);
+    });
+
+    it('should move the filter along when the group changes', () => {
+      component.model = [1, 2];
+      component.filter = isEven;
+      fixture.detectChanges();
+
+      component.group = 'OTHER';
+      fixture.detectChanges();
+      expect(filters()?.has(hostEl())).toBe(false);
+      expect(filters('OTHER')?.get(hostEl())).toBe(isEven);
+    });
+
+    it('should remove the filter on destroy', () => {
+      component.model = [1, 2];
+      component.filter = isEven;
+      fixture.detectChanges();
+      const host = hostEl();
+      const drake = service.find(GROUP).drake;
+
+      fixture.destroy();
+      expect(drake.modelFilters?.has(host)).toBe(false);
+    });
+  });
 });

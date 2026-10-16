@@ -2,7 +2,7 @@ import { Directive, Input, Output, ElementRef, OnChanges, OnDestroy, SimpleChang
 import { DragulaService } from './dragula.service';
 import { Subscription } from 'rxjs';
 import { Group } from '../Group';
-import { DrakeWithModels } from '../DrakeWithModels';
+import { DrakeWithModels, ModelFilter } from '../DrakeWithModels';
 
 type Model = NonNullable<DrakeWithModels['models']>[number];
 
@@ -13,6 +13,12 @@ type Model = NonNullable<DrakeWithModels['models']>[number];
 export class DragulaDirective implements OnChanges, OnDestroy {
   @Input() public dragula?: string;
   @Input() public dragulaModel?: any[];
+  /**
+   * When the container renders only some of `dragulaModel` (e.g. `@for (x of items | search)`),
+   * pass the same test here. Drag and drop then update the full `dragulaModel`: a dropped item goes
+   * right before the shown item it was dropped above, or right after the last shown item.
+   */
+  @Input() public dragulaModelFilter?: ModelFilter;
   @Output() public dragulaModelChange = new EventEmitter<any[]>();
 
   private subs?: Subscription;
@@ -25,7 +31,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   public constructor(private el: ElementRef, private dragulaService: DragulaService) {
   }
 
-  public ngOnChanges(changes: {dragula?: SimpleChange, dragulaModel?: SimpleChange}): void {
+  public ngOnChanges(changes: {dragula?: SimpleChange, dragulaModel?: SimpleChange, dragulaModelFilter?: SimpleChange}): void {
     if (changes && changes.dragula) {
       const { previousValue: prev, currentValue: current } = changes.dragula;
       const hadPreviousValue = !!prev;
@@ -49,6 +55,21 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       if (this.dragula && drake) {
         this.setModel(drake, changes.dragulaModel.currentValue);
       }
+    }
+    if (changes && changes.dragulaModelFilter && !changes.dragula) {
+      const drake = this.group?.drake;
+      if (this.dragula && drake) {
+        this.setFilter(drake);
+      }
+    }
+  }
+
+  private setFilter(drake: DrakeWithModels): void {
+    if (this.dragulaModelFilter) {
+      const filters = drake.modelFilters ?? (drake.modelFilters = new Map());
+      filters.set(this.container, this.dragulaModelFilter);
+    } else {
+      drake.modelFilters?.delete(this.container);
     }
   }
 
@@ -87,6 +108,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     if (group.drake) {
       group.drake.containers.push(this.container);
       this.setModel(group.drake, this.dragulaModel);
+      this.setFilter(group.drake);
     }
     this.subscribe(this.dragula);
 
@@ -127,6 +149,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
         drake.containers.splice(index, 1);
         drake.models?.splice(index, 1);
       }
+      drake.modelFilters?.delete(this.el.nativeElement);
     }
   }
 
