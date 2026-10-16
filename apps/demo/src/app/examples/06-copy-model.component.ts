@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
 const copyModelCode = `
@@ -60,6 +60,7 @@ class Person {
 @Component({
     selector: 'ex-06-copy-model',
     templateUrl: './06-copy-model.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CopyModelComponent {

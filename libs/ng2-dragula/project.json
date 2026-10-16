@@ -20,8 +20,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-      }
+      "options": {}
     },
     "test": {
       "executor": "@nx/jest:jest",

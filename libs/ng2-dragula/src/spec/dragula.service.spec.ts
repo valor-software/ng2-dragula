@@ -4,6 +4,7 @@ import * as td from 'testdouble';
 import { DragulaService } from '../components/dragula.service';
 import { Group } from '../Group';
 import { take } from 'rxjs/operators';
+import { config } from 'rxjs';
 import { MockDrake, MockDrakeFactory } from '../MockDrake';
 import { EventTypes } from '../EventTypes';
 import { DragulaOptions } from '../DragulaOptions';
@@ -156,6 +157,79 @@ describe('DragulaService', () => {
     mock.emit(EventTypes.Drag, li, ul);
     mock.emit(EventTypes.Drop, li, ul, ul, ul.children[1], { my: 'li item' });
   }, 1000);
+
+  // https://github.com/valor-software/ng2-dragula/issues/1110
+  describe('containers without a model (#1110)', () => {
+    // drake events reach the service through an rxjs Subject, which reports a throwing handler
+    // via config.onUnhandledError instead of throwing from emit(), so collect those errors here
+    let handlerErrors: unknown[];
+    beforeEach(() => {
+      handlerErrors = [];
+      config.onUnhandledError = (e) => handlerErrors.push(e);
+    });
+    afterEach(() => {
+      config.onUnhandledError = null;
+      service.destroy('PARTIAL');
+    });
+
+    // rxjs hands those errors to onUnhandledError from a setTimeout
+    const flush = () => new Promise((r) => setTimeout(r, 0));
+
+    const setup = (models: (string[] | undefined)[]) => {
+      const lists = models.map(() => buildList('ul', ['li']));
+      const mock = _addMockDrake('PARTIAL', lists, {}, models as any[][]);
+      const dropModel = jest.fn();
+      const removeModel = jest.fn();
+      service.dropModel('PARTIAL').subscribe(dropModel);
+      service.removeModel('PARTIAL').subscribe(removeModel);
+      return { lists, mock, dropModel, removeModel };
+    };
+
+    it('should not throw or emit dropModel when the source has no model', async () => {
+      const { lists: [from, to], mock, dropModel } = setup([undefined, ['b']]);
+      const li = from.children[0];
+      mock.emit(EventTypes.Drag, li, from);
+      to.appendChild(li);
+      mock.emit(EventTypes.Drop, li, to, from, undefined);
+      await flush();
+      expect(handlerErrors).toEqual([]);
+      expect(dropModel).not.toHaveBeenCalled();
+    });
+
+    it('should not throw or emit dropModel when the target has no model', async () => {
+      const { lists: [from, to], mock, dropModel } = setup([['a'], undefined]);
+      const li = from.children[0];
+      mock.emit(EventTypes.Drag, li, from);
+      to.appendChild(li);
+      mock.emit(EventTypes.Drop, li, to, from, undefined);
+      await flush();
+      expect(handlerErrors).toEqual([]);
+      expect(dropModel).not.toHaveBeenCalled();
+    });
+
+    it('should not throw or emit removeModel when the source has no model', async () => {
+      const { lists: [from], mock, removeModel } = setup([undefined, ['b']]);
+      const li = from.children[0];
+      mock.emit(EventTypes.Drag, li, from);
+      from.removeChild(li);
+      mock.emit(EventTypes.Remove, li, from, from);
+      await flush();
+      expect(handlerErrors).toEqual([]);
+      expect(removeModel).not.toHaveBeenCalled();
+    });
+
+    it('should still emit dropModel between two containers that have models', async () => {
+      const { lists: [, from, to], mock, dropModel } = setup([undefined, ['a'], ['b']]);
+      const li = from.children[0];
+      mock.emit(EventTypes.Drag, li, from);
+      to.appendChild(li);
+      mock.emit(EventTypes.Drop, li, to, from, undefined);
+      await flush();
+      expect(handlerErrors).toEqual([]);
+      expect(dropModel).toHaveBeenCalledTimes(1);
+      expect(dropModel.mock.calls[0][0]).toMatchObject({ item: 'a', sourceModel: [], targetModel: ['b', 'a'] });
+    });
+  });
 
   it('should not act on to dropModel events until drake.models has a value', done => {
     const ul = buildList('ul', ['li', 'li']);

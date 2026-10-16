@@ -2,6 +2,9 @@ import { Directive, Input, Output, ElementRef, OnChanges, OnDestroy, SimpleChang
 import { DragulaService } from './dragula.service';
 import { Subscription } from 'rxjs';
 import { Group } from '../Group';
+import { DrakeWithModels } from '../DrakeWithModels';
+
+type Model = NonNullable<DrakeWithModels['models']>[number];
 
 @Directive({
     selector: '[dragula]',
@@ -42,41 +45,33 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       // this code only runs when you're not changing the group name
       // because if you're changing the group name, you'll be doing setup or teardown
       // it also only runs if there is a group name to attach to.
-      const { previousValue: prev, currentValue: current } = changes.dragulaModel;
       const drake = this.group?.drake;
       if (this.dragula && drake) {
-        drake.models = drake.models || [];
-        const prevIndex = drake.models.indexOf(prev);
-        if (prevIndex !== -1) {
-          // delete the previous
-          drake.models.splice(prevIndex, 1);
-          // maybe insert a new one at the same spot
-          if (current) {
-            drake.models.splice(prevIndex, 0, current);
-          }
-        } else if (current) {
-          // no previous one to remove; just push this one.
-          drake.models.push(current);
-        }
+        this.setModel(drake, changes.dragulaModel.currentValue);
       }
     }
+  }
+
+  /**
+   * drake.models[i] belongs to drake.containers[i], so the model is always stored at this
+   * container's index, including `undefined` while the container has no model (e.g. data still
+   * loading). drake.models stays undefined until some container in the group has a model.
+   */
+  private setModel(drake: DrakeWithModels, model: Model | undefined): void {
+    const index = drake.containers.indexOf(this.container);
+    if (index === -1 || (!drake.models && !model)) {
+      return;
+    }
+    const models = drake.models ?? (drake.models = []);
+    while (models.length < drake.containers.length) {
+      models.push(undefined as unknown as Model);
+    }
+    models[index] = model as Model;
   }
 
   // call ngOnInit 'setup' because we want to call it in ngOnChanges
   // and it would otherwise run twice
   public setup(): void {
-    const checkModel = (group: Group) => {
-      if (this.dragulaModel) {
-        if (group.drake?.models) {
-          group.drake?.models?.push(this.dragulaModel);
-        } else {
-          if (group.drake) {
-            group.drake.models = [this.dragulaModel];
-          }
-        }
-      }
-    };
-
     // find or create a group
     if (!this.dragula) {
       return;
@@ -88,9 +83,11 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       group = this.dragulaService.createGroup(this.dragula, options);
     }
 
-    // ensure model and container element are pushed
-    checkModel(group);
-    group.drake?.containers.push(this.container);
+    // ensure container element and model are pushed, at the same index
+    if (group.drake) {
+      group.drake.containers.push(this.container);
+      this.setModel(group.drake, this.dragulaModel);
+    }
     this.subscribe(this.dragula);
 
     this.group = group;
@@ -122,17 +119,13 @@ export class DragulaDirective implements OnChanges, OnDestroy {
 
   public teardown(groupName: string): void {
     this.subs?.unsubscribe();
-    const group = this.dragulaService.find(groupName);
-    if (group) {
-      const itemToRemove = group.drake?.containers.indexOf(this.el.nativeElement);
-      if (itemToRemove !== -1) {
-        group.drake?.containers.splice(itemToRemove, 1);
-      }
-      if (this.dragulaModel && group.drake && group.drake.models) {
-        const modelIndex = group.drake.models.indexOf(this.dragulaModel);
-        if (modelIndex !== -1) {
-          group.drake.models.splice(modelIndex, 1);
-        }
+    const drake = this.dragulaService.find(groupName)?.drake;
+    if (drake) {
+      // remove the container and its model together, so the pairs after it stay aligned
+      const index = drake.containers.indexOf(this.el.nativeElement);
+      if (index !== -1) {
+        drake.containers.splice(index, 1);
+        drake.models?.splice(index, 1);
       }
     }
   }

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from "@angular/core";
+import { Component, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from "@angular/core";
 import { BehaviorSubject } from 'rxjs';
 
 import { DragulaDirective } from '../components/dragula.directive';
@@ -8,6 +8,7 @@ import { DragulaDirective } from '../components/dragula.directive';
   <div #host [dragula]="group" [dragulaModel]="model" (dragulaModelChange)="modelChange($event)">
   </div>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 
@@ -28,6 +29,7 @@ export class TestHostComponent {
   <div #host [dragula]="group" [(dragulaModel)]="model">
   </div>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
@@ -38,6 +40,7 @@ export class TwoWay extends TestHostComponent { }
   <div #host [dragula]="group" [dragulaModel]="model$|async" (dragulaModelChange)="model$.next($event)" >
   </div>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix

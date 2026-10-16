@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
 const code = `
@@ -16,6 +16,7 @@ export class SpillComponent {
 @Component({
     selector: 'ex-03-spill',
     templateUrl: './03-spill.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SpillComponent {

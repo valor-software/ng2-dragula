@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
 const code = `
@@ -16,6 +16,7 @@ export class RevertComponent {
 @Component({
     selector: 'ex-04-revert',
     templateUrl: './04-revert.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RevertComponent {

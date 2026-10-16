@@ -27,6 +27,9 @@ jobs:
     needs: one_run
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
       - uses: actions/cache@v3
         id: cache
         with:
@@ -41,6 +44,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
       - uses: actions/cache@v3
         with:
           path: node_modules
@@ -58,6 +64,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
       - uses: actions/cache@v3
         with:
           path: node_modules
@@ -70,6 +79,9 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
       - uses: actions/checkout@v3
         with:
           ref: 'gh-pages'
@@ -106,6 +118,9 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
       - uses: actions/cache@v3
         with:
           path: node_modules
