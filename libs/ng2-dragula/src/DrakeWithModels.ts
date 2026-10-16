@@ -1,7 +1,12 @@
 import { Drake } from 'dragula';
 
+/** Tells which items of a container's model are rendered, see `[dragulaModelFilter]`. */
+export type ModelFilter<T = any> = (item: T) => boolean;
+
 export interface DrakeWithModels extends Drake {
   models?: any[][];
+  /** The `[dragulaModelFilter]` of each container that has one. */
+  modelFilters?: Map<Element, ModelFilter>;
 
   on(event: 'drag', listener: (el: Element, source: Element) => void): Drake;
   on(event: 'dragend', listener: (el: Element) => void): Drake;

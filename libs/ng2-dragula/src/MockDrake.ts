@@ -1,5 +1,5 @@
 import { Subject, Subscription } from 'rxjs';
-import { DrakeWithModels } from './DrakeWithModels';
+import { DrakeWithModels, ModelFilter } from './DrakeWithModels';
 import { filter } from 'rxjs/operators';
 import { EventTypes } from './EventTypes';
 import { DragulaOptions } from './DragulaOptions';
@@ -30,6 +30,7 @@ export class MockDrake implements DrakeWithModels {
   // Basic but fully functional event emitter shim
   private emitter$ = new Subject<{ eventType: EventTypes, args: any[] }>();
   private subs = new Subscription();
+  public modelFilters?: Map<Element, ModelFilter>;
 
   /**
    * @param containers A list of container elements.

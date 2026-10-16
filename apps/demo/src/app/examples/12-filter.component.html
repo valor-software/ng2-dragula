@@ -1,0 +1,17 @@
+<div class='parent'>
+    <label for='filter-search'><strong>Angular-specific example.</strong> Filtering the list? Pass the same test to <code>[dragulaModelFilter]</code> and keep the <strong>full</strong> array in <code>[(dragulaModel)]</code>. A dropped item goes right before the item it was dropped above, and hidden items keep their order.</label>
+    <div class='wrapper'>
+        <div class='container'>
+            <input id='filter-search' [(ngModel)]='search' placeholder='Filter…'>
+            <div class='container' dragula="FILTERED" [(dragulaModel)]='items' [dragulaModelFilter]='matches'>
+                @for (item of items; track item) {
+                    @if (matches(item)) {<div>{{item}}</div>}
+                }
+            </div>
+        </div>
+        <div class='container'>
+            <pre>{{items | json}}</pre>
+        </div>
+    </div>
+    <pre><code>{{ code }}</code></pre>
+</div>

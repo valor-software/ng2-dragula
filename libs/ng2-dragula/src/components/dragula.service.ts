@@ -5,6 +5,7 @@ import { Subject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { EventTypes, AllEvents } from '../EventTypes';
 import { DrakeFactory } from '../DrakeFactory';
+import { ModelFilter } from '../DrakeWithModels';
 
 type FilterProjector<T extends { name: string }> = (
   name: string,
@@ -218,7 +219,9 @@ export class DragulaService {
 
   private handleModels({ name, drake, options }: Group): void {
     let dragElm: any;
+    let dragNextSibling: Node | null;
     let dragIndex: number;
+    let dragDomIndex: number;
     let dropIndex: number;
     drake.on('remove', (el: any, container: any, source: any) => {
       if (!drake.models) {
@@ -242,7 +245,16 @@ export class DragulaService {
         return;
       }
       dragElm = el;
-      dragIndex = this.domIndexOf(el, source);
+      dragNextSibling = el.nextSibling;
+      dragIndex = dragDomIndex = this.domIndexOf(el, source);
+      const filter = drake.modelFilters?.get(source);
+      const sourceModel = drake.models[drake.containers.indexOf(source)];
+      if (filter && sourceModel) {
+        const modelIndex = this.modelIndexOf(sourceModel, dragIndex, filter);
+        if (modelIndex !== -1) {
+          dragIndex = modelIndex;
+        }
+      }
     });
     drake.on(
       'drop',
@@ -257,10 +269,17 @@ export class DragulaService {
           // one of the containers has no model (yet), so there is no model to update
           return;
         }
+        const targetFilter = drake.modelFilters?.get(target);
         let item: any;
         if (target === source) {
           sourceModel = sourceModel.slice(0);
           item = sourceModel.splice(dragIndex, 1)[0];
+          if (targetFilter) {
+            // dropped back between the same shown items: keep its place among the hidden ones
+            dropIndex = dropIndex === dragDomIndex
+              ? dragIndex
+              : this.insertIndexOf(sourceModel, dropIndex, targetFilter, dragIndex);
+          }
           sourceModel.splice(dropIndex, 0, item);
           // this was true before we cloned and updated sourceModel,
           // but targetModel still has the old value
@@ -282,6 +301,9 @@ export class DragulaService {
             sourceModel.splice(dragIndex, 1);
           }
           targetModel = targetModel.slice(0);
+          if (targetFilter) {
+            dropIndex = this.insertIndexOf(targetModel, dropIndex, targetFilter, targetModel.length);
+          }
           targetModel.splice(dropIndex, 0, item);
           if (isCopying) {
             try {
@@ -289,6 +311,12 @@ export class DragulaService {
               // eslint-disable-next-line no-empty
             } catch (e) {}
           }
+        }
+        if (dragElm === dropElm && (targetFilter || drake.modelFilters?.has(source))) {
+          // Filtered lists render items with `@if`, whose comment anchors dragula doesn't move along
+          // with the element, so Angular would place items out of order. Put the element back and
+          // let the new model alone decide where it goes.
+          source.insertBefore(dropElm, dragNextSibling?.parentNode === source ? dragNextSibling : null);
         }
         this.dispatch$.next({
           event: EventTypes.DropModel,
@@ -367,6 +395,38 @@ export class DragulaService {
       }
     };
     AllEvents.forEach(emitter);
+  }
+
+  /** Index in `model` of the item rendered at `domIndex`, when only items passing `filter` are rendered. */
+  private modelIndexOf(model: any[], domIndex: number, filter: ModelFilter): number {
+    let shown = -1;
+    for (let i = 0; i < model.length; i++) {
+      if (filter(model[i]) && ++shown === domIndex) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**
+   * Index in `model` to insert at, so the item lands at `domIndex` among the items passing `filter`:
+   * right before the shown item it was dropped above, otherwise right after the last shown item.
+   * Hidden items keep their order. `fallback` is used when no item is shown.
+   */
+  private insertIndexOf(model: any[], domIndex: number, filter: ModelFilter, fallback: number): number {
+    let shown = 0;
+    let lastShown = -1;
+    for (let i = 0; i < model.length; i++) {
+      if (!filter(model[i])) {
+        continue;
+      }
+      if (shown === domIndex) {
+        return i;
+      }
+      shown++;
+      lastShown = i;
+    }
+    return lastShown === -1 ? fallback : lastShown + 1;
   }
 
   private domIndexOf(child: any, parent: any): any {

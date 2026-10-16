@@ -15,6 +15,7 @@ import { ClickComponent } from './examples/08-click.component';
 import { NgForComponent } from './examples/09-ngfor.component';
 import { NestedComponent } from './examples/10-nested.component';
 import { ChildContainerComponent, PeopleTableComponent } from './examples/11-child-container.component';
+import { FilterComponent } from './examples/12-filter.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ChildContainerComponent, PeopleTableComponent } from './examples/11-chi
     NestedComponent,
     ChildContainerComponent,
     PeopleTableComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
