@@ -1,4 +1,4 @@
-import { Directive, Input, Output, ElementRef, OnChanges, OnDestroy, SimpleChange, EventEmitter } from '@angular/core';
+import { Directive, Input, Output, ElementRef, AfterViewInit, OnChanges, OnDestroy, SimpleChange, EventEmitter, isDevMode } from '@angular/core';
 import { DragulaService } from './dragula.service';
 import { Subscription } from 'rxjs';
 import { Group } from '../Group';
@@ -10,35 +10,42 @@ type Model = NonNullable<DrakeWithModels['models']>[number];
     selector: '[dragula]',
     standalone: false
 })
-export class DragulaDirective implements OnChanges, OnDestroy {
+export class DragulaDirective implements OnChanges, AfterViewInit, OnDestroy {
   @Input() public dragula?: string;
   @Input() public dragulaModel?: any[];
+  /**
+   * CSS selector for a descendant of the host element to use as the container, for lists
+   * rendered inside another component (e.g. the `tbody` of a table component). It is
+   * resolved after the view initializes. When it is not set, the host element is the container.
+   */
+  @Input() public dragulaContainer?: string;
   @Output() public dragulaModelChange = new EventEmitter<any[]>();
 
   private subs?: Subscription;
 
-  private get container(): HTMLElement {
-    return this.el && this.el.nativeElement;
-  }
+  /** The element registered with the drake; undefined until setup has found it. */
+  private container?: Element;
   private group?: Group;
+  private viewInitialized = false;
 
   public constructor(private el: ElementRef, private dragulaService: DragulaService) {
   }
 
-  public ngOnChanges(changes: {dragula?: SimpleChange, dragulaModel?: SimpleChange}): void {
-    if (changes && changes.dragula) {
-      const { previousValue: prev, currentValue: current } = changes.dragula;
+  public ngOnChanges(changes: {dragula?: SimpleChange, dragulaModel?: SimpleChange, dragulaContainer?: SimpleChange}): void {
+    if (changes && (changes.dragula || changes.dragulaContainer)) {
+      const prev = changes.dragula ? changes.dragula.previousValue : this.dragula;
       const hadPreviousValue = !!prev;
-      const hasNewValue = !!current;
+      const hasNewValue = !!this.dragula;
       // something -> null       =>  teardown only
       // something -> something  =>  teardown, then setup
       //      null -> something  =>  setup only
       //
-      //      null -> null (precluded by fact of change being present)
+      //      null -> null (only possible when dragulaContainer changes)  =>  nothing
       if (hadPreviousValue) {
         this.teardown(prev);
       }
-      if (hasNewValue) {
+      // a descendant container may not be rendered yet, so ngAfterViewInit sets it up instead
+      if (hasNewValue && (!this.dragulaContainer || this.viewInitialized)) {
         this.setup();
       }
     } else if (changes && changes.dragulaModel) {
@@ -52,13 +59,20 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     }
   }
 
+  public ngAfterViewInit(): void {
+    this.viewInitialized = true;
+    if (this.dragulaContainer) {
+      this.setup();
+    }
+  }
+
   /**
    * drake.models[i] belongs to drake.containers[i], so the model is always stored at this
    * container's index, including `undefined` while the container has no model (e.g. data still
    * loading). drake.models stays undefined until some container in the group has a model.
    */
   private setModel(drake: DrakeWithModels, model: Model | undefined): void {
-    const index = drake.containers.indexOf(this.container);
+    const index = this.container ? drake.containers.indexOf(this.container) : -1;
     if (index === -1 || (!drake.models && !model)) {
       return;
     }
@@ -69,6 +83,18 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     models[index] = model as Model;
   }
 
+  private findContainer(): Element | undefined {
+    const host: HTMLElement = this.el.nativeElement;
+    if (!this.dragulaContainer) {
+      return host;
+    }
+    const container = host.querySelector(this.dragulaContainer);
+    if (!container && isDevMode()) {
+      console.warn(`ng2-dragula: no element matches [dragulaContainer]="${this.dragulaContainer}" inside [dragula]="${this.dragula}", so it was not added to the group.`);
+    }
+    return container ?? undefined;
+  }
+
   // call ngOnInit 'setup' because we want to call it in ngOnChanges
   // and it would otherwise run twice
   public setup(): void {
@@ -76,6 +102,12 @@ export class DragulaDirective implements OnChanges, OnDestroy {
     if (!this.dragula) {
       return;
     }
+
+    const container = this.findContainer();
+    if (!container) {
+      return;
+    }
+    this.container = container;
 
     let group = this.dragulaService.find(this.dragula);
     if (!group) {
@@ -85,7 +117,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
 
     // ensure container element and model are pushed, at the same index
     if (group.drake) {
-      group.drake.containers.push(this.container);
+      group.drake.containers.push(container);
       this.setModel(group.drake, this.dragulaModel);
     }
     this.subscribe(this.dragula);
@@ -99,9 +131,9 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       this.dragulaService
       .dropModel(name)
       .subscribe(({ source, target, sourceModel, targetModel }) => {
-        if (source === this.el.nativeElement) {
+        if (source === this.container) {
           this.dragulaModelChange.emit(sourceModel);
-        } else if (target === this.el.nativeElement) {
+        } else if (target === this.container) {
           this.dragulaModelChange.emit(targetModel);
         }
       })
@@ -110,7 +142,7 @@ export class DragulaDirective implements OnChanges, OnDestroy {
       this.dragulaService
       .removeModel(name)
       .subscribe(({ source, sourceModel }) => {
-        if (source === this.el.nativeElement) {
+        if (source === this.container) {
           this.dragulaModelChange.emit(sourceModel);
         }
       })
@@ -120,14 +152,15 @@ export class DragulaDirective implements OnChanges, OnDestroy {
   public teardown(groupName: string): void {
     this.subs?.unsubscribe();
     const drake = this.dragulaService.find(groupName)?.drake;
-    if (drake) {
+    if (drake && this.container) {
       // remove the container and its model together, so the pairs after it stay aligned
-      const index = drake.containers.indexOf(this.el.nativeElement);
+      const index = drake.containers.indexOf(this.container);
       if (index !== -1) {
         drake.containers.splice(index, 1);
         drake.models?.splice(index, 1);
       }
     }
+    this.container = undefined;
   }
 
   public ngOnDestroy(): void {

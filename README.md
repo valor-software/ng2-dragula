@@ -25,6 +25,7 @@ Try out the [demo](http://valor-software.github.io/ng2-dragula/index.html)!
   * [Directive](#directive)
   * [Grouping containers](#grouping-containers)
   * [Saving changes to arrays with dragulaModel](#saving-changes-to-arrays-with-dragulamodel)
+  * [Using a container inside another component](#using-a-container-inside-another-component)
   * [DragulaService](#dragulaservice)
   * [Drake options](#drake-options)
   * [Events](#events)
@@ -226,6 +227,20 @@ their associated items in the array. Everything will be messed up if you do
 this.
 
 On top of the normal Dragula events, when `[(dragulaModel)]` is provided, there are two extra events: `dropModel` and `removeModel`. Further details are available under `Events`
+
+## Using a container inside another component
+
+Sometimes the list you want to drag is rendered by another component, such as the `tbody` of a table component, and you can't put `dragula` on it. Put `dragula` on an element that wraps it, and give `[dragulaContainer]` a CSS selector for the list. The directive finds the first matching descendant after the view initializes and uses it as the container. Use a selector that matches only the list you want.
+
+```html
+<div dragula="ROWS" dragulaContainer="tbody" [(dragulaModel)]="rows">
+  <some-table [rows]="rows"></some-table>
+</div>
+```
+
+The same rules apply as for any container: the matching element's children must map directly to the items in `dragulaModel`. Changing the selector moves the group to the new element. If nothing matches, the directive adds nothing to the group and warns in dev mode.
+
+The element is looked up again only when `dragula` or `dragulaContainer` changes. If the other component later replaces the element (for example, when it re-renders its body), re-bind by changing one of them.
 
 ## Drake options
 
@@ -504,4 +519,5 @@ yarn lerna publish
 - `v1`: Nathan Walker (@NathanWalker)
 - `v1.x`: Dmitriy Shekhovtsov (@valorkin)
 - `v2`: Cormac Relf (@cormacrelf)
+- `[dragulaContainer]`: based on the original proposal by D. Turco (@d1820) in [#647](https://github.com/valor-software/ng2-dragula/pull/647)
 

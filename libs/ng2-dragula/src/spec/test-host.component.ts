@@ -52,3 +52,33 @@ export class Asynchronous extends TestHostComponent {
     this.model$.next(neu);
   }
 }
+
+/** Stands in for a third-party component that renders its list in its own template. */
+@Component({
+    selector: 'test-inner-list',
+    template: `
+  @if (show) {
+    <ul class="inner"></ul>
+  }
+  `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
+})
+export class InnerList {
+  @Input() show = true;
+}
+
+@Component({
+    template: `
+  <div #host [dragula]="group" [dragulaContainer]="container" [dragulaModel]="model" (dragulaModelChange)="modelChange($event)">
+    <test-inner-list [show]="showInner"></test-inner-list>
+    <ol class="other"></ol>
+  </div>
+  `,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
+})
+export class ChildContainer extends TestHostComponent {
+  @Input() container?: string = '.inner';
+  @Input() showInner = true;
+}
